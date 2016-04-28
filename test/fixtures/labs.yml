@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  external_id: MyString
+  user_id: 
+  ordered_at: 2016-04-18 12:49:00
+  requested_at: 2016-04-18 12:49:00
+
+two:
+  external_id: MyString
+  user_id: 
+  ordered_at: 2016-04-18 12:49:00
+  requested_at: 2016-04-18 12:49:00

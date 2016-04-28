@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV['MAX_THREADS'] || 5 %>
+
+development:
+  <<: *default
+  # url: postgresql://postgres:postgres@postgresql.service.consul:5432/postgres
+  database: healthcreek_development
+  username: healthcreek
+  password: password
+
+test:
+  <<: *default
+  database: healthcreek_test
+  username: healthcreek
+  password: password
+  # hostname: database
+
+production:
+  <<: *default
+  url:  <%= ENV["DATABASE_URL"] %>
