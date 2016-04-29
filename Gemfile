@@ -58,4 +58,5 @@ group :development do
   gem 'capistrano-rails-console'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
+  gem 'capistrano-passenger'
 end
