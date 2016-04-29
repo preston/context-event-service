@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  launch_url: MyString
+  icon_url: MyString
+  available: false
+
+two:
+  name: MyString
+  launch_url: MyString
+  icon_url: MyString
+  available: false
