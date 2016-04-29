@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :clients
     resources :providers
     # resources :contexts
     # resources :problems

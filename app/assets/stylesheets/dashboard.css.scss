@@ -15,6 +15,20 @@ $navColorHover: #222;
 	-webkit-perspective: 500px;
 	perspective: 500px;
 
+	#letter {
+		background: white;
+		padding: 0;
+		> div {
+			margin: 0;
+			padding: 20px 40px;
+			background: image-url('textures/lined-paper-2.png') repeat;
+			h2 {
+				margin-top: 0;
+				padding-top: 20px;
+			}
+		}
+	}
+
 	#launchers {
 		text-align: center;
 		// margin-left: auto;
@@ -42,16 +56,19 @@ $navColorHover: #222;
 		.launcher {
 			display: inline-block;
 			width: 20vw;
-			height: 20vw;
+			height: 10vw;
 			border: 1px solid #ccc;
 			border-radius: 2px;
 			margin: 8px 10px;
-			padding: 4px;
+			padding: 0px;
 			color: $navColor;
 			position: relative;
 			overflow: hidden;
 			box-shadow: 0 10px 10px rgba(0,0,0,.5);
+			transition: box-shadow .3s ease-out;
 
+			img {
+			}
 			.fa {
 				text-align: center;
 				vertical-align: middle;
@@ -97,9 +114,9 @@ $navColorHover: #222;
 		.launcher:hover {
 			background-color: rgba(255,255,0,.3);
 			box-shadow: 0 40px 40px rgba(0,0,0,.8);
-			transition: background-color box-shadow .3s ease-out;
-			// transition: box-shadow .3s ease-out;
-			cursor: pointer;
+			// transition: background-color box-shadow .3s ease-out;
+			transition: box-shadow .3s ease-out;
+			// cursor: pointer;
 			color: $navColorHover;
 
 			p {

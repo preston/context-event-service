@@ -1,7 +1,7 @@
 google = Provider.create_with(
     name: 'Google',
-    client_id: '418783041492-ji2qu86h9ap35rr08cfnlpcs4ivptt78.apps.googleusercontent.com',
-    client_secret: 'fTu8Jq_HwkOIoPZRdXWhzKin'
+    client_id: '418783041492-19ttts5dg6if4rtba1h0tkmb26b5f352.apps.googleusercontent.com',
+    client_secret: 'w2Fl4xLW-HWIIreUsY-TD9Yk'
 ).find_or_create_by(issuer: 'https://accounts.google.com')
 google.reconfigure
 google.save!
@@ -25,6 +25,12 @@ live.save!
 # smart.reconfigure
 # smart.save!
 
+Client.create!(
+    name: 'Prototype Web UI',
+    launch_url: 'https://healthcreek-alpha.s3-us-west-2.amazonaws.com/index.html',
+    icon_url: 'http://healthcreek-alpha.s3.amazonaws.com/app/images/textures/tileable_wood_texture.png',
+    available: true
+)
 # admin = User.create!(external_id: 42,
 #                               name: 'Default Administrator',
 #                               email: 'admin@example.com',

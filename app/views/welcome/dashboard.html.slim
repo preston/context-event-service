@@ -8,44 +8,56 @@
  			|  You just logged in.
 		p.lead This page will be replaced by the new user experience.
 	hr
-	.row
-		.well.col-md-8.col-md-offset-2
-			h2
-				b Hi #{current_user.name}, 
-			/ p 
-			ul
-				li
-					b First log in?
-					br
-					span Cool. This is your new account. Soon, you'll be able to automatically launch more impressive a web client.
-				li 
-					b Were you already logged using a different identity?
-					br
-					span No worries. We just added this #{current_identity.provider.name} identity to your existing account. You're all set.
-				li
-				 	b Accidentally create a new account?
-					br
-					span Please delete this #{current_identity.provider.name} identity, which will log you out. Then, log in to your existing account. Once logged in, re-add your #{current_identity.provider.name} account.
-			p We never, ever, receive your password, and can't even recover or reset it for you, even if you want us to. You can now use any HealthCreek client app of your choosing, assuming we've already whitelisted it.
+	
 
-			h3
-				.pull-right = link_to text_with_icon('Attach (or Switch to) Another Identity', 'plus'), root_path, class: 'btn btn-sm btn-info'
-				| Your Sign-On Identities
-			p Was created #{time_ago_in_words(current_user.created_at)} ago. Your user ID is: #{current_user.id}, which may be accessed via the following SSO identities.
-			table.table.table-condensed.table-striped
-			 	thead
-					tr
-						th Provider
-						th Email
-						th Links
-				tbody
-					- current_user.identities.each do |i|
+	.row
+		#letter.col-md-9
+			div
+				h2
+					b Hi #{current_user.name}, 
+				/ p 
+				ul
+					li
+						b First log in?
+						br
+						span Cool. We've used your name and email from #{current_identity.provider.name} to create this account.
+					li 
+						b Were you already logged using a different identity?
+						br
+						span Then we just added this #{current_identity.provider.name} identity to your existing account. You're all set.
+					li
+					 	b Accidentally create a new account?
+						br
+						span Please remove this #{current_identity.provider.name} identity, which will log you out. Then, log in to your existing account. Once logged in, re-add your #{current_identity.provider.name} account.
+				p We never, ever, receive your password, and can't even recover or reset it for you, even if you want us to. You can now use any HealthCreek client app of your choosing to access your data sources.
+
+				h3
+					.pull-right = link_to text_with_icon('Attach (or Switch to) Another Identity', 'plus'), root_path, class: 'btn btn-sm btn-info'
+					| Your Sign-On Identities
+				p Was created #{time_ago_in_words(current_user.created_at)} ago. Your user ID is: #{current_user.id}, which may be accessed via the following SSO identities.
+				table.table.table-condensed.table-striped
+				 	thead
 						tr
-							td
-								b = i.provider.name
-								i = i.provider == current_identity.provider ? ' (current)' : nil
-							td = i.email
-							td
-								.btn-group
-									a href="#{i.provider.issuer}" class="btn btn-sm btn-default" Manage
-									= link_to 'Delete', user_identity_path(current_user.id, i.id), method: :delete, class: 'btn btn-sm btn-danger'
+							th Provider
+							th Email
+							th Links
+					tbody
+						- current_user.identities.each do |i|
+							tr
+								td
+									b = i.provider.name
+									i = i.provider == current_identity.provider ? ' (current)' : nil
+								td = i.email
+								td
+									.btn-group
+										a href="#{i.provider.issuer}" class="btn btn-sm btn-default" Manage
+										= link_to 'Remove', user_identity_path(current_user.id, i.id), method: :delete, class: 'btn btn-sm btn-danger'
+			
+		.col-md-3
+			#launchers.row
+				h1 App Launchers
+				- Client.all.each do |c|
+					a.launcher href="#{c.launch_url}"
+						/ span.fa.fa-cog.fa-3x
+						img src="#{c.icon_url}"
+						h2.label = c.name
