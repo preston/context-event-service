@@ -4,6 +4,7 @@ class WelcomeController < OpenIdConnectController
 	skip_authorization_check
 
 	def landing
+		@skip_navigation = true
 	end
 
 	def dashboard

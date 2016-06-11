@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.1'
 
 gem 'rails', '4.2.6'    # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'sass-rails', '~> 5.0'  # Use SCSS for stylesheets
@@ -15,7 +15,7 @@ gem 'therubyracer'
 
 gem 'openid_connect'
 
-gem 'slim'
+gem 'slim'  # Better HTML templating.
 
 gem 'jwt'	# All API calls require JWT-signed requests!
 gem 'cancancan'	# Declarative authorization DSL.

@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429002455) do
+ActiveRecord::Schema.define(version: 20160611000504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "capabilities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "entity_id",   null: false
+    t.string   "entity_type", null: false
+    t.uuid     "role_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "capabilities", ["entity_id", "role_id"], name: "index_capabilities_on_entity_id_and_role_id", using: :btree
+  add_index "capabilities", ["entity_id"], name: "index_capabilities_on_entity_id", using: :btree
+  add_index "capabilities", ["role_id"], name: "index_capabilities_on_role_id", using: :btree
 
   create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",       null: false
@@ -45,6 +57,15 @@ ActiveRecord::Schema.define(version: 20160429002455) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
 
   create_table "identities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id",                          null: false
@@ -78,6 +99,16 @@ ActiveRecord::Schema.define(version: 20160429002455) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "members", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "group_id",   null: false
+    t.uuid     "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "members", ["group_id"], name: "index_members_on_group_id", using: :btree
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
+
   create_table "participants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "encounter_id", null: false
     t.uuid     "user_id",      null: false
@@ -93,18 +124,30 @@ ActiveRecord::Schema.define(version: 20160429002455) do
   end
 
   create_table "providers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "name",                null: false
-    t.string   "issuer",              null: false
-    t.string   "client_id",           null: false
-    t.string   "client_secret",       null: false
+    t.string   "name",                             null: false
+    t.string   "issuer",                           null: false
+    t.string   "client_id",                        null: false
+    t.string   "client_secret",                    null: false
     t.string   "alternate_client_id"
     t.json     "configuration"
     t.json     "public_keys"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "scopes",              default: "", null: false
   end
 
   add_index "providers", ["name"], name: "index_providers_on_name", using: :btree
+
+  create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.string   "code",        null: false
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "roles", ["code"], name: "index_roles_on_code", unique: true, using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
 
   create_table "sessions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "identity_id", null: false
@@ -124,6 +167,7 @@ ActiveRecord::Schema.define(version: 20160429002455) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "capabilities", "roles"
   add_foreign_key "encounters", "contexts"
   add_foreign_key "encounters", "issues"
   add_foreign_key "encounters", "users"
@@ -132,5 +176,7 @@ ActiveRecord::Schema.define(version: 20160429002455) do
   add_foreign_key "issues", "problems"
   add_foreign_key "issues", "users"
   add_foreign_key "labs", "users"
+  add_foreign_key "members", "groups"
+  add_foreign_key "members", "users"
   add_foreign_key "participants", "users"
 end

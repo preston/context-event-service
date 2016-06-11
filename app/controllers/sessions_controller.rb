@@ -120,8 +120,12 @@ logger.debug jwt
 			# state: 			new_nonce,
 			response_type: 	:code,
 			access_type: 	:offline,
+			# aud: provider.client_id,
 			client_id: 		provider.client_id,
-			scope: 			'openid email profile'
+			scope: provider.scopes
+			# scope: 			'openid email profile'
+			# scope: 			'launch/encounter user/*.read launch openid patient/*.read profile'
+			# scope: 			'phone email address launch/encounter user/*.read launch openid patient/*.read profile'
 		}
 		uri.query = URI.encode_www_form(query)
 		redirect_to uri.to_s

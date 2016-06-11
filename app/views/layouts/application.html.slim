@@ -5,7 +5,7 @@ html
 	meta name="viewport" content="width=device-width, initial-scale=1.0"
 	title
 	  = content_for?(:title) ? yield(:title) : "HealthCreek"
-	/ = render partial: 'layouts/icons'
+	= render partial: 'layouts/icons'
 	= stylesheet_link_tag    "application", :media => "all"
 	= javascript_include_tag "application"
 
@@ -15,6 +15,7 @@ html
 
 
   body class="#{yield(:body_class)}"
+    = render partial: 'layouts/navigation' unless @skip_navigation
 	.container-fluid
         = render 'layouts/messages'
 		= yield

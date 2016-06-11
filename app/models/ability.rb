@@ -13,7 +13,10 @@ class Ability
 			can :delete,	Identity, user_id: user.id
 			can :read, User, id: user.id
 
+			can :edit, User, id: user.id
+
 			can :read, Client
+			can :launch, Client
 
 		end
 	end
