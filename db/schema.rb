@@ -42,20 +42,20 @@ ActiveRecord::Schema.define(version: 20160616191450) do
 
   create_table "contexts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",       null: false
-    t.string   "scope"
+    t.string   "purpose"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "foci", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "context_id",  null: false
-    t.integer  "snomedct_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.uuid     "context_id",          null: false
+    t.uuid     "snomedct_concept_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   add_index "foci", ["context_id"], name: "index_foci_on_context_id", using: :btree
-  add_index "foci", ["snomedct_id"], name: "index_foci_on_snomedct_id", using: :btree
+  add_index "foci", ["snomedct_concept_id"], name: "index_foci_on_snomedct_concept_id", using: :btree
 
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",        null: false
@@ -82,14 +82,14 @@ ActiveRecord::Schema.define(version: 20160616191450) do
   end
 
   create_table "interests", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "role_id",    null: false
-    t.string   "code",       null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.uuid     "role_id",             null: false
+    t.uuid     "snomedct_concept_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
-  add_index "interests", ["code"], name: "index_interests_on_code", using: :btree
   add_index "interests", ["role_id"], name: "index_interests_on_role_id", using: :btree
+  add_index "interests", ["snomedct_concept_id"], name: "index_interests_on_snomedct_concept_id", using: :btree
 
   create_table "issues", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id",     null: false
@@ -109,11 +109,14 @@ ActiveRecord::Schema.define(version: 20160616191450) do
   add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "participants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "encounter_id", null: false
-    t.uuid     "user_id",      null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.uuid     "context_id", null: false
+    t.uuid     "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "participants", ["context_id"], name: "index_participants_on_context_id", using: :btree
+  add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
 
   create_table "providers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",                             null: false
@@ -172,11 +175,11 @@ ActiveRecord::Schema.define(version: 20160616191450) do
 
   create_table "snomedct_descriptions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "snomedct_concept_id",            null: false
-    t.integer  "snomedct_id",                    null: false
+    t.integer  "snomedct_id",          limit: 8, null: false
     t.date     "effective_time",                 null: false
     t.boolean  "active",                         null: false
     t.integer  "module_id",            limit: 8, null: false
-    t.integer  "concept_id",                     null: false
+    t.integer  "concept_id",           limit: 8, null: false
     t.string   "language_code",                  null: false
     t.integer  "type_id",              limit: 8, null: false
     t.string   "term",                           null: false
@@ -205,6 +208,7 @@ ActiveRecord::Schema.define(version: 20160616191450) do
   add_foreign_key "issues", "users"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
+  add_foreign_key "participants", "contexts"
   add_foreign_key "participants", "users"
   add_foreign_key "results", "users"
   add_foreign_key "snomedct_descriptions", "snomedct_concepts"
