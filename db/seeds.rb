@@ -18,11 +18,18 @@ live.reconfigure
 live.save!
 
 Client.create!(
-    name: 'Prototype Web UI',
+    name: "Preston's Reusable Web Client Template",
     launch_url: 'https://healthcreek-alpha.s3-us-west-2.amazonaws.com/index.html',
     icon_url: 'http://healthcreek-alpha.s3.amazonaws.com/app/images/textures/tileable_wood_texture.png',
     available: true
 )
+
+Client.create!(
+    name: "Context-Driven EMR System UI POC",
+    launch_url: 'https://piper-ui.s3-us-west-2.amazonaws.com/index.html',
+    available: true
+)
+
 # admin = User.create!(external_id: 42,
 #                               name: 'Default Administrator',
 #                               email: 'admin@example.com',

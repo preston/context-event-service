@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 20160616191454) do
     t.integer  "concept_id",           limit: 8, null: false
     t.string   "language_code",                  null: false
     t.integer  "type_id",              limit: 8, null: false
-    t.string   "term",                           null: false
+    t.text     "term",                           null: false
     t.integer  "case_significance_id", limit: 8, null: false
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false

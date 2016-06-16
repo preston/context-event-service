@@ -9,7 +9,7 @@ class CreateSnomedctDescriptions < ActiveRecord::Migration
       t.bigint :concept_id,	null: false
       t.string :language_code,	null: false
       t.bigint :type_id,	null: false
-      t.string :term,	null: false
+      t.text :term,	null: false
       t.bigint :case_significance_id,	null: false
 
       t.timestamps null: false
