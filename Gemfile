@@ -24,9 +24,6 @@ gem 'puma'	    # Better web server
 gem 'pg'	    # Only PostgreSQL is supported!
 gem 'pg_search' # Full-text search. RAD!!!
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 gem 'httparty'  # Simple REST client.
 
 # PURELY CLIENT-SIDE STUFF
@@ -51,12 +48,4 @@ group :development do
   gem 'guard'
   gem 'guard-minitest'
   gem 'railroady'
-
-  # Deployment to ordinary Linux hosts.
-  # gem 'capistrano'
-  # gem 'capistrano-rvm'
-  # gem 'capistrano-rails-console'
-  # gem 'capistrano-bundler'
-  # gem 'capistrano-rails'
-  # gem 'capistrano-passenger'
 end
