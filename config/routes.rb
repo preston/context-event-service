@@ -1,26 +1,44 @@
 Rails.application.routes.draw do
-  resources :capabilities
-  resources :members
-  resources :groups
-  resources :roles
+
+  resources :snomedct_descriptions, path: '/snomedct/descriptions'
+  # resources 'snomedct/concepts' => :snomedct_concepts
+  resources :snomedct_concepts, path: '/snomed/concepts'
+
+  resources :results
+    match '*all' => 'application#cors_preflight_check', via: :options
+
+	resources :users do
+        resources :identities
+		resources :interests
+		resources :results
+        member do
+            # resources :labs
+            # resources :issues
+            # resources :encounters do
+            # end
+        end
+    end
+
+    resources :groups do
+        resources :members
+    end
+
+    resources :roles do
+		resources :interests
+		resources :capabilities
+    end
+
     resources :clients do
         member do
             get 'launch'
         end
     end
     resources :providers
-    # resources :contexts
-    # resources :problems
-    resources :users do
-        resources :identities
-        member do
-            # resources :labs
-            # resources :issues
-            # resources :encounters do
-            #     resources :participants
-            # end
-        end
+    resources :contexts do
+    	resources :foci
+	    resources :participants
     end
+
 
     get		'sessions' => 'sessions#callback',	as: :callback
     post	'sessions' => 'sessions#authenticate',	as: :login
@@ -35,5 +53,4 @@ Rails.application.routes.draw do
     end
     # You can have the root of your site routed with "root"
     root 'welcome#landing'
-
 end

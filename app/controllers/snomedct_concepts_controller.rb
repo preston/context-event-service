@@ -1,0 +1,2 @@
+class SnomedctConceptsController < ApplicationController
+end

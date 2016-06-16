@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  ordered_at: 2016-06-16 11:10:05
+  requested_at: 2016-06-16 11:10:05
+
+two:
+  user_id: 
+  ordered_at: 2016-06-16 11:10:05
+  requested_at: 2016-06-16 11:10:05

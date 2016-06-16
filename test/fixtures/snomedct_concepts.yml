@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  snomedct_id: 1
+  effective_time: 2016-06-16
+  active: false
+  module_id: 1
+  definition_status_id: 1
+
+two:
+  snomedct_id: 1
+  effective_time: 2016-06-16
+  active: false
+  module_id: 1
+  definition_status_id: 1

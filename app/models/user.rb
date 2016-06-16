@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
 
     has_many :identities, dependent: :destroy
     has_many	:issues,	dependent: :destroy
-    has_many	:labs, dependent: :destroy
+    has_many	:results, dependent: :destroy
     has_many	:encounters, dependent: :destroy
 
-    has_and_belongs_to_many	:problems,	class_name:	'Problem',	join_table: :issues
+    # has_and_belongs_to_many	:problems,	class_name:	'Problem',	join_table: :issues
 
     validates_presence_of :name
 end

@@ -1,0 +1,2 @@
+module SnomedctDescriptionsHelper
+end

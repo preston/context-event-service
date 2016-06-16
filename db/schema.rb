@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160611000504) do
+ActiveRecord::Schema.define(version: 20160616191450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,16 +47,15 @@ ActiveRecord::Schema.define(version: 20160611000504) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "encounters", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "external_id"
-    t.uuid     "user_id",     null: false
-    t.uuid     "issue_id",    null: false
+  create_table "foci", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "context_id",  null: false
-    t.datetime "started_at"
-    t.datetime "ended_at"
+    t.integer  "snomedct_id", null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "foci", ["context_id"], name: "index_foci_on_context_id", using: :btree
+  add_index "foci", ["snomedct_id"], name: "index_foci_on_snomedct_id", using: :btree
 
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",        null: false
@@ -82,21 +81,21 @@ ActiveRecord::Schema.define(version: 20160611000504) do
     t.datetime "updated_at",                       null: false
   end
 
-  create_table "issues", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "external_id"
-    t.uuid     "user_id",     null: false
-    t.uuid     "problem_id",  null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "interests", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "role_id",    null: false
+    t.string   "code",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "labs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "external_id"
-    t.uuid     "user_id",      null: false
-    t.datetime "ordered_at"
-    t.datetime "requested_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+  add_index "interests", ["code"], name: "index_interests_on_code", using: :btree
+  add_index "interests", ["role_id"], name: "index_interests_on_role_id", using: :btree
+
+  create_table "issues", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "user_id",     null: false
+    t.integer  "snomedct_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "members", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -116,13 +115,6 @@ ActiveRecord::Schema.define(version: 20160611000504) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "problems", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.string   "external_id"
-    t.string   "name",        null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "providers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",                             null: false
     t.string   "issuer",                           null: false
@@ -137,6 +129,16 @@ ActiveRecord::Schema.define(version: 20160611000504) do
   end
 
   add_index "providers", ["name"], name: "index_providers_on_name", using: :btree
+
+  create_table "results", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "user_id",      null: false
+    t.datetime "ordered_at"
+    t.datetime "requested_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "results", ["user_id"], name: "index_results_on_user_id", using: :btree
 
   create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",        null: false
@@ -156,6 +158,36 @@ ActiveRecord::Schema.define(version: 20160611000504) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "snomedct_concepts", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.integer  "snomedct_id",          limit: 8, null: false
+    t.date     "effective_time",                 null: false
+    t.boolean  "active",                         null: false
+    t.integer  "module_id",            limit: 8, null: false
+    t.integer  "definition_status_id", limit: 8, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "snomedct_concepts", ["snomedct_id"], name: "index_snomedct_concepts_on_snomedct_id", using: :btree
+
+  create_table "snomedct_descriptions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "snomedct_concept_id",            null: false
+    t.integer  "snomedct_id",                    null: false
+    t.date     "effective_time",                 null: false
+    t.boolean  "active",                         null: false
+    t.integer  "module_id",            limit: 8, null: false
+    t.integer  "concept_id",                     null: false
+    t.string   "language_code",                  null: false
+    t.integer  "type_id",              limit: 8, null: false
+    t.string   "term",                           null: false
+    t.integer  "case_significance_id", limit: 8, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "snomedct_descriptions", ["snomedct_concept_id"], name: "index_snomedct_descriptions_on_snomedct_concept_id", using: :btree
+  add_index "snomedct_descriptions", ["snomedct_id"], name: "index_snomedct_descriptions_on_snomedct_id", using: :btree
+
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",        null: false
     t.string   "external_id"
@@ -168,15 +200,12 @@ ActiveRecord::Schema.define(version: 20160611000504) do
   end
 
   add_foreign_key "capabilities", "roles"
-  add_foreign_key "encounters", "contexts"
-  add_foreign_key "encounters", "issues"
-  add_foreign_key "encounters", "users"
   add_foreign_key "identities", "providers"
   add_foreign_key "identities", "users"
-  add_foreign_key "issues", "problems"
   add_foreign_key "issues", "users"
-  add_foreign_key "labs", "users"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
   add_foreign_key "participants", "users"
+  add_foreign_key "results", "users"
+  add_foreign_key "snomedct_descriptions", "snomedct_concepts"
 end

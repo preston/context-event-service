@@ -1,2 +1,0 @@
-class EncountersController < ApplicationController
-end

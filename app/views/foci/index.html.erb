@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Foci</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Context</th>
+      <th>Snomed</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @foci.each do |focus| %>
+      <tr>
+        <td><%= focus.context_id %></td>
+        <td><%= focus.snomedct_id %></td>
+        <td><%= link_to 'Show', focus %></td>
+        <td><%= link_to 'Edit', edit_focus_path(focus) %></td>
+        <td><%= link_to 'Destroy', focus, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Focus', new_focus_path %>
