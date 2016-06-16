@@ -53,10 +53,10 @@ group :development do
   gem 'railroady'
 
   # Deployment to ordinary Linux hosts.
-  gem 'capistrano'
-  gem 'capistrano-rvm'
-  gem 'capistrano-rails-console'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-passenger'
+  # gem 'capistrano'
+  # gem 'capistrano-rvm'
+  # gem 'capistrano-rails-console'
+  # gem 'capistrano-bundler'
+  # gem 'capistrano-rails'
+  # gem 'capistrano-passenger'
 end

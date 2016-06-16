@@ -37,8 +37,6 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
-    airbrussh (1.0.2)
-      sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.3)
     attr_required (1.0.1)
     autoprefixer-rails (6.3.6.2)
@@ -52,26 +50,6 @@ GEM
     builder (3.2.2)
     byebug (9.0.5)
     cancancan (1.15.0)
-    capistrano (3.5.0)
-      airbrussh (>= 1.0.0)
-      capistrano-harrow
-      i18n
-      rake (>= 10.0.0)
-      sshkit (>= 1.9.0)
-    capistrano-bundler (1.1.4)
-      capistrano (~> 3.1)
-      sshkit (~> 1.2)
-    capistrano-harrow (0.5.1)
-    capistrano-passenger (0.2.0)
-      capistrano (~> 3.0)
-    capistrano-rails (1.1.7)
-      capistrano (~> 3.1)
-      capistrano-bundler (~> 1.1)
-    capistrano-rails-console (1.0.2)
-      capistrano (>= 3.1.0, < 4.0.0)
-    capistrano-rvm (0.1.2)
-      capistrano (~> 3.0)
-      sshkit (~> 1.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
@@ -138,9 +116,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.5.5)
     nenv (0.3.0)
-    net-scp (1.2.1)
-      net-ssh (>= 2.6.5)
-    net-ssh (3.1.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -235,9 +210,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sshkit (1.11.0)
-      net-scp (>= 1.1.2)
-      net-ssh (>= 2.8.0)
     swd (1.0.1)
       activesupport (>= 3)
       attr_required (>= 0.0.5)
@@ -281,12 +253,6 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   cancancan
-  capistrano
-  capistrano-bundler
-  capistrano-passenger
-  capistrano-rails
-  capistrano-rails-console
-  capistrano-rvm
   font-awesome-rails
   gravatar_image_tag
   guard
