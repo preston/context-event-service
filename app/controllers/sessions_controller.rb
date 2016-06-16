@@ -13,8 +13,6 @@ class SessionsController < OpenIdConnectController
 	def callback
 		if params['code'].nil?
 			flash[:warning] = "We couldn't verify your single sign-on identity, sorry. Please try again. If you continue to have issues, try logging out first."
-			# console
-			# render :sorry
 			redirect_to :root
 		else
 			openid_connect_login
@@ -90,6 +88,8 @@ logger.debug jwt
 				)
 			end
 			session['identity_id'] = identity.id
+			jwt = JsonWebToken.new(user: identity.user, expires_at: 24.hours.from_now)
+			jwt.save!
 			redirect_to :dashboard
 		end
 	end

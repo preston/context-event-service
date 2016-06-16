@@ -18,4 +18,8 @@ module ApplicationHelper
     def current_identity
         @current_identity
      end
+
+	 def current_jwt
+		 JsonWebToken.where('user_id = ? AND expires_at > ?', current_user, Time.now).order(expires_at: :desc).first
+	 end
 end

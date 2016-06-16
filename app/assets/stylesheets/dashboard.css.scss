@@ -6,65 +6,69 @@ $navColorHover: #222;
 .dashboard {
 	// background: image-url('textures/bright-squares.png') repeat;
 	// background: image-url('backgrounds/photo-1437382944886-45a9f73d4158.jpeg') no-repeat center center fixed;
-	background-size: cover;
+	// background-size: cover;
 
 	// height: 100%;
-	// width: 100%;
+	width: 100%;
 	position: absolute;
-	padding: 50px 10px 20px 20px;
-	-webkit-perspective: 500px;
-	perspective: 500px;
+	padding: 50px 0 20px 0;
+	// -webkit-perspective: 500px;
+	// perspective: 500px;
 
-	#letter {
-		background: white;
-		padding: 0;
-		> div {
-			margin: 0;
-			padding: 20px 40px;
-			background: image-url('textures/lined-paper-2.png') repeat;
-			h2 {
-				margin-top: 0;
-				padding-top: 20px;
-			}
+	#jwt {
+		margin-top: 20px;
+		padding: 0 40px;
+	}
+
+	#welcome {
+		margin-bottom: 20px;
+		img, h1 {
+			display: inline;
+			vertical-align: bottom;
+			margin-bottom: 1px solid #ccc;
 		}
 	}
 
 	#launchers {
+		background: image-url('textures/dark_Tire.png') repeat;
+		box-shadow: 0 20px 20px rgba(0,0,0,.9) inset;
+		// border-radius: 4px;
 		text-align: center;
+		padding: 40px 0;
 		// margin-left: auto;
 		// margin-right: auto;
 
 		.launcher:nth-child(6n+1) {
-			background-color: #eed;
+			background-color: #cde;
 		}
 		.launcher:nth-child(6n+2) {
-			background-color: #add;
+			background-color: #ade;
 		}
 		.launcher:nth-child(6n+3) {
 			background-color: #dea;
 		}
 		.launcher:nth-child(6n+4) {
-			background-color: #df8;
+			background-color: #fcd;
 		}
 		.launcher:nth-child(6n+5) {
 			background-color: #efc;
 		}
 		.launcher:nth-child(6n+6) {
-			background-color: #dda;
+			background-color: #dad;
 		}
 
 		.launcher {
 			display: inline-block;
-			width: 20vw;
-			height: 10vw;
-			border: 1px solid #ccc;
-			border-radius: 2px;
+			width: 40vw;
+			height: 20vw;
+			border: 1px solid #333;
+			border-radius: 10px;
 			margin: 8px 10px;
 			padding: 0px;
 			color: $navColor;
 			position: relative;
 			overflow: hidden;
-			box-shadow: 0 10px 10px rgba(0,0,0,.5);
+			box-shadow: 0 10px 10px rgba(0,0,0,.8);
 			transition: box-shadow .3s ease-out;
 
 			img {

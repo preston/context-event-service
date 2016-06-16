@@ -60,6 +60,7 @@ Then,
 
 The HealthCreek Server application is designed in [12factor](http://12factor.net) style. Thus, the following environment variables are required to be set to support cookie-based CDN authorization grants. Set these in your ~/.bash_profile (or similar) and reload your terminal.
 
+ * export HEALTHCREEK\_SECRET\_KEY\_BASE="some_unique_string" # Used for cryptographic signing.
  * export HEALTHCREEK\_SNOMED\_DATA="/unzipped/snomed/directory" # Not needed if running a pre-built container!
  * export HEALTHCREEK\_DATABASE\_URL="postgres://healthcreek:password@db.example.com:5432/healthcreek_production
 " # Only used in "production" mode!

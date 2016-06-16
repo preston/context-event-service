@@ -1,5 +1,6 @@
 header.navbar.navbar-custom.navbar-fixed-top
   .container-fluid
+
   	  / Brand and toggle get grouped for better mobile display
 	  .navbar-header.page-scroll
 	    button.navbar-toggle type="button" data-toggle="collapse" data-target="#navbar-collapse-1"
@@ -17,17 +18,14 @@ header.navbar.navbar-custom.navbar-fixed-top
 	        li
 	          = link_to('Dashboard', dashboard_path)
 	    
-	      li.dropdown
+	    /   li.dropdown
 	        a.dropdown-toggle data-toggle="dropdown"
 	          | Learn
 	          b.caret
 	        ul.dropdown-menu role="menu"
-	            li class="divider"
 	            li = link_to 'Bug Reports', 'https://github.com/preston/healthcreek-server/issues'
 	            li = link_to 'Feature Requests', 'https://github.com/preston/healthcreek-server/issues'
 	            li = link_to 'Source Code', 'https://github.com/preston/healthcreek-server'
-	            li class="divider"
-	            li = link_to 'IDPs', providers_path
 
 	    ul.nav.navbar-nav.navbar-right
 	    	/ - if user_signed_in?
@@ -37,7 +35,9 @@ header.navbar.navbar-custom.navbar-fixed-top
 	              | Admin
 	              b class="caret"
 	            ul.dropdown-menu
-	              li = link_to text_with_icon('Manage users.', 'user'), users_path
+	        		li = link_to text_with_icon('Manage users.', 'users'), users_path
+					li class="divider"
+  	        		li = link_to 'IDPs', providers_path
 
 	        li
 
