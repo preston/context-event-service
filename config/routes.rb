@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :snomedct_descriptions, path: '/snomedct/descriptions'
   # resources 'snomedct/concepts' => :snomedct_concepts
-  resources :snomedct_concepts, path: '/snomed/concepts'
+  resources :snomedct_concepts, path: '/snomed/concepts' do
+	  resources :snomedct_descriptions, path: '/descriptions'
+  end
 
   resources :results
     match '*all' => 'application#cors_preflight_check', via: :options

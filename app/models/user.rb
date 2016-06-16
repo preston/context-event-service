@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
     has_many :identities, dependent: :destroy
     has_many	:issues,	dependent: :destroy
     has_many	:results, dependent: :destroy
-    has_many	:participants, dependent: :destroy
+	has_many	:participants, dependent: :destroy
+	has_many	:foci, dependent: :destroy
 
     # has_and_belongs_to_many	:problems,	class_name:	'Problem',	join_table: :issues
 

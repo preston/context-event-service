@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616191450) do
+ActiveRecord::Schema.define(version: 20160616191454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,13 +49,15 @@ ActiveRecord::Schema.define(version: 20160616191450) do
 
   create_table "foci", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "context_id",          null: false
-    t.uuid     "snomedct_concept_id", null: false
+    t.uuid     "user_id"
+    t.uuid     "snomedct_concept_id"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
 
   add_index "foci", ["context_id"], name: "index_foci_on_context_id", using: :btree
   add_index "foci", ["snomedct_concept_id"], name: "index_foci_on_snomedct_concept_id", using: :btree
+  add_index "foci", ["user_id"], name: "index_foci_on_user_id", using: :btree
 
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",        null: false
@@ -92,11 +94,14 @@ ActiveRecord::Schema.define(version: 20160616191450) do
   add_index "interests", ["snomedct_concept_id"], name: "index_interests_on_snomedct_concept_id", using: :btree
 
   create_table "issues", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "user_id",     null: false
-    t.integer  "snomedct_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.uuid     "user_id",             null: false
+    t.uuid     "snomedct_concept_id", null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
+
+  add_index "issues", ["snomedct_concept_id"], name: "index_issues_on_snomedct_concept_id", using: :btree
+  add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
   create_table "members", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "group_id",   null: false
@@ -203,8 +208,12 @@ ActiveRecord::Schema.define(version: 20160616191450) do
   end
 
   add_foreign_key "capabilities", "roles"
+  add_foreign_key "foci", "contexts"
+  add_foreign_key "foci", "snomedct_concepts"
+  add_foreign_key "foci", "users"
   add_foreign_key "identities", "providers"
   add_foreign_key "identities", "users"
+  add_foreign_key "issues", "snomedct_concepts"
   add_foreign_key "issues", "users"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
