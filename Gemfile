@@ -10,8 +10,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc # bundle exec rake doc:rails generates the A
 
 gem 'will_paginate'   # Better query pagination support.
 
-# Required at deploy time.
-gem 'therubyracer'
+
+gem 'therubyracer'	# Required at deploy time for asset precompilation.
 
 gem 'openid_connect'
 
