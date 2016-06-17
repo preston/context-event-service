@@ -20,14 +20,10 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN gem install -N bundler && bundle install --jobs 16
 
-RUN mkdir /snomedct
-COPY $HEALTHCREEK_SNOMED_DATA ./snomedct
-
 # Copy the main application.
 COPY . ./
 # We'll run in production mode by default.
 ENV RAILS_ENV=production
-ENV HEALTHCREEK_SNOMED_DATA=/app/snomedct
 
 # Precompile all JS/CSS.
 RUN bundle exec rake assets:precompile --trace

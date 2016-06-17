@@ -16,3 +16,6 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Data downloads
+/snomedct
