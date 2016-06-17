@@ -1,2 +1,2 @@
-class IssuesController < OpenIdConnectController
+class IssuesController < ApplicationController
 end
