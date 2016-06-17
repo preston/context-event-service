@@ -2,7 +2,7 @@ require 'healthcreek'
 
 namespace :healthcreek do
 
-	namespace :snomed do
+	namespace :snomedct do
 
 		DATA_DIR = File.join(Rails.root, 'snomedct', 'SnomedCT_RF2Release_US1000124_20160301')
 
