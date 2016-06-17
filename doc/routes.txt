@@ -1,4 +1,5 @@
                                     Prefix Verb    URI Pattern                                                           Controller#Action
+                                           OPTIONS /*all(.:format)                                                       application#cors_preflight_check
     snomedct_concept_snomedct_descriptions GET     /snomed/concepts/:snomedct_concept_id/descriptions(.:format)          snomedct_descriptions#index
                                            POST    /snomed/concepts/:snomedct_concept_id/descriptions(.:format)          snomedct_descriptions#create
  new_snomedct_concept_snomedct_description GET     /snomed/concepts/:snomedct_concept_id/descriptions/new(.:format)      snomedct_descriptions#new
@@ -15,15 +16,6 @@ edit_snomedct_concept_snomedct_description GET     /snomed/concepts/:snomedct_co
                                            PATCH   /snomed/concepts/:id(.:format)                                        snomedct_concepts#update
                                            PUT     /snomed/concepts/:id(.:format)                                        snomedct_concepts#update
                                            DELETE  /snomed/concepts/:id(.:format)                                        snomedct_concepts#destroy
-                                   results GET     /results(.:format)                                                    results#index
-                                           POST    /results(.:format)                                                    results#create
-                                new_result GET     /results/new(.:format)                                                results#new
-                               edit_result GET     /results/:id/edit(.:format)                                           results#edit
-                                    result GET     /results/:id(.:format)                                                results#show
-                                           PATCH   /results/:id(.:format)                                                results#update
-                                           PUT     /results/:id(.:format)                                                results#update
-                                           DELETE  /results/:id(.:format)                                                results#destroy
-                                           OPTIONS /*all(.:format)                                                       application#cors_preflight_check
                            user_identities GET     /users/:user_id/identities(.:format)                                  identities#index
                                            POST    /users/:user_id/identities(.:format)                                  identities#create
                          new_user_identity GET     /users/:user_id/identities/new(.:format)                              identities#new
@@ -48,6 +40,14 @@ edit_snomedct_concept_snomedct_description GET     /snomed/concepts/:snomedct_co
                                            PATCH   /users/:user_id/results/:id(.:format)                                 results#update
                                            PUT     /users/:user_id/results/:id(.:format)                                 results#update
                                            DELETE  /users/:user_id/results/:id(.:format)                                 results#destroy
+                               user_issues GET     /users/:user_id/issues(.:format)                                      issues#index
+                                           POST    /users/:user_id/issues(.:format)                                      issues#create
+                            new_user_issue GET     /users/:user_id/issues/new(.:format)                                  issues#new
+                           edit_user_issue GET     /users/:user_id/issues/:id/edit(.:format)                             issues#edit
+                                user_issue GET     /users/:user_id/issues/:id(.:format)                                  issues#show
+                                           PATCH   /users/:user_id/issues/:id(.:format)                                  issues#update
+                                           PUT     /users/:user_id/issues/:id(.:format)                                  issues#update
+                                           DELETE  /users/:user_id/issues/:id(.:format)                                  issues#destroy
                                      users GET     /users(.:format)                                                      users#index
                                            POST    /users(.:format)                                                      users#create
                                   new_user GET     /users/new(.:format)                                                  users#new
@@ -141,5 +141,6 @@ edit_snomedct_concept_snomedct_description GET     /snomed/concepts/:snomedct_co
                                      login POST    /sessions(.:format)                                                   sessions#authenticate
                                     logout DELETE  /sessions(.:format)                                                   sessions#destroy
                                  dashboard GET     /dashboard(.:format)                                                  welcome#dashboard
+                                    status GET     /status(.:format)                                                     welcome#status
                               smart_launch GET     /smart/launch(.:format)                                               smart/launch#launch
                                       root GET     /                                                                     welcome#landing

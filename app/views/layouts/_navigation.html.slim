@@ -29,7 +29,7 @@ header.navbar.navbar-custom.navbar-fixed-top
 
 	    ul.nav.navbar-nav.navbar-right
 	    	/ - if user_signed_in?
-	    	- if current_user
+	    	/ - if can? :manage, User
 	          li.dropdown
 	            a.dropdown-toggle data-toggle="dropdown"
 	              | Admin

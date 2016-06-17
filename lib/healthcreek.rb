@@ -1,13 +1,21 @@
-require 'csv'
+# require 'csv'
 
 module HealthCreek
     module Data
         module SNOMEDCT
-            def load_snomed_concepts(file)
-                puts "Loading SNOMEDCT concepts from #{file} ..."
+            def load_snomed_concepts(file_path)
+                puts "Loading SNOMEDCT concepts from #{file_path} ..."
 				created = 0
 				updated = 0
-                CSV.read(file, headers: :first_row, return_headers: false, col_sep: "\t").each do |r|
+				file = File.open(file_path)
+				first = true
+				file.each_line do |l|
+					if first
+						first = false
+						next
+					end
+					r = l.split("\t")
+                # CSV.read(file, headers: :first_row, return_headers: false, col_sep: "\t").each do |r|
                     c = SnomedctConcept.where(snomedct_id: r[0]).first
                     if c
                         c.update(
@@ -32,11 +40,19 @@ module HealthCreek
                 puts "\tUpdated #{updated} concepts."
             end
 
-            def load_snomed_descriptions(file)
-                puts "Loading SNOMEDCT descriptions from #{file} ..."
+            def load_snomed_descriptions(file_path)
+                puts "Loading SNOMEDCT descriptions from #{file_path} ..."
 				created = 0
 				updated = 0
-                CSV.read(file, headers: :first_row, return_headers: false, col_sep: "\t", quote_char: "Ƃ").each do |r|
+				file = File.open(file_path)
+				first = true
+				file.each_line do |l|
+					if first
+						first = false
+						next
+					end
+					r = l.split("\t")
+                # CSV.read(file_path, headers: :first_row, return_headers: false, col_sep: "\t", quote_char: "Ƃ").each do |r|
                     c = SnomedctConcept.where(snomedct_id: r[4]).first
                     d = SnomedctDescription.where(snomedct_id: r[4]).first
                     if d
@@ -66,13 +82,13 @@ module HealthCreek
             def load_snomed(dir)
                 terms = File.join(dir, 'Full', 'Terminology')
                 concepts = File.join(terms, '*Concept_Full*')
-                Dir.glob(concepts) do |file|
-                    # load_snomed_concepts file
+                Dir.glob(concepts) do |file_path|
+                    load_snomed_concepts file_path
                 end
 
                 descriptions = File.join(terms, '*Description_Full*')
-                Dir.glob(descriptions) do |file|
-                    load_snomed_descriptions file
+                Dir.glob(descriptions) do |file_path|
+                    load_snomed_descriptions file_path
                 end
             end
         end

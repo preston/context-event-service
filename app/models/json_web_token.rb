@@ -1,14 +1,18 @@
 class JsonWebToken < ActiveRecord::Base
 
-	belongs_to	:user
-	validates_presence_of	:user
+	belongs_to	:identity
+	validates_presence_of	:identity
 
 	validates_presence_of	:expires_at
 
 
 	def encode
-	  data = {sub: self.id, exp: self.expires_at.to_i}
+	  data = {id: self.id, sub: self.identity.id, exp: self.expires_at.to_i}
 	  JWT.encode(data, Rails.application.secrets.secret_key_base)
+	end
+
+	def self.decode_authorization(authorization)
+		authorization ? self.decode(authorization.gsub(/Bearer /, '')) : nil
 	end
 
 	def self.decode(token)

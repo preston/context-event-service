@@ -7,6 +7,10 @@ class Ability
 		if user.id.nil? # Unauthenticated guest.
 			# Nada!
 		else # Normal authenticated user.
+			can :manage, User
+
+			can :read, SnomedctConcept
+			can :read, SnomedctDescription
 
 			# Identity and Access Management (IAM)
 			can :read,	Identity, user_id: user.id

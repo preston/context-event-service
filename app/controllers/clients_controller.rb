@@ -1,4 +1,4 @@
-class ClientsController < OpenIdConnectController
+class ClientsController < ApplicationController
 
 	load_and_authorize_resource :client
 

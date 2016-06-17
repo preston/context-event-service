@@ -1,4 +1,5 @@
 class FociController < ApplicationController
+	
   before_action :set_focus, only: [:show, :edit, :update, :destroy]
 
   # GET /foci

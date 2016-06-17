@@ -1,12 +1,11 @@
 class CreateJsonWebTokens < ActiveRecord::Migration
   def change
-    create_table :json_web_tokens do |t|
-      t.uuid :user_id
-      t.datetime :expires_at
+    create_table :json_web_tokens, id: :uuid do |t|
+      t.uuid :identity_id,	null: false, index: true
+      t.datetime :expires_at,	null: false, index: true
 
       t.timestamps null: false
     end
-    add_index :json_web_tokens, :user_id
-    add_index :json_web_tokens, :expires_at
+    add_foreign_key :json_web_tokens, :identities
   end
 end

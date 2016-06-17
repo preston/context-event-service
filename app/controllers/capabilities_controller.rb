@@ -1,4 +1,5 @@
 class CapabilitiesController < ApplicationController
+
   before_action :set_capability, only: [:show, :edit, :update, :destroy]
 
   # GET /capabilities

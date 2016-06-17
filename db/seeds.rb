@@ -8,9 +8,9 @@ google.reconfigure
 google.save!
 
 live = Provider.create_with(
-	name: 'Microsoft Live',
-	client_id: '0000000040193B01',
-	client_secret: '5J4ZxPQb22bXxvj1i-eqaHQILqKKRb2-',
+    name: 'Microsoft Live',
+    client_id: '0000000040193B01',
+    client_secret: '5J4ZxPQb22bXxvj1i-eqaHQILqKKRb2-',
     alternate_client_id: '00000000-0000-0000-0000-000040193B01',
     scopes: 'openid email profile'
 ).find_or_create_by(issuer: 'https://login.live.com')
@@ -25,34 +25,52 @@ Client.create!(
 )
 
 Client.create!(
-    name: "Context-Driven UI POC",
+    name: 'Context-Driven UI POC',
     launch_url: 'http://piper-ui.s3-website-us-east-1.amazonaws.com/v1/app',
     available: true
 )
 
-# admin = User.create!(external_id: 42,
-#                               name: 'Default Administrator',
-#                               email: 'admin@example.com',
-#                               password: 'password',
-#                               password_hash: User.compute_hash('password'))
-#
-# patient = User.create!(external_id: 42,
-#                                 name: 'Peter Patient',
-#                                 email: 'patient@example.com',
-#                                 password: 'password',
-#                                 password_hash: User.compute_hash('password'))
-#
-# endo = User.create!(external_id: 42,
-#                               name: 'Ernest Endocrinologist',
-#                               email: 'endo@example.com',
-#                               password: 'password',
-#                               password_hash: User.compute_hash('password'))
-#
-#
-# d2 = Problem.create!(name: 'Diabetes Type II', external_id: '44054006')
-# context = Context.create!(name: 'Diabetes Followup', scope: '44054006')
-#
-# i = Issue.create!(user: admin, problem: d2)
-# e = Encounter.create!(user: admin, issue: i, context: context)
-#
-# Participant.create!(encounter: e, user: endo)
+physician = Role.create!(
+    name: 'Physician',
+    code: 'physician'
+)
+
+patient = Role.create!(
+    name: 'Patient',
+    code: 'patient'
+)
+
+peter = User.create!(name: 'Peter Patient',
+                     first_name: 'Peter',
+                     middle_name: 'Paul',
+                     last_name: 'Patient')
+
+ernest = User.create!(name: 'Ernest E.',
+                      first_name: 'Ernesto',
+                      middle_name: 'Eugene',
+                      last_name: 'Endocrinologist')
+
+Capability.create!(entity: peter, role: patient)
+Capability.create!(entity: ernest, role: physician)
+
+(0..100).each do |_n|
+    u = User.create!(
+        salutation: Faker::Name.prefix,
+        name: Faker::Name.name,
+        first_name: Faker::Name.first_name,
+        middle_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name
+    )
+    Capability.create!(entity: u, role: physician)
+end
+
+(0..1000).each do |_n|
+    u = User.create!(
+        salutation: Faker::Name.prefix,
+        name: Faker::Name.name,
+        first_name: Faker::Name.first_name,
+        middle_name: Faker::Name.first_name,
+        last_name: Faker::Name.last_name
+    )
+    Capability.create!(entity: u, role: patient)
+end

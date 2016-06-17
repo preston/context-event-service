@@ -1,4 +1,5 @@
-class IdentitiesController < OpenIdConnectController
+class IdentitiesController < ApplicationController
+	
 
 	# load_and_authorize_resource
 	load_resource

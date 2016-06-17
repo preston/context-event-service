@@ -103,15 +103,15 @@ ActiveRecord::Schema.define(version: 20160616223349) do
   add_index "issues", ["snomedct_concept_id"], name: "index_issues_on_snomedct_concept_id", using: :btree
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
-  create_table "json_web_tokens", force: :cascade do |t|
-    t.uuid     "user_id"
-    t.datetime "expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "json_web_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "identity_id", null: false
+    t.datetime "expires_at",  null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "json_web_tokens", ["expires_at"], name: "index_json_web_tokens_on_expires_at", using: :btree
-  add_index "json_web_tokens", ["user_id"], name: "index_json_web_tokens_on_user_id", using: :btree
+  add_index "json_web_tokens", ["identity_id"], name: "index_json_web_tokens_on_identity_id", using: :btree
 
   create_table "members", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "group_id",   null: false
@@ -225,6 +225,7 @@ ActiveRecord::Schema.define(version: 20160616223349) do
   add_foreign_key "identities", "users"
   add_foreign_key "issues", "snomedct_concepts"
   add_foreign_key "issues", "users"
+  add_foreign_key "json_web_tokens", "identities"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
   add_foreign_key "participants", "contexts"

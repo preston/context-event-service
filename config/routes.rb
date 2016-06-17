@@ -1,23 +1,17 @@
 Rails.application.routes.draw do
 
-  # resources 'snomedct/concepts' => :snomedct_concepts
-  resources :snomedct_concepts, path: '/snomed/concepts' do
-	  resources :snomedct_descriptions, path: '/descriptions'
-  end
+	match '*all' => 'application#cors_preflight_check', via: :options
 
-  resources :results
-    match '*all' => 'application#cors_preflight_check', via: :options
+    # resources 'snomedct/concepts' => :snomedct_concepts
+    resources :snomedct_concepts, path: '/snomed/concepts' do
+        resources :snomedct_descriptions, path: '/descriptions'
+    end
 
-	resources :users do
+    resources :users do
         resources :identities
-		resources :interests
-		resources :results
-        member do
-            # resources :labs
-            # resources :issues
-            # resources :encounters do
-            # end
-        end
+        resources :interests
+        resources :results
+		resources :issues
     end
 
     resources :groups do
@@ -25,8 +19,8 @@ Rails.application.routes.draw do
     end
 
     resources :roles do
-		resources :interests
-		resources :capabilities
+        resources :interests
+        resources :capabilities
     end
 
     resources :clients do
@@ -36,15 +30,15 @@ Rails.application.routes.draw do
     end
     resources :providers
     resources :contexts do
-    	resources :foci
-	    resources :participants
+        resources :foci
+        resources :participants
     end
-
 
     get		'sessions' => 'sessions#callback',	as: :callback
     post	'sessions' => 'sessions#authenticate',	as: :login
     delete	'sessions' => 'sessions#destroy',	as: :logout
     get 'dashboard' => 'welcome#dashboard', as: :dashboard
+    get 'status' => 'welcome#status', as: :status
 
     # The priority is based upon order of creation: first created -> highest priority.
     # See how all your routes lay out with "rake routes".
