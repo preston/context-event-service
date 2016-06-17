@@ -14,7 +14,7 @@ RUN mkdir -p /app
 WORKDIR /app
 
 RUN mkdir /snomedct
-COPY $HEALTHCREEK_SNOMED_DATA ./snomedct
+ADD $HEALTHCREEK_SNOMED_DATA ./snomedct
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
