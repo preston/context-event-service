@@ -13,15 +13,15 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN mkdir -p /app
 WORKDIR /app
 
-RUN mkdir /snomedct
-ADD $HEALTHCREEK_SNOMED_DATA ./snomedct
-
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files
 # are made.
 COPY Gemfile Gemfile.lock ./
 RUN gem install -N bundler && bundle install --jobs 16
+
+RUN mkdir /snomedct
+COPY $HEALTHCREEK_SNOMED_DATA ./snomedct
 
 # Copy the main application.
 COPY . ./
