@@ -7,15 +7,15 @@ RUN gem update --system
 # Default shell as bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# Bundle data are very large, but static, so do that first!
-RUN mkdir /snomedct
-COPY snomedct/ /snomedct
 
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
 RUN mkdir -p /app
 WORKDIR /app
+
+# Bundle data are very large, but static, so do that first!
+COPY snomedct snomedct
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
