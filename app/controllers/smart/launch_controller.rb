@@ -1,6 +1,6 @@
 module Smart
 
-	class LaunchController < OpenIdConnectController
+	class LaunchController < ApplicationController
 
 		def launch
 
