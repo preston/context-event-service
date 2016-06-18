@@ -11,11 +11,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616223349) do
+ActiveRecord::Schema.define(version: 20160618215121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "activities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "context_id",   null: false
+    t.uuid     "parent_id"
+    t.string   "name",         null: false
+    t.text     "description"
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.string   "semantic_uri"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "activities", ["context_id"], name: "index_activities_on_context_id", using: :btree
+  add_index "activities", ["parent_id"], name: "index_activities_on_parent_id", using: :btree
+  add_index "activities", ["semantic_uri"], name: "index_activities_on_semantic_uri", using: :btree
+
+  create_table "actors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "activity_id",    null: false
+    t.uuid     "participant_id", null: false
+    t.string   "semantic_uri"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "actors", ["activity_id"], name: "index_actors_on_activity_id", using: :btree
+  add_index "actors", ["participant_id"], name: "index_actors_on_participant_id", using: :btree
+  add_index "actors", ["semantic_uri"], name: "index_actors_on_semantic_uri", using: :btree
+
+  create_table "assets", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "context_id", null: false
+    t.string   "uri",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "assets", ["context_id"], name: "index_assets_on_context_id", using: :btree
 
   create_table "capabilities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "entity_id",   null: false
@@ -123,6 +160,19 @@ ActiveRecord::Schema.define(version: 20160616223349) do
   add_index "members", ["group_id"], name: "index_members_on_group_id", using: :btree
   add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
+  create_table "objectives", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "context_id",    null: false
+    t.boolean  "formalized"
+    t.string   "language"
+    t.string   "semantic_uri"
+    t.string   "specification"
+    t.text     "comment"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "objectives", ["context_id"], name: "index_objectives_on_context_id", using: :btree
+
   create_table "participants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "context_id", null: false
     t.uuid     "user_id",    null: false
@@ -132,6 +182,14 @@ ActiveRecord::Schema.define(version: 20160616223349) do
 
   add_index "participants", ["context_id"], name: "index_participants_on_context_id", using: :btree
   add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
+
+  create_table "places", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.string   "name",        null: false
+    t.text     "address"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "providers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",                             null: false
@@ -217,6 +275,11 @@ ActiveRecord::Schema.define(version: 20160616223349) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "activities", "activities", column: "parent_id"
+  add_foreign_key "activities", "contexts"
+  add_foreign_key "actors", "activities"
+  add_foreign_key "actors", "participants"
+  add_foreign_key "assets", "contexts"
   add_foreign_key "capabilities", "roles"
   add_foreign_key "foci", "contexts"
   add_foreign_key "foci", "snomedct_concepts"
@@ -228,6 +291,7 @@ ActiveRecord::Schema.define(version: 20160616223349) do
   add_foreign_key "json_web_tokens", "identities"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
+  add_foreign_key "objectives", "contexts"
   add_foreign_key "participants", "contexts"
   add_foreign_key "participants", "users"
   add_foreign_key "results", "users"
