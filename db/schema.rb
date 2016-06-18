@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618215121) do
+ActiveRecord::Schema.define(version: 20160618223020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160618215121) do
     t.string   "semantic_uri"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.uuid     "place_id"
   end
 
   add_index "activities", ["context_id"], name: "index_activities_on_context_id", using: :btree
@@ -277,6 +278,7 @@ ActiveRecord::Schema.define(version: 20160618215121) do
 
   add_foreign_key "activities", "activities", column: "parent_id"
   add_foreign_key "activities", "contexts"
+  add_foreign_key "activities", "places"
   add_foreign_key "actors", "activities"
   add_foreign_key "actors", "participants"
   add_foreign_key "assets", "contexts"

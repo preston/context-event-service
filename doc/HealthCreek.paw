@@ -5,7 +5,7 @@
     <databaseInfo>
         <version>134481920</version>
         <UUID>D62F3A00-D1E1-47C2-A5DD-0A9BB6FF52D0</UUID>
-        <nextObjectID>221</nextObjectID>
+        <nextObjectID>222</nextObjectID>
         <metadata>
             <plist version="1.0">
                 <dict>
@@ -91,7 +91,7 @@
         <attribute name="name" type="string">CORS Preflight Check</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z200"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
-        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z133 z146"></relationship>
+        <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z133 z222"></relationship>
     </object>
     <object type="LMENVIRONMENTVARIABLEVALUE" id="z120">
         <attribute name="value" type="string">http</attribute>
@@ -147,16 +147,6 @@
         <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z159"></relationship>
-    </object>
-    <object type="LMKEYVALUE" id="z146">
-        <attribute name="value" type="string"></attribute>
-        <attribute name="order" type="int64">1</attribute>
-        <attribute name="name" type="string"></attribute>
-        <attribute name="enabled" type="bool">1</attribute>
-        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
-        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
-        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
-        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z114"></relationship>
     </object>
     <object type="LMENVIRONMENTVARIABLEVALUE" id="z149">
         <attribute name="value" type="string">http</attribute>
@@ -429,5 +419,15 @@
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM" idrefs="z200"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="headers" type="0/0" destination="LMKEYVALUE" idrefs="z218 z219 z220"></relationship>
+    </object>
+    <object type="LMKEYVALUE" id="z222">
+        <attribute name="value" type="string"></attribute>
+        <attribute name="order" type="int64">2</attribute>
+        <attribute name="name" type="string"></attribute>
+        <attribute name="enabled" type="bool">1</attribute>
+        <relationship name="groupforbodyparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforheaders" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="groupforurlparameters" type="0/1" destination="LMREQUESTGROUP"></relationship>
+        <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z114"></relationship>
     </object>
 </database>
