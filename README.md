@@ -1,6 +1,6 @@
 # HealthCreek Server
 
-HealthCreek is an API providing context-driven, temporally-oriented clinical experiences. It is an amalgamation of relevant existing standards and terminologies, fronted via a clean, RESTful JSON API that is easy to integrate into any JavaScript-based frontend, though *any* modern client is supported.
+HealthCreek Server is an API reference prototype for designing context-driven, patient-centered clinical experiences involving collaboration of multiple heterogeneous parties. It is an amalgamation of relevant existing standards and terminologies, fronted via a clean, RESTful JSON API that is easy to integrate into any JavaScript-based frontend, though *any* modern client is supported. The underlying internal domain model is represented as a normalized relational (PostgeSQL) schema.
 
 # Extremely Rough API Overview
 
@@ -95,15 +95,24 @@ Deployment is done exclusively with Docker, though "raw" deployment using Passen
 
 To build your current version:
 
-	docker build healthcreek-server:latest
+	docker build -t p3000/healthcreek-server:latest .
 
 ## Running a Container
 
-When running the container, **all environment variables defined in the above section must be set using `-e FOO="bar"` options** to docker. The base form of the command, however, is
+When running the container, **all environment variables defined in the above section must be set using `-e FOO="bar"` options** to docker. The foreground form of the command is:
 
 	docker run -it -m="512MB" \
-		-e "HEALTHCREEK_ENV_VAR_NAME=value" \
-		... \
+		-e "HEALTHCREEK_SECRET_KEY_BASE=development_only" \
+		-e "HEALTHCREEK_DEVELOPMENT_URL=postgresql://healthcreek:password@192.168.1.103:5432/healthcreek_development" \
+		-e "HEALTHCREEK_DEVELOPMENT_URL=postgresql://healthcreek:password@192.168.1.103:5432/healthcreek_test" \
+		healtcreek-server:latest
+
+...or to run in the background:
+
+	docker run -d -p 3000:3000 -m="512MB" \
+		-e "HEALTHCREEK_SECRET_KEY_BASE=development_only" \
+		-e "HEALTHCREEK_DEVELOPMENT_URL=postgresql://healthcreek:password@192.168.1.103:5432/healthcreek_development" \
+		-e "HEALTHCREEK_DEVELOPMENT_URL=postgresql://healthcreek:password@192.168.1.103:5432/healthcreek_test" \
 		healtcreek-server:latest
 
 ## Regression Testing a Container

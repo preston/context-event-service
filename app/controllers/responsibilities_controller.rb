@@ -1,0 +1,2 @@
+class ResponsibilitiesController < ApplicationController
+end

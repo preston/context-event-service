@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ActorTest < ActiveSupport::TestCase
+class ReferencesControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

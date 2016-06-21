@@ -6,9 +6,6 @@ class SnomedctConcept < ActiveRecord::Base
         tsearch: { prefix: true }
     }
 
-	has_many	:interests,	dependent: :destroy
-	has_many	:issues,	dependent: :destroy
-	has_many	:foci,	dependent: :destroy
 	has_many	:descriptions, class_name: 'SnomedctDescription',	dependent: :destroy
 
 	validates_presence_of	:snomedct_id

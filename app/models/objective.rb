@@ -1,5 +1,5 @@
 class Objective < ActiveRecord::Base
-    belongs_to	:context
+    belongs_to	:activity
 
-    validates_presence_of	:context
+    validates_presence_of	:activity
 end

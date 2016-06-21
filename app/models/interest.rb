@@ -1,11 +1,10 @@
 class Interest < ActiveRecord::Base
 
-	belongs_to	:role
-	belongs_to	:snomedct_concept
+	belongs_to	:group
 
-    validates_presence_of	:role
-    validates_presence_of	:snomedct_concept
+    validates_presence_of	:group
+    validates_presence_of	:concept_uri
 
-    validates_uniqueness_of	:snomedct_concept, scope: [:role_id]
+    validates_uniqueness_of	:concept_uri, scope: [:group_id]
 
   end

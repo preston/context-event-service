@@ -1,18 +1,16 @@
 Rails.application.routes.draw do
-
     match '*all' => 'application#cors_preflight_check', via: :options
 
-	resources :contexts do
-        resources :activities do
-            resources :actors
-        end
-		resources :assets
-		resources :foci
-        resources :objectives
-        resources :participants
+    resources :activities do
+		resources :objectives
+		resources :participants
+		resources :references
+		resources :responsibilities
     end
+    resources :assets
+	resources :places
 
-	resources :users do
+    resources :users do
         resources :identities
         resources :interests
         resources :results
@@ -38,8 +36,6 @@ Rails.application.routes.draw do
         end
     end
     resources :providers
-    resources :places
-
 
     get		'sessions' => 'sessions#callback',	as: :callback
     post	'sessions' => 'sessions#authenticate',	as: :login

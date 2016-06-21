@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160618223020) do
+ActiveRecord::Schema.define(version: 20160621172318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
   create_table "activities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "context_id",   null: false
     t.uuid     "parent_id"
     t.string   "name",         null: false
     t.text     "description"
@@ -28,32 +27,19 @@ ActiveRecord::Schema.define(version: 20160618223020) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.uuid     "place_id"
+    t.boolean  "system",       null: false
+    t.uuid     "previous_id"
+    t.uuid     "context_id"
   end
 
-  add_index "activities", ["context_id"], name: "index_activities_on_context_id", using: :btree
   add_index "activities", ["parent_id"], name: "index_activities_on_parent_id", using: :btree
   add_index "activities", ["semantic_uri"], name: "index_activities_on_semantic_uri", using: :btree
 
-  create_table "actors", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "activity_id",    null: false
-    t.uuid     "participant_id", null: false
-    t.string   "semantic_uri"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-  end
-
-  add_index "actors", ["activity_id"], name: "index_actors_on_activity_id", using: :btree
-  add_index "actors", ["participant_id"], name: "index_actors_on_participant_id", using: :btree
-  add_index "actors", ["semantic_uri"], name: "index_actors_on_semantic_uri", using: :btree
-
   create_table "assets", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "context_id", null: false
     t.string   "uri",        null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  add_index "assets", ["context_id"], name: "index_assets_on_context_id", using: :btree
 
   create_table "capabilities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "entity_id",   null: false
@@ -85,18 +71,6 @@ ActiveRecord::Schema.define(version: 20160618223020) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "foci", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "context_id",          null: false
-    t.uuid     "user_id"
-    t.uuid     "snomedct_concept_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-  end
-
-  add_index "foci", ["context_id"], name: "index_foci_on_context_id", using: :btree
-  add_index "foci", ["snomedct_concept_id"], name: "index_foci_on_snomedct_concept_id", using: :btree
-  add_index "foci", ["user_id"], name: "index_foci_on_user_id", using: :btree
-
   create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",        null: false
     t.text     "description"
@@ -122,23 +96,22 @@ ActiveRecord::Schema.define(version: 20160618223020) do
   end
 
   create_table "interests", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "role_id",             null: false
-    t.uuid     "snomedct_concept_id", null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.uuid     "concept_uri", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.uuid     "group_id"
   end
 
-  add_index "interests", ["role_id"], name: "index_interests_on_role_id", using: :btree
-  add_index "interests", ["snomedct_concept_id"], name: "index_interests_on_snomedct_concept_id", using: :btree
+  add_index "interests", ["concept_uri"], name: "index_interests_on_concept_uri", using: :btree
 
   create_table "issues", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "user_id",             null: false
-    t.uuid     "snomedct_concept_id", null: false
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.uuid     "user_id",     null: false
+    t.uuid     "concept_uri", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "issues", ["snomedct_concept_id"], name: "index_issues_on_snomedct_concept_id", using: :btree
+  add_index "issues", ["concept_uri"], name: "index_issues_on_concept_uri", using: :btree
   add_index "issues", ["user_id"], name: "index_issues_on_user_id", using: :btree
 
   create_table "json_web_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -162,7 +135,6 @@ ActiveRecord::Schema.define(version: 20160618223020) do
   add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "objectives", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "context_id",    null: false
     t.boolean  "formalized"
     t.string   "language"
     t.string   "semantic_uri"
@@ -170,18 +142,16 @@ ActiveRecord::Schema.define(version: 20160618223020) do
     t.text     "comment"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.uuid     "activity_id",   null: false
   end
-
-  add_index "objectives", ["context_id"], name: "index_objectives_on_context_id", using: :btree
 
   create_table "participants", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "context_id", null: false
-    t.uuid     "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.uuid     "user_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.uuid     "activity_id", null: false
   end
 
-  add_index "participants", ["context_id"], name: "index_participants_on_context_id", using: :btree
   add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
 
   create_table "places", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -206,6 +176,27 @@ ActiveRecord::Schema.define(version: 20160618223020) do
   end
 
   add_index "providers", ["name"], name: "index_providers_on_name", using: :btree
+
+  create_table "references", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "activity_id", null: false
+    t.uuid     "asset_id",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "references", ["activity_id"], name: "index_references_on_activity_id", using: :btree
+  add_index "references", ["asset_id"], name: "index_references_on_asset_id", using: :btree
+
+  create_table "responsibilities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "activity_id",    null: false
+    t.uuid     "participant_id", null: false
+    t.string   "semantic_uri",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "responsibilities", ["activity_id"], name: "index_responsibilities_on_activity_id", using: :btree
+  add_index "responsibilities", ["participant_id"], name: "index_responsibilities_on_participant_id", using: :btree
 
   create_table "results", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.uuid     "user_id",      null: false
@@ -276,26 +267,26 @@ ActiveRecord::Schema.define(version: 20160618223020) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "activities", "activities", column: "context_id"
   add_foreign_key "activities", "activities", column: "parent_id"
-  add_foreign_key "activities", "contexts"
+  add_foreign_key "activities", "activities", column: "previous_id"
   add_foreign_key "activities", "places"
-  add_foreign_key "actors", "activities"
-  add_foreign_key "actors", "participants"
-  add_foreign_key "assets", "contexts"
   add_foreign_key "capabilities", "roles"
-  add_foreign_key "foci", "contexts"
-  add_foreign_key "foci", "snomedct_concepts"
-  add_foreign_key "foci", "users"
   add_foreign_key "identities", "providers"
   add_foreign_key "identities", "users"
-  add_foreign_key "issues", "snomedct_concepts"
+  add_foreign_key "interests", "groups"
+  add_foreign_key "issues", "snomedct_concepts", column: "concept_uri"
   add_foreign_key "issues", "users"
   add_foreign_key "json_web_tokens", "identities"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "users"
-  add_foreign_key "objectives", "contexts"
-  add_foreign_key "participants", "contexts"
+  add_foreign_key "objectives", "activities"
+  add_foreign_key "participants", "activities"
   add_foreign_key "participants", "users"
+  add_foreign_key "references", "activities"
+  add_foreign_key "references", "assets"
+  add_foreign_key "responsibilities", "activities"
+  add_foreign_key "responsibilities", "participants"
   add_foreign_key "results", "users"
   add_foreign_key "snomedct_descriptions", "snomedct_concepts"
 end
