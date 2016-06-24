@@ -2,23 +2,15 @@ Rails.application.routes.draw do
     match '*all' => 'application#cors_preflight_check', via: :options
 
     resources :activities do
-		resources :objectives
-		resources :participants
-		resources :references
-		resources :responsibilities
+		resources	:objectives
+		resources	:actor_roles
+		resources	:usage_roles
     end
     resources :assets
 	resources :places
 
-    resources :users do
+    resources :people do
         resources :identities
-        resources :interests
-        resources :results
-        resources :issues
-    end
-
-    resources :snomedct_concepts, path: '/snomed/concepts' do
-        resources :snomedct_descriptions, path: '/descriptions'
     end
 
     resources :groups do
@@ -26,7 +18,6 @@ Rails.application.routes.draw do
     end
 
     resources :roles do
-        resources :interests
         resources :capabilities
     end
 
@@ -35,7 +26,7 @@ Rails.application.routes.draw do
             get 'launch'
         end
     end
-    resources :providers
+    resources :identity_providers
 
     get		'sessions' => 'sessions#callback',	as: :callback
     post	'sessions' => 'sessions#authenticate',	as: :login

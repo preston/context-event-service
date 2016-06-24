@@ -7,12 +7,12 @@ module ApplicationHelper
         "<i class=\"fa fa-#{icon}\"></i>&nbsp;&nbsp;#{text}".html_safe
     end
 
-    def user_signed_in?
-        !!@current_user
+    def person_signed_in?
+        !!@current_person
      end
 
-    def current_user
-        @current_user
+    def current_person
+        @current_person
      end
 
     def current_identity

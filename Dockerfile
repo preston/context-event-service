@@ -14,9 +14,6 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN mkdir -p /app
 WORKDIR /app
 
-# Bundle data are very large, but static, so do that first!
-COPY snomedct snomedct
-
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files
@@ -25,15 +22,16 @@ COPY Gemfile Gemfile.lock Rakefile config.ru ./
 RUN gem install -N bundler && bundle install --jobs 16
 
 # Copy the main application.
-COPY app app
-COPY bin bin
-COPY config config
-COPY db db
-COPY lib lib
-COPY log log
-COPY public public
-COPY test test
-COPY vendor vendor
+# COPY app app
+# COPY bin bin
+# COPY config config
+# COPY db db
+# COPY lib lib
+# COPY log log
+# COPY public public
+# COPY test test
+# COPY vendor vendor
+COPY . .
 
 # We'll run in production mode by default.
 ENV RAILS_ENV=production

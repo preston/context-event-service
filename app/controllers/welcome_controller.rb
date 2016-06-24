@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
 	end
 
 	def status
-		User.first
+		Person.first
 		json = {}
 		jwt = request.headers['Authorization']
 		if jwt
@@ -20,9 +20,9 @@ class WelcomeController < ApplicationController
 					json.merge!(
 						identity: {
 							id: jwt.identity.id,
-							user: {
-								id: jwt.identity.user.id,
-								name: jwt.identity.user.name
+							person: {
+								id: jwt.identity.person.id,
+								name: jwt.identity.person.name
 							}
 						},
 						jwt: {id: jwt.id, encoded: jwt.encode}

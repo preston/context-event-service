@@ -1,0 +1,2 @@
+class ActorRolesController < ApplicationController
+end

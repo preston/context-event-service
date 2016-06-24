@@ -1,23 +1,23 @@
 class Ability
 	include CanCan::Ability
 
-	def initialize(user)
-		user ||= User.new # Unauthenticated
+	def initialize(person)
+		person ||= Person.new # Unauthenticated
 
-		if user.id.nil? # Unauthenticated guest.
+		if person.id.nil? # Unauthenticated guest.
 			# Nada!
-		else # Normal authenticated user.
-			can :manage, User
+		else # Normal authenticated person.
+			can :manage, Person
 
 			can :read, SnomedctConcept
 			can :read, SnomedctDescription
 
 			# Identity and Access Management (IAM)
-			can :read,	Identity, user_id: user.id
-			can :delete,	Identity, user_id: user.id
-			can :read, User, id: user.id
+			can :read,	Identity, person_id: person.id
+			can :delete,	Identity, person_id: person.id
+			can :read, Person, id: person.id
 
-			can :edit, User, id: user.id
+			can :edit, Person, id: person.id
 
 			can :read, Client
 			can :launch, Client

@@ -6,7 +6,7 @@ default: &default
 development:
   <<: *default
   database: healthcreek_development
-  username: healthcreek
+  personname: healthcreek
   password: password
 
 test:

@@ -1,2 +1,0 @@
-class IssuesController < ApplicationController
-end

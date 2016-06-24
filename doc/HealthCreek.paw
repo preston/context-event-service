@@ -107,7 +107,7 @@
     </object>
     <object type="LMREQUEST" id="z126">
         <attribute name="uuid" type="string">3D291C79-E27C-40DC-A14F-02AE53E0E587</attribute>
-        <attribute name="url" type="string">[{"data":{"environmentVariable":"4D19C027-233D-4D00-B775-0BB3B36235EB"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":\\/\\/",{"data":{"environmentVariable":"CD1C7603-AC40-4DDE-9DCF-60F38E75502F"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":",{"data":{"environmentVariable":"8AF19679-5587-4139-9348-0A7A4CBEB2BC"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/users?role=physician"]</attribute>
+        <attribute name="url" type="string">[{"data":{"environmentVariable":"4D19C027-233D-4D00-B775-0BB3B36235EB"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":\\/\\/",{"data":{"environmentVariable":"CD1C7603-AC40-4DDE-9DCF-60F38E75502F"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":",{"data":{"environmentVariable":"8AF19679-5587-4139-9348-0A7A4CBEB2BC"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/persons?role=physician"]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>
@@ -248,7 +248,7 @@
     <object type="LMREQUESTGROUP" id="z200">
         <attribute name="uuid" type="string">498751F1-B12D-4A87-A8F4-D0B7EFC3E351</attribute>
         <attribute name="order" type="int64">1</attribute>
-        <attribute name="name" type="string">Basic User and SNOMED Search Tutorial</attribute>
+        <attribute name="name" type="string">Basic Person and SNOMED Search Tutorial</attribute>
         <relationship name="parent" type="0/1" destination="LMREQUESTTREEITEM"></relationship>
         <relationship name="children" type="0/0" destination="LMREQUESTTREEITEM" idrefs="z114 z210 z126 z159 z209 z221"></relationship>
         <relationship name="bodyparameters" type="0/0" destination="LMKEYVALUE"></relationship>
@@ -314,7 +314,7 @@
     </object>
     <object type="LMREQUEST" id="z209">
         <attribute name="uuid" type="string">4BBD4FF9-308E-4DAD-B3C4-BE4FE51BC1C3</attribute>
-        <attribute name="url" type="string">[{"data":{"environmentVariable":"4D19C027-233D-4D00-B775-0BB3B36235EB"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":\\/\\/",{"data":{"environmentVariable":"CD1C7603-AC40-4DDE-9DCF-60F38E75502F"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":",{"data":{"environmentVariable":"8AF19679-5587-4139-9348-0A7A4CBEB2BC"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/users?role=physician\u2600name=e"]</attribute>
+        <attribute name="url" type="string">[{"data":{"environmentVariable":"4D19C027-233D-4D00-B775-0BB3B36235EB"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":\\/\\/",{"data":{"environmentVariable":"CD1C7603-AC40-4DDE-9DCF-60F38E75502F"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},":",{"data":{"environmentVariable":"8AF19679-5587-4139-9348-0A7A4CBEB2BC"},"identifier":"com.luckymarmot.EnvironmentVariableDynamicValue"},"\\/persons?role=physician\u2600name=e"]</attribute>
         <attribute name="storecookies" type="bool">1</attribute>
         <attribute name="sendcookies" type="bool">1</attribute>
         <attribute name="redirectmethod" type="bool">0</attribute>

@@ -14,7 +14,7 @@ header.navbar.navbar-custom.navbar-fixed-top
 
 	  nav#navbar-collapse-1.collapse.navbar-collapse
 	    ul.nav.navbar-nav
-	      - if user_signed_in?
+	      - if person_signed_in?
 	        li
 	          = link_to('Dashboard', dashboard_path)
 	    
@@ -28,21 +28,21 @@ header.navbar.navbar-custom.navbar-fixed-top
 	            li = link_to 'Source Code', 'https://github.com/preston/healthcreek-server'
 
 	    ul.nav.navbar-nav.navbar-right
-	    	/ - if user_signed_in?
-	    	/ - if can? :manage, User
+	    	/ - if person_signed_in?
+	    	/ - if can? :manage, Person
 	          li.dropdown
 	            a.dropdown-toggle data-toggle="dropdown"
 	              | Admin
 	              b class="caret"
 	            ul.dropdown-menu
-	        		li = link_to text_with_icon('Manage users.', 'users'), users_path
+	        		li = link_to text_with_icon('Manage people.', 'people'), people_path
 					li class="divider"
   	        		li = link_to 'IDPs', providers_path
 
 	        li
 
-		        a href="#{edit_user_path(current_user)}"
+		        a href="#{edit_person_path(current_person)}"
 			    	img.gravatar src="#{gravatar_image_url(current_identity.email, filetype: :png, rating: 'pg', size: 20, secure: true)}"
 	            	|  
-	            	= current_user.name
+	            	= current_person.name
 	        li = link_to('Logout', logout_path, method: :delete,)

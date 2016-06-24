@@ -1,0 +1,2 @@
+class UsageRolesController < ApplicationController
+end

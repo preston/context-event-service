@@ -12,7 +12,7 @@
 				h1 at ASU
 				hr
 			/ p for happy clinical encounters
-			- if user_signed_in?
+			- if person_signed_in?
 				/ h3 Welcome back!
 				= link_to "Go to Dashboard", dashboard_path, class: 'btn btn-lg btn-success btn-block'
 				small
@@ -25,7 +25,7 @@
 			- else
 				h4 Log in via..
 				br
-			- Provider.all.each do |p|
+			- IdentityProvider.all.each do |p|
 				= form_tag login_path do |f|
 					input type="hidden" name="provider_id" value="#{p.id}"
 					input.btn.btn-lg.btn-success.btn-block type="submit" value="#{p.name}"

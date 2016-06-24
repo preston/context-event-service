@@ -71,22 +71,22 @@ class ApplicationController < ActionController::Base
         else
           begin
               @current_identity = Identity.find(identity_id)
-              @current_user = @current_identity.user
+              @current_person = @current_identity.person
           rescue
-              # User may be have been deleted.
+              # Person may be have been deleted.
               session[:identity_id] = nil
           end
         end
-        @current_user
+        @current_person
     end
 
     def unauthenticate!
         session[:identity_id] = nil
-        @current_user = nil
+        @current_person = nil
         @current_identity = nil
     end
 
-    attr_reader :current_user
+    attr_reader :current_person
 
     attr_reader :current_identity
 

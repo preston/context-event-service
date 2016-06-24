@@ -11,11 +11,11 @@ This is an evolving work in progress. The proof-of-concept likely has difference
 
 These are presumed to exist in the implementation prior to any actual use case. Most REST verbs are supported, used in the standard path'ing practice of "/<plural_noun>", "/<plural_noun>/:id", and utilization of sub-resources to represent model compositions and aggregations, when appropriate.
 
-	/users # Generic type for all known people.
-	/users/:id/identities # Actual authentication-related details specific to the IAM system.
-	/users/:id/roles # Roles granted to the User.
-	/groups	# An aggregation of Users.
-	/groups/:id/members # Establishes a given User's membership in a Group.
+	/persons # Generic type for all known people.
+	/persons/:id/identities # Actual authentication-related details specific to the IAM system.
+	/persons/:id/roles # Roles granted to the Person.
+	/groups	# An aggregation of Persons.
+	/groups/:id/members # Establishes a given Person's membership in a Group.
 	/groups/:id/roles # Roles granted to the Group; transitively to all Members.
 	/roles # Defines a granular set of permissions.
 	/roles/:id/interests # The highest-level SNOMED concept(s) of concern to a given Role.
@@ -32,10 +32,10 @@ Consider the following scenario:
 ## API Usage
 
 	POST /sessions # Doctor logs in. A secure cookie Session is issued.
-	POST /contexts # Creates an empty Context. The users Roles, and transitively Interests, are automatically part of the new context.
-	GET /users?role=patient&q=... # Find the relevant patient(s) via search or manual ID entry.
-	POST /contexts/:id/participants # {user_id: 42, role: 'patient'} Associates the patient with the context. Additional Participants may be added/removed to the Context at any time. Context response is updated with...
-	/users/:id/{issues,results,encounters} # Top-level lookup of patient-specific objects using SNOMED, LOINC and RxNorm terms, prioritized by relevance to the current Participant(s).
+	POST /contexts # Creates an empty Context. The persons Roles, and transitively Interests, are automatically part of the new context.
+	GET /persons?role=patient&q=... # Find the relevant patient(s) via search or manual ID entry.
+	POST /contexts/:id/participants # {person_id: 42, role: 'patient'} Associates the patient with the context. Additional Participants may be added/removed to the Context at any time. Context response is updated with...
+	/persons/:id/{issues,results,encounters} # Top-level lookup of patient-specific objects using SNOMED, LOINC and RxNorm terms, prioritized by relevance to the current Participant(s).
 	POST /contexts/:id/foci # Doctor clicks a Problem and the systems declare a Focus of the context, using one or more SNOMED concepts.
 	/<other_clinical_resources/:id?context=<context_id> # For generating resources specific to the context, as opposed to the global definition of the resource.
 	PUT /contexts/:id # Optional, explicit "closing" of the context.
@@ -49,7 +49,7 @@ If you don't already have Postgres running locally:
 
     brew install postgresql
 
-Create a "healthcreek" Postgres user using the dev/test credentials in config/database.yml, and assigned them full rights to manage schemas. As with most Ruby projects, use [RVM](https://rvm.io) to manage your local Ruby versions. [Install RVM](https://rvm.io) and:
+Create a "healthcreek" Postgres person using the dev/test credentials in config/database.yml, and assigned them full rights to manage schemas. As with most Ruby projects, use [RVM](https://rvm.io) to manage your local Ruby versions. [Install RVM](https://rvm.io) and:
 
 	rvm install 2.3.1
 	rvm use 2.3.1

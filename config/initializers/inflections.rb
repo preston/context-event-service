@@ -14,8 +14,3 @@
 # ActiveSupport::Inflector.inflections(:en) do |inflect|
 #   inflect.acronym 'RESTful'
 # end
-
-ActiveSupport::Inflector.inflections(:en) do |inflect|
-	inflect.irregular 'focus', 'foci'
-	inflect.irregular 'corpus', 'corpora'
-end

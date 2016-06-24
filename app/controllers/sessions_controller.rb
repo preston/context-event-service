@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     end
 
     def openid_connect_login
-        provider = Provider.find(session['provider_id'])
+        provider = IdentityProvider.find(session['provider_id'])
         uri = URI(provider.configuration['token_endpoint'])
         data = {
             code: params['code'],
@@ -64,9 +64,9 @@ class SessionsController < ApplicationController
             identity = Identity.find_by_sub_and_provider_id(subject, provider.id)
             email = jwt[0]['email']
             if identity.nil?
-                user = current_user
-                if user.nil? # The user is not logged in.
-                    user = User.create!(
+                person = current_person
+                if person.nil? # The person is not logged in.
+                    person = Person.create!(
                         name: jwt[0]['name'],
                         first_name: jwt[0]['given_name'],
                         last_name: jwt[0]['family_name']
@@ -74,7 +74,7 @@ class SessionsController < ApplicationController
                 end
 
                 identity = Identity.create!(
-                    user: user,
+                    person: person,
                     provider: provider,
                     sub: subject,
                     iat: jwt[0]['iat'],
@@ -108,7 +108,7 @@ class SessionsController < ApplicationController
     end
 
     def authenticate
-        provider = Provider.find(params['provider_id'])
+        provider = IdentityProvider.find(params['provider_id'])
         session['provider_id'] = provider.id
         uri = URI(provider.configuration['authorization_endpoint'])
         query = {
@@ -120,8 +120,8 @@ class SessionsController < ApplicationController
             client_id: 		provider.client_id,
             scope: provider.scopes
             # scope: 			'openid email profile'
-            # scope: 			'launch/encounter user/*.read launch openid patient/*.read profile'
-            # scope: 			'phone email address launch/encounter user/*.read launch openid patient/*.read profile'
+            # scope: 			'launch/encounter person/*.read launch openid patient/*.read profile'
+            # scope: 			'phone email address launch/encounter person/*.read launch openid patient/*.read profile'
         }
         uri.query = URI.encode_www_form(query)
         redirect_to uri.to_s

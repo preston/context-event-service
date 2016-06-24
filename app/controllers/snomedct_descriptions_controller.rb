@@ -1,2 +1,0 @@
-class SnomedctDescriptionsController < ApplicationController
-end

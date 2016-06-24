@@ -18,7 +18,7 @@ class MembersControllerTest < ActionController::TestCase
   #
   # test "should create member" do
   #   assert_difference('Member.count') do
-  #     post :create, member: { group_id: @member.group_id, user_id: @member.user_id }
+  #     post :create, member: { group_id: @member.group_id, person_id: @member.person_id }
   #   end
   #
   #   assert_redirected_to member_path(assigns(:member))
@@ -35,7 +35,7 @@ class MembersControllerTest < ActionController::TestCase
   # end
   #
   # test "should update member" do
-  #   patch :update, id: @member, member: { group_id: @member.group_id, user_id: @member.user_id }
+  #   patch :update, id: @member, member: { group_id: @member.group_id, person_id: @member.person_id }
   #   assert_redirected_to member_path(assigns(:member))
   # end
   #
