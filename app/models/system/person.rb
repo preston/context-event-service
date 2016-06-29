@@ -1,4 +1,5 @@
 class System::Person < ActiveRecord::Base
+
     include PgSearch
     # pg_search_scope :search_by_name, :against => :name
     pg_search_scope :search_by_name, against: [:name], using: {

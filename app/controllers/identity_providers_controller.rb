@@ -1,2 +1,2 @@
-class IdentityProvidersController < ApplicationController
+class System::IdentityProvidersController < ApplicationController
 end

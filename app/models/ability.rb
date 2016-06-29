@@ -7,20 +7,21 @@ class Ability
 		if person.id.nil? # Unauthenticated guest.
 			# Nada!
 		else # Normal authenticated person.
-			can :manage, Person
 
-			can :read, SnomedctConcept
-			can :read, SnomedctDescription
-
-			# Identity and Access Management (IAM)
-			can :read,	Identity, person_id: person.id
-			can :delete,	Identity, person_id: person.id
-			can :read, Person, id: person.id
-
-			can :edit, Person, id: person.id
-
-			can :read, Client
-			can :launch, Client
+			# We're going to disable detailed authorization controls for now!
+			can :manage, :all
+			
+			# can :manage, System::Person
+			#
+			# # Identity and Access Management (IAM)
+			# can :read,	System::Identity, person_id: person.id
+			# can :delete,	System::Identity, person_id: person.id
+			# can :read, System::Person, id: person.id
+			#
+			# can :edit, System::Person, id: person.id
+			#
+			# can :read, System::Client
+			# can :launch, System::Client
 
 		end
 	end

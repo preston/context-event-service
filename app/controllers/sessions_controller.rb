@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     end
 
     def openid_connect_login
-        provider = IdentityProvider.find(session['provider_id'])
+        provider = System::IdentityProvider.find(session['provider_id'])
         uri = URI(provider.configuration['token_endpoint'])
         data = {
             code: params['code'],
@@ -61,21 +61,22 @@ class SessionsController < ApplicationController
             logger.debug jwt
             session[:expires_at] = DateTime.strptime(jwt[0]['exp'].to_s, '%s')
             subject = jwt[0]['sub']
-            identity = Identity.find_by_sub_and_provider_id(subject, provider.id)
+            # byebug
+            identity = System::Identity.where(sub: subject, identity_provider: provider).first
             email = jwt[0]['email']
             if identity.nil?
                 person = current_person
                 if person.nil? # The person is not logged in.
-                    person = Person.create!(
+                    person = System::Person.create!(
                         name: jwt[0]['name'],
                         first_name: jwt[0]['given_name'],
                         last_name: jwt[0]['family_name']
                     )
                 end
 
-                identity = Identity.create!(
+                identity = System::Identity.create!(
                     person: person,
-                    provider: provider,
+                    identity_provider: provider,
                     sub: subject,
                     iat: jwt[0]['iat'],
                     hd: jwt[0]['hd'],
@@ -85,7 +86,7 @@ class SessionsController < ApplicationController
                 )
             end
             session['identity_id'] = identity.id
-            jwt = JsonWebToken.new(identity_id: identity.id, expires_at: 24.hours.from_now)
+            jwt = System::JsonWebToken.new(identity_id: identity.id, expires_at: 24.hours.from_now)
             jwt.save!
             redirect_to :dashboard
         end
@@ -108,7 +109,7 @@ class SessionsController < ApplicationController
     end
 
     def authenticate
-        provider = IdentityProvider.find(params['provider_id'])
+        provider = System::IdentityProvider.find(params['provider_id'])
         session['provider_id'] = provider.id
         uri = URI(provider.configuration['authorization_endpoint'])
         query = {

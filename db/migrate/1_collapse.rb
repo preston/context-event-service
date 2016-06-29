@@ -70,7 +70,7 @@ class Collapse < ActiveRecord::Migration
 
         create_table 'identities', id: :uuid do |t|
             t.uuid     'person_id',                        null: false
-            t.uuid     'provider_id',                      null: false
+            t.uuid     'identity_provider_id',                      null: false
             t.string   'sub',                              null: false
             t.string   'iat'
             t.string   'hd'
@@ -183,7 +183,7 @@ class Collapse < ActiveRecord::Migration
         add_foreign_key 'activities', 'places'
         add_foreign_key 'actor_roles', 'activities'
         add_foreign_key 'capabilities', 'roles'
-        add_foreign_key 'identities', 'identity_providers', column: 'provider_id'
+        add_foreign_key 'identities', 'identity_providers'
         add_foreign_key 'identities', 'people'
         add_foreign_key 'json_web_tokens', 'identities'
         add_foreign_key 'members', 'groups'

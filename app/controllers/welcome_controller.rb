@@ -11,18 +11,20 @@ class WelcomeController < ApplicationController
 	end
 
 	def status
-		Person.first
+		System::Person.first
 		json = {}
 		jwt = request.headers['Authorization']
 		if jwt
-			if jwt = JsonWebToken.decode_authorization(jwt)
-				if jwt = JsonWebToken.find(jwt['id'])
+			if jwt = System::JsonWebToken.decode_authorization(jwt)
+				if jwt = System::JsonWebToken.find(jwt['id'])
 					json.merge!(
 						identity: {
 							id: jwt.identity.id,
 							person: {
 								id: jwt.identity.person.id,
-								name: jwt.identity.person.name
+								name: jwt.identity.person.name,
+								url: person_url(jwt.identity.person),
+								path: person_path(jwt.identity.person)
 							}
 						},
 						jwt: {id: jwt.id, encoded: jwt.encode}

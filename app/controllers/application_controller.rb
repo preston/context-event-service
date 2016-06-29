@@ -1,14 +1,13 @@
 class ApplicationController < ActionController::Base
-
     include CanCan::ControllerAdditions
 
-	# Short-circuit any/all CORS pre-flight OPTIONS requests.
-	before_filter :cors_preflight_check
+    # Short-circuit any/all CORS pre-flight OPTIONS requests.
+    before_filter :cors_preflight_check
 
-	# Allow the browser to make CORS requests since we do not provide a UI.
+    # Allow the browser to make CORS requests since we do not provide a UI.
     # This is expected and totally cool, so long as subsequent requests are encrypted and include either
-	# a tamper-proof cookie or JWT.
-	after_filter :cors_set_access_control_headers
+    # a tamper-proof cookie or JWT.
+    after_filter :cors_set_access_control_headers
 
     # Assure that CanCanCan authorization checks run.
     # check_authorization
@@ -35,7 +34,7 @@ class ApplicationController < ActionController::Base
     # request, return only the necessary headers and return an empty
     # text/plain.
     def cors_preflight_check
-		# byebug
+        # byebug
         if request.method.to_sym.downcase == :options
             headers['Access-Control-Allow-Origin'] = '*'
             headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
@@ -54,28 +53,29 @@ class ApplicationController < ActionController::Base
     end
 
     def authenticate_identity!
-		identity_id = nil
-		if authorization = request.headers['Authorization']
-			json = JsonWebToken.decode_authorization(authorization)
-			jwt = JsonWebToken.find(json['id'])
-			identity_id = jwt[:identity_id]
+        identity_id = nil
+        if authorization = request.headers['Authorization']
+            json = System::JsonWebToken.decode_authorization(authorization)
+            jwt = System::JsonWebToken.find(json['id'])
+            identity_id = jwt[:identity_id]
         else
-			identity_id = session['identity_id']
-		end
-		puts "authenticate_identity!: identity_id: #{identity_id}"
+            identity_id = session['identity_id']
+        end
+        puts "authenticate_identity!: identity_id: #{identity_id}"
         if identity_id.nil?
-			respond_to do |format|
-				format.json { render json: { message: 'Invalid or expired JWT. Please (re)authenticate and sign your request properly!', login_url: sessions_url }, status: :unauthorized }
-				format.html { redirect_to landing_path, notice: 'Unable to authenticate your identity. Please log in again.' }
-		    end
+            respond_to do |format|
+                format.json { render json: { message: 'Invalid or expired JWT. Please (re)authenticate and sign your request properly!', login_url: sessions_url }, status: :unauthorized }
+                format.html { redirect_to landing_path, notice: 'Unable to authenticate your identity. Please log in again.' }
+            end
         else
-          begin
-              @current_identity = Identity.find(identity_id)
-              @current_person = @current_identity.person
-          rescue
-              # Person may be have been deleted.
-              session[:identity_id] = nil
-          end
+            begin
+                @current_identity = System::Identity.find(identity_id)
+                @current_person = @current_identity.person
+		    rescue Exception => e
+				Rails.logger.warn 'Claimed identity not found. Person may be have been deleted? Removing identity from session!'
+				Rails.logger.warn e
+                session[:identity_id] = nil
+            end
         end
         @current_person
     end
@@ -86,9 +86,16 @@ class ApplicationController < ActionController::Base
         @current_identity = nil
     end
 
-    attr_reader :current_person
 
-    attr_reader :current_identity
+    def current_person
+		@current_person
+	end
+	# 'current_user' needs to be defined for cancancan
+	alias_method :current_user, :current_person
+
+    def current_identity
+		@current_identity
+	end
 
     def new_nonce
         session[:nonce] = SecureRandom.hex(16)

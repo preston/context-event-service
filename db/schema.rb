@@ -84,18 +84,18 @@ ActiveRecord::Schema.define(version: 1) do
   add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
 
   create_table "identities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "person_id",                        null: false
-    t.uuid     "provider_id",                      null: false
-    t.string   "sub",                              null: false
+    t.uuid     "person_id",                            null: false
+    t.uuid     "identity_provider_id",                 null: false
+    t.string   "sub",                                  null: false
     t.string   "iat"
     t.string   "hd"
     t.string   "locale"
     t.string   "email"
-    t.json     "jwt",              default: {},    null: false
-    t.boolean  "notify_via_email", default: false, null: false
-    t.boolean  "notify_via_sms",   default: false, null: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.json     "jwt",                  default: {},    null: false
+    t.boolean  "notify_via_email",     default: false, null: false
+    t.boolean  "notify_via_sms",       default: false, null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "identity_providers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
@@ -198,7 +198,7 @@ ActiveRecord::Schema.define(version: 1) do
   add_foreign_key "activities", "places"
   add_foreign_key "actor_roles", "activities"
   add_foreign_key "capabilities", "roles"
-  add_foreign_key "identities", "identity_providers", column: "provider_id"
+  add_foreign_key "identities", "identity_providers"
   add_foreign_key "identities", "people"
   add_foreign_key "json_web_tokens", "identities"
   add_foreign_key "members", "groups"

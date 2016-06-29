@@ -1,7 +1,7 @@
 google = System::IdentityProvider.create_with(
     name: 'Google',
-    client_id: '418783041492-19ttts5dg6if4rtba1h0tkmb26b5f352.apps.googlepersoncontent.com',
-    client_secret: 'w2Fl4xLW-HWIIreUsY-TD9Yk',
+    client_id: '418783041492-si96ptie7gdbn46184e86thjmee3nj88.apps.googleusercontent.com',
+    client_secret: 'MoyTrvZ0t4FFC6_LVGnN2TYo',
     scopes: 'openid email profile'
 ).find_or_create_by(issuer: 'https://accounts.google.com')
 google.reconfigure
@@ -41,20 +41,21 @@ patient = System::Role.create!(
 )
 
 peter = System::Person.create!(name: 'Peter Patient',
-                     first_name: 'Peter',
-                     middle_name: 'Paul',
-                     last_name: 'Patient')
+                               first_name: 'Peter',
+                               middle_name: 'Paul',
+                               last_name: 'Patient')
 
 ernest = System::Person.create!(name: 'Ernest E.',
-                      first_name: 'Ernesto',
-                      middle_name: 'Eugene',
-                      last_name: 'Endocrinologist')
+                                first_name: 'Ernesto',
+                                middle_name: 'Eugene',
+                                last_name: 'Endocrinologist')
 
 System::Capability.create!(entity: peter, role: patient)
 System::Capability.create!(entity: ernest, role: physician)
 
+physicians = []
 (0..100).each do |_n|
-    u = System::Person.create!(
+    physicians << u = System::Person.create!(
         salutation: Faker::Name.prefix,
         name: Faker::Name.name,
         first_name: Faker::Name.first_name,
@@ -64,8 +65,9 @@ System::Capability.create!(entity: ernest, role: physician)
     System::Capability.create!(entity: u, role: physician)
 end
 
+patients = []
 (0..1000).each do |_n|
-    u = System::Person.create!(
+    patients << u = System::Person.create!(
         salutation: Faker::Name.prefix,
         name: Faker::Name.name,
         first_name: Faker::Name.first_name,
@@ -73,4 +75,40 @@ end
         last_name: Faker::Name.last_name
     )
     System::Capability.create!(entity: u, role: patient)
+end
+
+places = []
+(0..10).each do |_n|
+    places << u = Context::Place.create!(
+        name: Faker::Company.name + ' ' + Faker::Company.suffix,
+        description: Faker::Company.catch_phrase,
+        address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
+    )
+end
+
+assets = []
+(0..10).each do |_n|
+    assets << u = Context::Asset.create!(
+        uri: Faker::Internet.url
+    )
+end
+
+activities = []
+(0..10).each do |_n|
+    activities << a = Context::Activity.create!(
+        name: Faker::Company.buzzword,
+        description: Faker::Company.catch_phrase,
+        system: (rand(2) == 1),
+        place: places.sample,
+        context: (rand(2) == 1 ? activities.sample : nil),
+        previous: (rand(2) == 1 ? activities.sample : nil),
+        parent: (rand(2) == 1 ? activities.sample : nil)
+    )
+	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset')
+	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset')
+	Context::ActorRole.create!(activity: a, person: patients.sample, semantic_uri: "uri://patient")
+	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician")
+	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician")
+	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician")
+	Context::Objective.create!(formalized: (rand(2) == 1), language: 'fake', semantic_uri: 'uri://dl', specification: 'true', activity: a, comment: Faker::Lorem.paragraph)
 end
