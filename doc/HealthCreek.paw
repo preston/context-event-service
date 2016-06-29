@@ -101,9 +101,9 @@
     <object type="LMENVIRONMENT" id="z121">
         <attribute name="uuid" type="string">F3D3B217-7C9E-497B-811D-578CA02FFA4E</attribute>
         <attribute name="order" type="int64">1</attribute>
-        <attribute name="name" type="string">Production (AWS)</attribute>
+        <attribute name="name" type="string">Public Sandbox (AWS)</attribute>
         <relationship name="domain" type="0/1" destination="LMENVIRONMENTDOMAIN" idrefs="z127"></relationship>
-        <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z149 z202 z103 z164"></relationship>
+        <relationship name="variablesvalues" type="0/0" destination="LMENVIRONMENTVARIABLEVALUE" idrefs="z103 z149 z164 z202"></relationship>
     </object>
     <object type="LMREQUEST" id="z126">
         <attribute name="uuid" type="string">3D291C79-E27C-40DC-A14F-02AE53E0E587</attribute>
@@ -139,7 +139,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z114"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z138">
-        <attribute name="value" type="string">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImE2OGI2NTlkLTA0MjYtNDBkNi1iYWFmLWM1MmRhZTJkNjk3ZCIsInN1YiI6IjM2ZDA3MjdlLTFkNGEtNGJmMy1hNjVkLWNhYzIwNGZlZjQ0NiIsImV4cCI6MTQ2NzI0Nzc1NH0.-7MbgG6QFnNOE0_57G5OLkLEKq5WRxgiRjTW2KYnkAk</attribute>
+        <attribute name="value" type="string">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjQ5MGIwYTRjLTc1YzMtNDg2Yy04ODBiLWNjNzQzYWJjNmU4YSIsInN1YiI6Ijk1YWE3MjVkLWY4ZGUtNGJjNC05YzRiLThjOWI3NWM1N2JiNyIsImV4cCI6MTQ2NzMxNjQ0MH0.4n5ra8mxmAsf82rIKv2DWpt8MPk30n6XemLEWp0o4FA</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">Authorization</attribute>
         <attribute name="enabled" type="bool">1</attribute>

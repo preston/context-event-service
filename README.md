@@ -51,7 +51,8 @@ Consider the following scenario. Field-level details have been omitted for brevi
 
 ### The UI automatically creates top-level "activity" context and participants. 
 
-	POST /activities # issues a UUID
+	GET /places?text=t # optionally find a place for the activity by searching for an existing one.
+	POST /activities # issues a UUID (see the tutorial for fields)
 	POST /activities/:id/actor_roles # add's Ernest as a physician participant
 	POST /activities/:id/actor_roles # add's Peter as a patient participant
 	POST /activities # we may also need to establish related activities referencing the former
