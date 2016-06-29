@@ -104,11 +104,11 @@ activities = []
         previous: (rand(2) == 1 ? activities.sample : nil),
         parent: (rand(2) == 1 ? activities.sample : nil)
     )
-	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset')
-	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset')
-	Context::ActorRole.create!(activity: a, person: patients.sample, semantic_uri: "uri://patient")
-	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician")
-	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician")
-	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician")
+	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset1')
+	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset2')
+	Context::ActorRole.create!(activity: a, person: patients.sample, semantic_uri: "uri://patient1")
+	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician1")
+	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician2")
+	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician3")
 	Context::Objective.create!(formalized: (rand(2) == 1), language: 'fake', semantic_uri: 'uri://dl', specification: 'true', activity: a, comment: Faker::Lorem.paragraph)
 end
