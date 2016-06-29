@@ -1,21 +1,18 @@
 class UsageRolesController < ApplicationController
-    load_resource	:activity
-    load_and_authorize_resource
+	load_resource	:activity,	class: 'Context::Activity'
+    load_and_authorize_resource	class: 'Context::UsageRole'
 
     def index
         @usage_roles = Context::UsageRole.all
     end
 
-    def show
-    end
-
     def create
         @usage_role = Context::UsageRole.new(usage_role_params)
-
+		@usage_role.activity_id = params['activity_id']
         respond_to do |format|
             if @usage_role.save
                 # format.html { redirect_to @usage_role, notice: 'usage_role was successfully created.' }
-                format.json { render :show, status: :created, location: @usage_role }
+                format.json { render :show, status: :created }
             else
                 # format.html { render :new }
                 format.json { render json: @usage_role.errors.full_messages, status: :unprocessable_entity }
@@ -27,7 +24,7 @@ class UsageRolesController < ApplicationController
         respond_to do |format|
             if @usage_role.update(usage_role_params)
                 # format.html { redirect_to @usage_role, notice: 'usage_role was successfully updated.' }
-                format.json { render :show, status: :ok, location: @usage_role }
+                format.json { render :show, status: :ok }
             else
                 # format.html { render :edit }
                 format.json { render json: @usage_role.errors.full_messages, status: :unprocessable_entity }

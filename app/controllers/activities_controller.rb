@@ -32,7 +32,7 @@ class ActivitiesController < ApplicationController
         respond_to do |format|
             if @activity.update(activity_params)
                 #   format.html { redirect_to @activity, notice: 'activity was successfully updated.' }
-                format.json { render :show, status: :ok, location: @activity }
+                format.json { render :show, status: :ok }
             else
                 #   format.html { render :edit }
                 format.json { render json: @activity.errors.full_messages, status: :unprocessable_entity }
@@ -41,11 +41,13 @@ class ActivitiesController < ApplicationController
     end
 
     def destroy
-        @activity.destroy
-        respond_to do |format|
-            format.json { head :no_content }
-        end
-    end
+		begin
+        	@activity.destroy
+        	render :show
+		rescue ActiveRecord::InvalidForeignKey => e
+       		render :show, status: :unprocessable_entity
+		end
+	end
 
     private
 

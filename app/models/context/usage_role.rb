@@ -5,5 +5,8 @@ class Context::UsageRole < ActiveRecord::Base
 
     validates_presence_of	:activity
     validates_presence_of	:asset
+	validates_presence_of	:semantic_uri
+
+	validates_uniqueness_of	:semantic_uri,	scope: [:activity_id, :asset_id], message: 'instance may only be applied once per asset/role association'
 
 end
