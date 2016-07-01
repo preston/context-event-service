@@ -14,29 +14,29 @@ if activity
     end
 
     if recurse
-		json.parent do
-            json.partial! 'activities/activity', activity: activity.parent
+        json.parent do
+            json.partial! 'activities/activity', activity: activity.parent, recurse: false
         end
-		json.child_activities do
-			json.array! activity.child_activities do |a|
-            	json.partial! 'activities/activity', activity: a, recurse: false
-			end
+        json.child_activities do
+            json.array! activity.child_activities do |a|
+                json.partial! 'activities/activity', activity: a, recurse: false
+            end
         end
         json.scope do
-            json.partial! 'activities/activity', activity: activity.scope
+            json.partial! 'activities/activity', activity: activity.scope, recurse: false
         end
-		json.scoped_activities do
-			json.array! activity.scoped_activities do |a|
-            	json.partial! 'activities/activity', activity: a, recurse: false
-			end
+        json.scoped_activities do
+            json.array! activity.scoped_activities do |a|
+                json.partial! 'activities/activity', activity: a, recurse: false
+            end
         end
         json.next do
-            json.partial! 'activities/activity', activity: activity.next
+            json.partial! 'activities/activity', activity: activity.next, recurse: false
         end
-		json.previous_activities do
-			json.array! activity.previous_activities do |a|
-            	json.partial! 'activities/activity', activity: a, recurse: false
-			end
+        json.previous_activities do
+            json.array! activity.previous_activities do |a|
+                json.partial! 'activities/activity', activity: a, recurse: false
+            end
         end
     end
 end

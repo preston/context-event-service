@@ -20,11 +20,11 @@ class Context::Activity < ActiveRecord::Base
 	def self.create_default!(person)
 		now = Time.now
 		clinical = Context::Activity.create!(name: 'Default', place: Context::Place.first, started_at: now, system: false)
-		software = Context::Activity.create!(name: 'Select Patient', parent: clinical, started_at: now, system: true)
+		system = Context::Activity.create!(name: 'Select Patient', parent: clinical, started_at: now, system: true)
 		Context::ActorRole.create!(activity: clinical, person: person, semantic_uri: 'uri://example/physician')
-		Context::ActorRole.create!(activity: clinical, person: person, semantic_uri: 'uri://example/system-user')
+		Context::ActorRole.create!(activity: system, person: person, semantic_uri: 'uri://example/system-user')
 		asset = Context::Asset.find_or_create_by(uri: 'uri://example/patient-list')
-		Context::UsageRole.create!(activity: software, asset: asset, semantic_uri: 'uri://example/options')
+		Context::UsageRole.create!(activity: system, asset: asset, semantic_uri: 'uri://example/options')
 		clinical
 	end
 
