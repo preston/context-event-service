@@ -2,7 +2,6 @@ FROM ruby:2.3.1
 MAINTAINER Preston Lee
 
 RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y build-essential
-RUN gem update --system
 
 # Default shell as bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
