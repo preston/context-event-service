@@ -7,15 +7,15 @@ google = System::IdentityProvider.create_with(
 google.reconfigure
 google.save!
 
-live = System::IdentityProvider.create_with(
-    name: 'Microsoft Live',
-    client_id: '0000000040193B01',
-    client_secret: '5J4ZxPQb22bXxvj1i-eqaHQILqKKRb2-',
-    alternate_client_id: '00000000-0000-0000-0000-000040193B01',
-    scopes: 'openid email profile'
-).find_or_create_by(issuer: 'https://login.live.com')
-live.reconfigure
-live.save!
+# live = System::IdentityProvider.create_with(
+#     name: 'Microsoft Live',
+#     client_id: '0000000040193B01',
+#     client_secret: '5J4ZxPQb22bXxvj1i-eqaHQILqKKRb2-',
+#     alternate_client_id: '00000000-0000-0000-0000-000040193B01',
+#     scopes: 'openid email profile'
+# ).find_or_create_by(issuer: 'https://login.live.com')
+# live.reconfigure
+# live.save!
 
 System::Client.create!(
     name: "Preston's Client Template",
@@ -78,13 +78,18 @@ patients = []
 end
 
 places = []
-(0..10).each do |_n|
-    places << u = Context::Place.create!(
-        name: Faker::Company.name + ' ' + Faker::Company.suffix,
-        description: Faker::Company.catch_phrase,
-        address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
-    )
-end
+places << Context::Place.create!(
+    name: 'Ambulatory',
+    description: Faker::Company.catch_phrase,
+    address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
+)
+# (0..10).each do |_n|
+#     places << u = Context::Place.create!(
+#         name: Faker::Company.name + ' ' + Faker::Company.suffix,
+#         description: Faker::Company.catch_phrase,
+#         address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
+#     )
+# end
 
 assets = []
 (0..10).each do |_n|
@@ -100,15 +105,15 @@ activities = []
         description: Faker::Company.catch_phrase,
         system: (rand(2) == 1),
         place: places.sample,
-        context: (rand(2) == 1 ? activities.sample : nil),
-        previous: (rand(2) == 1 ? activities.sample : nil),
+        scope: (rand(2) == 1 ? activities.sample : nil),
+        next: (rand(2) == 1 ? activities.sample : nil),
         parent: (rand(2) == 1 ? activities.sample : nil)
     )
-	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset1')
-	Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset2')
-	Context::ActorRole.create!(activity: a, person: patients.sample, semantic_uri: "uri://patient1")
-	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician1")
-	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician2")
-	Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: "uri://physician3")
-	Context::Objective.create!(formalized: (rand(2) == 1), language: 'fake', semantic_uri: 'uri://dl', specification: 'true', activity: a, comment: Faker::Lorem.paragraph)
+    Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset1')
+    Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset2')
+    Context::ActorRole.create!(activity: a, person: patients.sample, semantic_uri: 'uri://patient1')
+    Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: 'uri://physician1')
+    Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: 'uri://physician2')
+    Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: 'uri://physician3')
+    Context::Objective.create!(formalized: (rand(2) == 1), language: 'fake', semantic_uri: 'uri://dl', specification: 'true', activity: a, comment: Faker::Lorem.paragraph)
 end

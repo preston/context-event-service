@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 20160630211533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.datetime "updated_at",   null: false
     t.uuid     "place_id"
     t.boolean  "system",       null: false
-    t.uuid     "previous_id"
-    t.uuid     "context_id"
+    t.uuid     "next_id"
+    t.uuid     "scope_id"
   end
 
   add_index "activities", ["parent_id"], name: "index_activities_on_parent_id", using: :btree
@@ -192,9 +192,9 @@ ActiveRecord::Schema.define(version: 1) do
   add_index "usage_roles", ["activity_id"], name: "index_usage_roles_on_activity_id", using: :btree
   add_index "usage_roles", ["asset_id"], name: "index_usage_roles_on_asset_id", using: :btree
 
-  add_foreign_key "activities", "activities", column: "context_id"
+  add_foreign_key "activities", "activities", column: "next_id"
   add_foreign_key "activities", "activities", column: "parent_id"
-  add_foreign_key "activities", "activities", column: "previous_id"
+  add_foreign_key "activities", "activities", column: "scope_id"
   add_foreign_key "activities", "places"
   add_foreign_key "actor_roles", "activities"
   add_foreign_key "capabilities", "roles"
