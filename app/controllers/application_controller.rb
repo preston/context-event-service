@@ -2,17 +2,17 @@ class ApplicationController < ActionController::Base
     include CanCan::ControllerAdditions
 
     # Short-circuit any/all CORS pre-flight OPTIONS requests.
-    before_filter :cors_preflight_check
+    before_action :cors_preflight_check
 
     # Allow the browser to make CORS requests since we do not provide a UI.
     # This is expected and totally cool, so long as subsequent requests are encrypted and include either
     # a tamper-proof cookie or JWT.
-    after_filter :cors_set_access_control_headers
+    after_action :cors_set_access_control_headers
 
     # Assure that CanCanCan authorization checks run.
     # check_authorization
 
-    before_filter :authenticate_identity!
+    before_action :authenticate_identity!
 
     def set_options_from(request)
         @options = {}

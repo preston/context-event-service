@@ -139,7 +139,7 @@
         <relationship name="request" type="0/1" destination="LMREQUEST" idrefs="z114"></relationship>
     </object>
     <object type="LMKEYVALUE" id="z138">
-        <attribute name="value" type="string">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6ImM2OTIzNTZmLTYzNGEtNDU1MS04MzUxLWQ1NGFhZjRiNzFkOCIsInN1YiI6IjVkNDVlOTNlLTJhMTctNGRkMy04OWNmLTFlN2Q1MzMxZGMwZSIsImV4cCI6MTQ2NzQ4OTQ0Nn0.Eax49LCYcJ9qUX_XZ9U1T1KKwb_QMh04yHha4k2oDk8</attribute>
+        <attribute name="value" type="string">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjNjOTMzYzUwLTlhN2YtNDc4OC04Njk2LTVkYTQ5YmQ5MTAxZCIsInN1YiI6IjI1OGMyOTU4LWQ3NDItNDEyYS1iYTE3LTBiNDA2MzcyZGI0MyIsImV4cCI6MTQ2Nzg2NzIwMH0.6gNrfesmKEqa1oq3854LsdpcvVUUyH9yItK7A4cJu5c</attribute>
         <attribute name="order" type="int64">1</attribute>
         <attribute name="name" type="string">Authorization</attribute>
         <attribute name="enabled" type="bool">1</attribute>

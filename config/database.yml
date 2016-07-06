@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: utf8
-  pool: <%= ENV['HEALTHCREEK_SERVER_THREADS'] || 4 %>
+  pool: <%= (ENV['HEALTHCREEK_SERVER_THREADS'].to_i + 2) || 4 %>
 
 development:
   <<: *default

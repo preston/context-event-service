@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '4.2.6'    # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'sass-rails', '~> 5.0'  # Use SCSS for stylesheets
-gem 'uglifier', '>= 1.3.0'  # Use Uglifier as compressor for JavaScript assets
+gem 'rails', '5.0.0'	# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'sass-rails'		# Use SCSS for stylesheets
+gem 'uglifier'			# Use Uglifier as compressor for JavaScript assets
 
-gem 'jbuilder', '~> 2.0'    # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'sdoc', '~> 0.4.0', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
+gem 'jbuilder'			# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'sdoc', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
 
 gem 'will_paginate'   # Better query pagination support.
 
@@ -17,7 +17,7 @@ gem 'openid_connect'
 
 gem 'slim'  # Better HTML templating.
 
-gem 'jwt'	# All API calls require JWT-signed requests!
+gem 'jwt'		# All API calls require JWT-signed requests!
 gem 'cancancan'	# Declarative authorization DSL.
 
 gem 'puma'	    # Better web server
@@ -44,9 +44,8 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'     # Access an IRB console on exception pages or by using <%= console %> in views
+  # gem 'web-console', '~> 2.0'     # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'spring'    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'guard'
-  gem 'guard-minitest'
   gem 'railroady'
 end

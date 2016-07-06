@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
-    skip_before_filter	:authenticate_identity!,	except: :destroy
+    skip_before_action	:authenticate_identity!,	except: :destroy
     skip_authorization_check
 
-    before_filter :cleanse_session, except: :callback
+    before_action :cleanse_session, except: :callback
 
     def cleanse_session
         session['provider_id'] = nil

@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
 
-	skip_before_filter	:authenticate_identity!, only: [:landing]
+	skip_before_action	:authenticate_identity!, only: [:landing]
 	skip_authorization_check
 
 	def landing

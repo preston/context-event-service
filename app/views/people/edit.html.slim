@@ -7,15 +7,15 @@
 			li
 				b First log in?
 				br
-				span Cool. We've used your name and email from #{current_identity.provider.name} to create this account.
+				span Cool. We've used your name and email from #{current_identity.identity_provider.name} to create this account.
 			li 
 				b Were you already logged in using a different identity?
 				br
-				span Then we just added this #{current_identity.provider.name} identity to your existing account. You're all set.
+				span Then we just added this #{current_identity.identity_provider.name} identity to your existing account. You're all set.
 			li
 			 	b Accidentally create a new account?
 				br
-				span Please remove this #{current_identity.provider.name} identity, which will log you out. Then, log in to your existing account. Once logged in, re-add your #{current_identity.provider.name} identity to your correct account.
+				span Please remove this #{current_identity.identity_provider.name} identity, which will log you out. Then, log in to your existing account. Once logged in, re-add your #{current_identity.identity_provider.name} identity to your correct account.
 		p We never, ever, receive your password, and can't even recover or reset it for you. You can now use any HealthCreek API-compliant app of your choosing!
 
 	#identities.col-md-6
@@ -34,10 +34,10 @@
 				- current_person.identities.each do |i|
 					tr
 						td
-							b = i.provider.name
-							i = i.provider == current_identity.provider ? ' (current)' : nil
+							b = i.identity_provider.name
+							i = i.identity_provider == current_identity.identity_provider ? ' (current)' : nil
 						td = i.email
 						td
 							.btn-group
-								a href="#{i.provider.issuer}" class="btn btn-sm btn-default" Manage
+								a href="#{i.identity_provider.issuer}" class="btn btn-sm btn-default" Manage
 								= link_to 'Remove', person_identity_path(current_person.id, i.id), method: :delete, class: 'btn btn-sm btn-danger'
