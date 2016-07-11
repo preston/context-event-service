@@ -23,7 +23,7 @@ class Context::Activity < ActiveRecord::Base
 		system = Context::Activity.create!(name: 'Select Patient', parent: clinical, started_at: now, system: true)
 		Context::ActorRole.create!(activity: clinical, person: person, semantic_uri: 'uri://example/physician')
 		Context::ActorRole.create!(activity: system, person: person, semantic_uri: 'uri://example/system-user')
-		asset = Context::Asset.find_or_create_by(uri: 'uri://example/patient-list')
+		asset = Context::Asset.find_or_create_by(uri: 'uri://example/schedule')
 		Context::UsageRole.create!(activity: system, asset: asset, semantic_uri: 'uri://example/options')
 		clinical
 	end
