@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -17,7 +16,7 @@ ActiveRecord::Schema.define(version: 20160630211533) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "activities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "activities", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "parent_id"
     t.string   "name",         null: false
     t.text     "description"
@@ -30,60 +29,55 @@ ActiveRecord::Schema.define(version: 20160630211533) do
     t.boolean  "system",       null: false
     t.uuid     "next_id"
     t.uuid     "scope_id"
+    t.index ["parent_id"], name: "index_activities_on_parent_id", using: :btree
+    t.index ["semantic_uri"], name: "index_activities_on_semantic_uri", using: :btree
   end
 
-  add_index "activities", ["parent_id"], name: "index_activities_on_parent_id", using: :btree
-  add_index "activities", ["semantic_uri"], name: "index_activities_on_semantic_uri", using: :btree
-
-  create_table "actor_roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "actor_roles", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "activity_id",  null: false
     t.string   "semantic_uri", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.uuid     "person_id",    null: false
+    t.index ["activity_id"], name: "index_actor_roles_on_activity_id", using: :btree
   end
 
-  add_index "actor_roles", ["activity_id"], name: "index_actor_roles_on_activity_id", using: :btree
-
-  create_table "assets", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "assets", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "uri",        null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "capabilities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "capabilities", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "entity_id",   null: false
     t.string   "entity_type", null: false
     t.uuid     "role_id",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["entity_id", "role_id"], name: "index_capabilities_on_entity_id_and_role_id", using: :btree
+    t.index ["entity_id"], name: "index_capabilities_on_entity_id", using: :btree
+    t.index ["role_id"], name: "index_capabilities_on_role_id", using: :btree
   end
 
-  add_index "capabilities", ["entity_id", "role_id"], name: "index_capabilities_on_entity_id_and_role_id", using: :btree
-  add_index "capabilities", ["entity_id"], name: "index_capabilities_on_entity_id", using: :btree
-  add_index "capabilities", ["role_id"], name: "index_capabilities_on_role_id", using: :btree
-
-  create_table "clients", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "clients", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name",       null: false
     t.string   "launch_url", null: false
     t.string   "icon_url"
     t.boolean  "available",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_clients_on_name", unique: true, using: :btree
   end
 
-  add_index "clients", ["name"], name: "index_clients_on_name", unique: true, using: :btree
-
-  create_table "groups", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "groups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name",        null: false
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["name"], name: "index_groups_on_name", using: :btree
   end
 
-  add_index "groups", ["name"], name: "index_groups_on_name", using: :btree
-
-  create_table "identities", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "identities", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "person_id",                            null: false
     t.uuid     "identity_provider_id",                 null: false
     t.string   "sub",                                  null: false
@@ -98,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160630211533) do
     t.datetime "updated_at",                           null: false
   end
 
-  create_table "identity_providers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "identity_providers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name",                             null: false
     t.string   "issuer",                           null: false
     t.string   "client_id",                        null: false
@@ -109,31 +103,28 @@ ActiveRecord::Schema.define(version: 20160630211533) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.string   "scopes",              default: "", null: false
+    t.index ["name"], name: "index_identity_providers_on_name", using: :btree
   end
 
-  add_index "identity_providers", ["name"], name: "index_identity_providers_on_name", using: :btree
-
-  create_table "json_web_tokens", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "json_web_tokens", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "identity_id", null: false
     t.datetime "expires_at",  null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["expires_at"], name: "index_json_web_tokens_on_expires_at", using: :btree
+    t.index ["identity_id"], name: "index_json_web_tokens_on_identity_id", using: :btree
   end
 
-  add_index "json_web_tokens", ["expires_at"], name: "index_json_web_tokens_on_expires_at", using: :btree
-  add_index "json_web_tokens", ["identity_id"], name: "index_json_web_tokens_on_identity_id", using: :btree
-
-  create_table "members", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "members", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "group_id",   null: false
     t.uuid     "person_id",  null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_members_on_group_id", using: :btree
+    t.index ["person_id"], name: "index_members_on_person_id", using: :btree
   end
 
-  add_index "members", ["group_id"], name: "index_members_on_group_id", using: :btree
-  add_index "members", ["person_id"], name: "index_members_on_person_id", using: :btree
-
-  create_table "objectives", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "objectives", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.boolean  "formalized"
     t.string   "language"
     t.string   "semantic_uri"
@@ -144,7 +135,7 @@ ActiveRecord::Schema.define(version: 20160630211533) do
     t.uuid     "activity_id",   null: false
   end
 
-  create_table "people", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "people", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name",        null: false
     t.string   "external_id"
     t.string   "salutation"
@@ -155,7 +146,7 @@ ActiveRecord::Schema.define(version: 20160630211533) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "places", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "places", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name",        null: false
     t.text     "address"
     t.text     "description"
@@ -163,34 +154,32 @@ ActiveRecord::Schema.define(version: 20160630211533) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "roles", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "name",        null: false
     t.string   "code",        null: false
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["code"], name: "index_roles_on_code", unique: true, using: :btree
+    t.index ["name"], name: "index_roles_on_name", unique: true, using: :btree
   end
 
-  add_index "roles", ["code"], name: "index_roles_on_code", unique: true, using: :btree
-  add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
-
-  create_table "sessions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "sessions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "identity_id", null: false
     t.datetime "expires_at"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "usage_roles", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "usage_roles", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "activity_id",  null: false
     t.uuid     "asset_id",     null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "semantic_uri", null: false
+    t.index ["activity_id"], name: "index_usage_roles_on_activity_id", using: :btree
+    t.index ["asset_id"], name: "index_usage_roles_on_asset_id", using: :btree
   end
-
-  add_index "usage_roles", ["activity_id"], name: "index_usage_roles_on_activity_id", using: :btree
-  add_index "usage_roles", ["asset_id"], name: "index_usage_roles_on_asset_id", using: :btree
 
   add_foreign_key "activities", "activities", column: "next_id"
   add_foreign_key "activities", "activities", column: "parent_id"
