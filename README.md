@@ -6,10 +6,10 @@ Context Event Service is a bi-directional API reference prototype for designing 
 
 The system allows for initial web-based login via a configurable set OpenID Connect providers: part of the OAuth2 family of protocols. After, both a browser-based sessions is established, as well as a JWT that may be used to access the API for a time-limited period. As this is a model-driven system, the documentation is generated based on the model. For what the API actually does, see:
 
-* [High-Level List of REST Routes](https://github.com/preston/context-server/blob/master/doc/routes.txt) - This is a generated dump.
-* [Interactive API Tutorial](https://github.com/preston/context-server/blob/master/doc/ContextServer.paw). *Note*: You'll need [Paw](https://luckymarmot.com/paw) for OS X to open this, and need to replace the JWT and server instance configuration with your own details to run it.
-* [Schema Diagram](https://github.com/preston/context-server/blob/master/doc/models_complete.svg) - This is a normalized .svg showing the physical database model, with additional OR/M-level annotations. It's useful in understanding how resources relate behind the API.
-* [Database DSL](https://github.com/preston/context-server/blob/master/db/schema.rb) - Generated database schema in ActiveRecord format.
+* [High-Level List of REST Routes](https://github.com/preston/context-event-service/blob/master/doc/routes.txt) - This is a generated dump.
+* [Interactive API Tutorial](https://github.com/preston/context-event-service/blob/master/doc/ContextServer.paw). *Note*: You'll need [Paw](https://luckymarmot.com/paw) for OS X to open this, and need to replace the JWT and server instance configuration with your own details to run it.
+* [Schema Diagram](https://github.com/preston/context-event-service/blob/master/doc/models_complete.svg) - This is a normalized .svg showing the physical database model, with additional OR/M-level annotations. It's useful in understanding how resources relate behind the API.
+* [Database DSL](https://github.com/preston/context-event-service/blob/master/db/schema.rb) - Generated database schema in ActiveRecord format.
 
 **The API is not a source of clinical knowledge.** All references are retained via URI types that are declared using external ontologies and stored elsewhere is appropriate authoritative systems. In other words, the server design is not intended to be used in isolated. It in only useful in the context of an available body knowledge with pre-agreed-upon terminology standards.
 
@@ -120,7 +120,7 @@ Deployment is done exclusively with Docker, though "raw" deployment using Passen
 
 To build your current version:
 
-	docker build -t p3000/context-server:latest .
+	docker build -t p3000/context-event-service:latest .
 
 ## Running a Container
 
