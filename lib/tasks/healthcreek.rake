@@ -1,6 +1,6 @@
-require 'healthcreek'
+require 'context'
 
-namespace :healthcreek do
+namespace :context do
 
 	namespace :snomedct do
 
@@ -14,7 +14,7 @@ namespace :healthcreek do
 			else
 				dir = DATA_DIR
 				puts "Loading SNOMEDCT from #{dir} ..."
-				include HealthCreek::Data::SNOMEDCT
+				include Context::Data::SNOMEDCT
 				load_snomed(dir)
 			end
 

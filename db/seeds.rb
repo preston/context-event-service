@@ -19,8 +19,8 @@ google.save!
 
 System::Client.create!(
     name: "Preston's Client Template",
-    launch_url: 'https://healthcreek-alpha.s3-us-west-2.amazonaws.com/index.html',
-    icon_url: 'http://healthcreek-alpha.s3.amazonaws.com/app/images/textures/tileable_wood_texture.png',
+    launch_url: 'https://context-server.s3-us-west-2.amazonaws.com/index.html',
+    # icon_url: 'http://context-server.s3.amazonaws.com/app/images/textures/tileable_wood_texture.png',
     available: true
 )
 

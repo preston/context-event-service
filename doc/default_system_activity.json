@@ -12,7 +12,7 @@
     "scope_id": null,
     "created_at": "2016-07-01T19:57:45.575Z",
     "updated_at": "2016-07-01T19:57:45.575Z",
-    "url": "http://server.healthcreek.org/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac",
+    "url": "http://context.healthcreek.org/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac",
     "path": "/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac",
     "actor_roles": [{
         "id": "778994d3-7601-45fc-9dd2-b6f30d7b781b",
@@ -21,7 +21,7 @@
         "semantic_uri": "uri://example/system-user",
         "created_at": "2016-07-01T19:57:45.587Z",
         "updated_at": "2016-07-01T19:57:45.587Z",
-        "url": "http://server.healthcreek.org/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac/actor_roles/778994d3-7601-45fc-9dd2-b6f30d7b781b",
+        "url": "http://context.healthcreek.org/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac/actor_roles/778994d3-7601-45fc-9dd2-b6f30d7b781b",
         "path": "/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac/actor_roles/778994d3-7601-45fc-9dd2-b6f30d7b781b"
     }],
     "usage_roles": [{
@@ -31,7 +31,7 @@
         "semantic_uri": "uri://example/options",
         "created_at": "2016-07-01T19:57:45.594Z",
         "updated_at": "2016-07-01T19:57:45.594Z",
-        "url": "http://server.healthcreek.org/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac/usage_roles/511bd66c-2d49-4d5f-9a6f-bb37b4185ab6",
+        "url": "http://context.healthcreek.org/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac/usage_roles/511bd66c-2d49-4d5f-9a6f-bb37b4185ab6",
         "path": "/activities/8921c24c-967a-4807-adc3-9fa65ffd37ac/usage_roles/511bd66c-2d49-4d5f-9a6f-bb37b4185ab6"
     }],
     "objectives": [],
@@ -49,7 +49,7 @@
         "scope_id": null,
         "created_at": "2016-07-01T19:57:45.570Z",
         "updated_at": "2016-07-01T19:57:45.570Z",
-        "url": "http://server.healthcreek.org/activities/87b19687-ce19-445e-a3f5-9bf8e76ea643",
+        "url": "http://context.healthcreek.org/activities/87b19687-ce19-445e-a3f5-9bf8e76ea643",
         "path": "/activities/87b19687-ce19-445e-a3f5-9bf8e76ea643",
         "actor_roles": [{
             "id": "a09b39ce-3922-4bf8-86e0-774c87180e33",
@@ -58,7 +58,7 @@
             "semantic_uri": "uri://example/physician",
             "created_at": "2016-07-01T19:57:45.581Z",
             "updated_at": "2016-07-01T19:57:45.581Z",
-            "url": "http://server.healthcreek.org/activities/87b19687-ce19-445e-a3f5-9bf8e76ea643/actor_roles/a09b39ce-3922-4bf8-86e0-774c87180e33",
+            "url": "http://context.healthcreek.org/activities/87b19687-ce19-445e-a3f5-9bf8e76ea643/actor_roles/a09b39ce-3922-4bf8-86e0-774c87180e33",
             "path": "/activities/87b19687-ce19-445e-a3f5-9bf8e76ea643/actor_roles/a09b39ce-3922-4bf8-86e0-774c87180e33"
         }],
         "usage_roles": [],

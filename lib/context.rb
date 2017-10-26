@@ -1,6 +1,6 @@
 # require 'csv'
 
-module HealthCreek
+module Context
     module Data
         module SNOMEDCT
             def load_snomed_concepts(file_path)
