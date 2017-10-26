@@ -18,3 +18,5 @@
 
 # Data dependencies
 /snomedct
+
+.DS_Store

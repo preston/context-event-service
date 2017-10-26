@@ -1,6 +1,6 @@
-class Collapse < ActiveRecord::Migration
+class Collapse < ActiveRecord::Migration[5.1]
     def change
-        enable_extension 'uuid-ossp'
+        enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
 
         create_table 'activities', id: :uuid do |t|
             t.uuid     'parent_id'
@@ -13,8 +13,8 @@ class Collapse < ActiveRecord::Migration
             t.datetime 'updated_at',   null: false
             t.uuid     'place_id'
             t.boolean  'system', null: false
-            t.uuid     'previous_id'
-            t.uuid     'context_id'
+            t.uuid     'next_id'
+            t.uuid     'scope_id'
         end
 
         add_index 'activities', ['parent_id']
@@ -177,9 +177,9 @@ class Collapse < ActiveRecord::Migration
         add_index 'usage_roles', ['activity_id']
         add_index 'usage_roles', ['asset_id']
 
-        add_foreign_key 'activities', 'activities', column: 'context_id'
+        add_foreign_key 'activities', 'activities', column: 'scope_id'
         add_foreign_key 'activities', 'activities', column: 'parent_id'
-        add_foreign_key 'activities', 'activities', column: 'previous_id'
+        add_foreign_key 'activities', 'activities', column: 'next_id'
         add_foreign_key 'activities', 'places'
         add_foreign_key 'actor_roles', 'activities'
         add_foreign_key 'capabilities', 'roles'

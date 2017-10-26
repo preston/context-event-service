@@ -1,22 +1,22 @@
 default: &default
   adapter: postgresql
   encoding: utf8
-  pool: <%= (ENV['HEALTHCREEK_SERVER_THREADS'].to_i + 2) || 4 %>
+  pool: <%= (ENV['CONTEXT_SERVER_THREADS'].to_i + 2) || 4 %>
 
 development:
   <<: *default
-  database: healthcreek_development
-  personname: healthcreek
+  database: context_development
+  personname: context
   password: password
 
 test:
   <<: *default
-  url:  <%= ENV["HEALTHCREEK_DATABASE_URL_TEST"] %>
+  url:  <%= ENV["CONTEXT_DATABASE_URL_TEST"] %>
 
 production:
   <<: *default
-  url:  <%= ENV["HEALTHCREEK_DATABASE_URL"] %>
+  url:  <%= ENV["CONTEXT_DATABASE_URL"] %>
 
 # benchmark:
 #   <<: *default
-#   url:  <%= ENV["HEALTHCREEK_DATABASE_URL"] %>
+#   url:  <%= ENV["CONTEXT_DATABASE_URL"] %>
