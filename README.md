@@ -1,17 +1,18 @@
 # Context Event Service
 
-Context Event Service is a bi-directional API reference prototype for designing context-driven, patient-centered clinical experiences involving collaboration of multiple heterogeneous parties. It is an amalgamation of relevant existing standards and terminologies, fronted via a clean, RESTful JSON API that is easy to integrate into any JavaScript-based frontend, though *any* modern client is supported. The underlying internal domain model is represented as a normalized relational (PostgeSQL) schema.
+Context Event Service is a bi-directional API backend for powering context-driven, patient-centered clinical experiences from pluggable knowledge-based executors. Under the hood, it is an amalgamation of relevant existing standards and terminologies, fronted via a clean, RESTful JSON API that is easy to integrate into any JavaScript-based frontend, though *any* modern client is supported. The underlying internal domain model is represented as a normalized relational (PostgeSQL) schema.
+
 
 # Conceptual Overview
 
-The system allows for initial web-based login via a configurable set OpenID Connect providers: part of the OAuth2 family of protocols. After, both a browser-based sessions is established, as well as a JWT that may be used to access the API for a time-limited period. As this is a model-driven system, the documentation is generated based on the model. For what the API actually does, see:
+The system allows for initial web-based login via a configurable set OpenID Connect providers: part of the OAuth2 family of protocols. After a sessions is established, a JWT is issued that may be used to access the API for a time-limited period. Documentation is generated based on the model. For what the API actually does, see:
 
 * [High-Level List of REST Routes](https://github.com/preston/context-event-service/blob/master/doc/routes.txt) - This is a generated dump.
 * [Interactive API Tutorial](https://github.com/preston/context-event-service/blob/master/doc/ContextServer.paw). *Note*: You'll need [Paw](https://luckymarmot.com/paw) for OS X to open this, and need to replace the JWT and server instance configuration with your own details to run it.
-* [Schema Diagram](https://github.com/preston/context-event-service/blob/master/doc/models_complete.svg) - This is a normalized .svg showing the physical database model, with additional OR/M-level annotations. It's useful in understanding how resources relate behind the API.
+* [Schema Diagram](https://github.com/preston/context-event-service/blob/master/doc/models_complete.svg) - This is a normalized .svg showing the logical database model, with additional OR/M-level annotations. It's useful in understanding how resources relate behind the API.
 * [Database DSL](https://github.com/preston/context-event-service/blob/master/db/schema.rb) - Generated database schema in ActiveRecord format.
 
-**The API is not a source of clinical knowledge.** All references are retained via URI types that are declared using external ontologies and stored elsewhere is appropriate authoritative systems. In other words, the server design is not intended to be used in isolated. It in only useful in the context of an available body knowledge with pre-agreed-upon terminology standards.
+**The API is not a source of clinical knowledge.** All references are retained via URI types that are declared using external ontologies and stored elsewhere in appropriate authoritative systems. In other words, the service design is not intended to be used in isolation. It is most useful in the context of an installed suite of asynchronous knowledge executors monitoring and contributing to the event streams managed by this service, and an available body of knowledge with pre-agreed-upon terminology standards.
 
 # Public Sandbox
 
