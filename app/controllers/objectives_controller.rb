@@ -14,10 +14,8 @@ class ObjectivesController < ApplicationController
         @objective.event_id = params['event_id']
         respond_to do |format|
             if @objective.save
-                # format.html { redirect_to @objective, notice: 'objective was successfully created.' }
                 format.json { render :show, status: :created }
             else
-                # format.html { render :new }
                 format.json { render json: @objective.errors.full_messages, status: :unprocessable_entity }
             end
         end
@@ -26,10 +24,8 @@ class ObjectivesController < ApplicationController
     def update
         respond_to do |format|
             if @objective.update(objective_params)
-                # format.html { redirect_to @objective, notice: 'objective was successfully updated.' }
                 format.json { render :show, status: :ok }
             else
-                # format.html { render :edit }
                 format.json { render json: @objective.errors.full_messages, status: :unprocessable_entity }
             end
         end
@@ -38,7 +34,6 @@ class ObjectivesController < ApplicationController
     def destroy
         @objective.destroy
         respond_to do |format|
-            #   format.html { redirect_to objectives_url, notice: 'objective was successfully destroyed.' }
             format.json { render json: @objective }
         end
     end

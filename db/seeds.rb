@@ -77,7 +77,6 @@ events = []
         topic_uri: 'artaka://example',
         model_uri: 'artaka://example',
         place: places.sample,
-        scope: (rand(2) == 1 ? events.sample : nil),
         next: (rand(2) == 1 ? events.sample : nil),
         parent: (rand(2) == 1 ? events.sample : nil)
     )

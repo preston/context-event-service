@@ -10,10 +10,8 @@ class AssetsController < ApplicationController
         @asset = Asset.new(asset_params)
         respond_to do |format|
             if @asset.save
-                #   format.html { redirect_to @asset, notice: 'asset was successfully created.' }
                 format.json { render :show, status: :created }
             else
-                #   format.html { render :new }
                 format.json { render json: @asset.errors.full_messages, status: :unprocessable_entity }
             end
         end
@@ -22,10 +20,8 @@ class AssetsController < ApplicationController
     def update
         respond_to do |format|
             if @asset.update(asset_params)
-                #   format.html { redirect_to @asset, notice: 'asset was successfully updated.' }
                 format.json { render :show, status: :ok, location: @asset }
             else
-                #   format.html { render :edit }
                 format.json { render json: @asset.errors.full_messages, status: :unprocessable_entity }
             end
         end

@@ -19,10 +19,8 @@ class ActivitiesController < ApplicationController
         @event = Event.new(event_params)
         respond_to do |format|
             if @event.save
-                #   format.html { redirect_to @event, notice: 'event was successfully created.' }
                 format.json { render :show, status: :created }
             else
-                #   format.html { render :new }
                 format.json { render json: @event.errors.full_messages, status: :unprocessable_entity }
             end
         end
@@ -31,10 +29,8 @@ class ActivitiesController < ApplicationController
     def update
         respond_to do |format|
             if @event.update(event_params)
-                #   format.html { redirect_to @event, notice: 'event was successfully updated.' }
                 format.json { render :show, status: :ok }
             else
-                #   format.html { render :edit }
                 format.json { render json: @event.errors.full_messages, status: :unprocessable_entity }
             end
         end
@@ -53,6 +49,6 @@ class ActivitiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-        params.require(:event).permit(:parent_id, :name, :topic_uri, :place_id, :next_id, :scope_id)
+        params.require(:event).permit(:parent_id, :name, :topic_uri, :place_id, :next_id, :session_id)
   end
 end

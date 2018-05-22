@@ -1,48 +1,49 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
+
     include CanCan::ControllerAdditions
 
     # Short-circuit any/all CORS pre-flight OPTIONS requests.
-    before_action :cors_preflight_check
+    # before_action :cors_preflight_check
 
     # Allow the browser to make CORS requests since we do not provide a UI.
     # This is expected and totally cool, so long as subsequent requests are encrypted and include either
     # a tamper-proof cookie or JWT.
-    after_action :cors_set_access_control_headers
+    # after_action :cors_set_access_control_headers
 
     # Assure that CanCanCan authorization checks run.
     # check_authorization
 
     before_action :authenticate_identity!
 
-    def set_options_from(request)
-        @options = {}
-        request.body.split(/&/).each do |param|
-            key, val = param.split('=').map { |v| CGI.unescape(v) }
-            @options[key] = val
-        end
-    end
+    # def set_options_from(request)
+    #     @options = {}
+    #     request.body.split(/&/).each do |param|
+    #         key, val = param.split('=').map { |v| CGI.unescape(v) }
+    #         @options[key] = val
+    #     end
+    # end
 
-    # Return the CORS access control headers.
-    def cors_set_access_control_headers
-        headers['Access-Control-Allow-Origin'] = '*'
-        headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-        headers['Access-Control-Allow-Headers'] = 'Authorization'
-        headers['Access-Control-Max-Age'] = '1728000'
-    end
+    # # Return the CORS access control headers.
+    # def cors_set_access_control_headers
+    #     headers['Access-Control-Allow-Origin'] = '*'
+    #     headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    #     headers['Access-Control-Allow-Headers'] = 'Authorization'
+    #     headers['Access-Control-Max-Age'] = '1728000'
+    # end
 
-    # If this is a preflight OPTIONS request, then short-circuit the
-    # request, return only the necessary headers and return an empty
-    # text/plain.
-    def cors_preflight_check
-        # byebug
-        if request.method.to_sym.downcase == :options
-            headers['Access-Control-Allow-Origin'] = '*'
-            headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-            headers['Access-Control-Allow-Headers'] = 'Authorization'
-            headers['Access-Control-Max-Age'] = '1728000'
-            render text: '', content_type: 'text/plain'
-        end
-    end
+    # # If this is a preflight OPTIONS request, then short-circuit the
+    # # request, return only the necessary headers and return an empty
+    # # text/plain.
+    # def cors_preflight_check
+    #     # byebug
+    #     if request.method.to_sym.downcase == :options
+    #         headers['Access-Control-Allow-Origin'] = '*'
+    #         headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    #         headers['Access-Control-Allow-Headers'] = 'Authorization'
+    #         headers['Access-Control-Max-Age'] = '1728000'
+    #         render text: '', content_type: 'text/plain'
+    #     end
+    # end
 
     # CanCanCan's authorization
     rescue_from CanCan::AccessDenied do |exception|
@@ -63,10 +64,7 @@ class ApplicationController < ActionController::Base
         end
         puts "authenticate_identity!: identity_id: #{identity_id}"
         if identity_id.nil?
-            respond_to do |format|
-                format.json { render json: { message: 'Invalid or expired JWT. Please (re)authenticate and sign your request properly!', login_url: sessions_url }, status: :unauthorized }
-                format.html { redirect_to root_url, notice: 'Unable to authenticate your identity. Please log in again.' }
-            end
+            render json: { message: 'Invalid or expired JWT. Please (re)authenticate and sign your request properly!' }, status: :unauthorized
         else
             begin
                 @current_identity = Identity.find(identity_id)

@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
     before_action :cleanse_session, except: :callback
 
+
     def cleanse_session
         session['provider_id'] = nil
     end

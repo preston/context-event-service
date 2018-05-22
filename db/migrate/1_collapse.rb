@@ -6,7 +6,7 @@ class Collapse < ActiveRecord::Migration[5.1]
             t.uuid     'person_id'
             t.uuid     'parent_id'
             t.uuid     'next_id'
-            t.uuid     'scope_id'
+            t.uuid     'session_id'
             t.string   'topic_uri', null: false
             t.string   'model_uri', null: false
             t.string   'controller_uri'
@@ -155,7 +155,7 @@ class Collapse < ActiveRecord::Migration[5.1]
             t.datetime 'updated_at',  null: false
         end
     
-        add_foreign_key 'events', 'events', column: 'scope_id'
+        add_foreign_key 'events', 'events', column: 'session_id'
         add_foreign_key 'events', 'events', column: 'parent_id'
         add_foreign_key 'events', 'events', column: 'next_id'
         add_foreign_key 'events', 'places'
