@@ -1,6 +1,6 @@
 if event
-    json.extract! event, :id, :person_id, parent_id, :next_id, :session_id, :name, :topic_uri, :model_uri, 
-    :controller_uri, :agent_uri, :action:uri, :place_id
+    json.extract! event, :id, :person_id, :session_id, :parent_id, :next_id, :topic_uri, :model_uri, 
+    :controller_uri, :agent_uri, :action_uri, :place_id
     json.extract! event, :created_at,	:updated_at
     json.url event_url(event)
     json.path event_path(event)
