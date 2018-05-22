@@ -1,144 +1,86 @@
-# google = System::IdentityProvider.create_with(
-#     name: 'Google',
-#     client_id: '418783041492-si96ptie7gdbn46184e86thjmee3nj88.apps.googleusercontent.com',
-#     client_secret: 'MoyTrvZ0t4FFC6_LVGnN2TYo',
-#     scopes: 'openid email profile'
-# ).find_or_create_by(issuer: 'https://accounts.google.com')
-# google.reconfigure
-# google.save!
-
-# live = System::IdentityProvider.create_with(
-#     name: 'Microsoft Live',
-#     client_id: '0000000040193B01',
-#     client_secret: '5J4ZxPQb22bXxvj1i-eqaHQILqKKRb2-',
-#     alternate_client_id: '00000000-0000-0000-0000-000040193B01',
-#     scopes: 'openid email profile'
-# ).find_or_create_by(issuer: 'https://login.live.com')
-# live.reconfigure
-# live.save!
-
-hspc = System::IdentityProvider.create_with(
+hspc = IdentityProvider.create_with(
     name: 'ARTAKA HSPC Sandbox',
     client_id: '86830e09-8269-41b0-8d11-9b8466c44548',
     client_secret: 'UIjkXmQm0YOuvupDnWutpdl1YsDUuuO4tXRuanwBlNKu3wJyz7yRilkgla3KBFY2hmxwhqM4BrxFXHFu-WVtzw',
     scopes: 'openid email profile'
-).find_or_create_by(issuer: 'artaka://fake')
+).find_or_create_by(issuer: 'https://account.hspconsortium.org')
 # hspc.reconfigure
 hspc.save!
 
-hspc_localhost = System::IdentityProvider.create_with(
+hspc_localhost = IdentityProvider.create_with(
     name: 'ARTAKA HSPC Sandbox (localhost)',
     client_id: '1781cab7-4a64-43c6-b32f-64207189c29f',
     client_secret: 'V5shOCs8VsjQQ7h4_lQvcblGAEdch8HWfPDH5YUD9LyMBKW63hM-5vrD-vpZLM3sp7BPBNvnDQVz8vXx6yT4Hg',
     scopes: 'openid email profile'
-).find_or_create_by(issuer: 'artaka://fake')
+).find_or_create_by(issuer: 'https://account.hspconsortium.org')
 # hspc_localhost.reconfigure
 hspc_localhost.save!
-    
 
-# System::Client.create!(
-#     name: 'KNARTwork',
-#     launch_url: 'http://knartwork.healthcreek.org',
-#     available: true
-# )
 
-# System::Client.create!(
-#     name: "Preston's Client Template",
-#     launch_url: 'https://context-event-service.s3-us-west-2.amazonaws.com/index.html',
-#     # icon_url: 'http://context-event-service.s3.amazonaws.com/app/images/textures/tileable_wood_texture.png',
-#     available: true
-# )
+physician = Role.create_with(
+    name: 'Physician'
+).find_or_create_by(code: 'physician')
 
-# System::Client.create!(
-#     name: 'Context-Driven UI POC',
-#     launch_url: 'http://piper-ui.s3-website-us-east-1.amazonaws.com/v1/app',
-#     available: true
-# )
+patient = Role.create_with(
+    name: 'Patient'
+).find_or_create_by(code: 'patient')
 
-physician = System::Role.create!(
-    name: 'Physician',
-    code: 'physician'
-)
-
-patient = System::Role.create!(
-    name: 'Patient',
-    code: 'patient'
-)
-
-peter = System::Person.create!(name: 'Peter Patient',
+peter = Person.create!(name: 'Peter Patient',
                                first_name: 'Peter',
                                middle_name: 'Paul',
                                last_name: 'Patient')
 
-ernest = System::Person.create!(name: 'Ernest E.',
+ernest = Person.create!(name: 'Ernest E.',
                                 first_name: 'Ernesto',
                                 middle_name: 'Eugene',
                                 last_name: 'Endocrinologist')
 
-System::Capability.create!(entity: peter, role: patient)
-System::Capability.create!(entity: ernest, role: physician)
+Capability.create!(entity: peter, role: patient)
+Capability.create!(entity: ernest, role: physician)
 
 physicians = []
 (0..100).each do |_n|
-    physicians << u = System::Person.create!(
+    physicians << u = Person.create!(
         salutation: Faker::Name.prefix,
         name: Faker::Name.name,
         first_name: Faker::Name.first_name,
         middle_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name
     )
-    System::Capability.create!(entity: u, role: physician)
+    Capability.create!(entity: u, role: physician)
 end
 
 patients = []
 (0..1000).each do |_n|
-    patients << u = System::Person.create!(
+    patients << u = Person.create!(
         salutation: Faker::Name.prefix,
         name: Faker::Name.name,
         first_name: Faker::Name.first_name,
         middle_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name
     )
-    System::Capability.create!(entity: u, role: patient)
+    Capability.create!(entity: u, role: patient)
 end
 
 places = []
-places << Context::Place.create!(
+places << Place.create!(
     name: 'Ambulatory',
     description: Faker::Company.catch_phrase,
     address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
 )
-# (0..10).each do |_n|
-#     places << u = Context::Place.create!(
-#         name: Faker::Company.name + ' ' + Faker::Company.suffix,
-#         description: Faker::Company.catch_phrase,
-#         address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
-#     )
-# end
 
-assets = []
+events = []
 (0..10).each do |_n|
-    assets << u = Context::Asset.create!(
-        uri: Faker::Internet.url
-    )
-end
-
-activities = []
-(0..10).each do |_n|
-    activities << a = Context::Activity.create!(
-        name: Faker::Company.buzzword,
-        description: Faker::Company.catch_phrase,
-        system: (rand(2) == 1),
+    events << a = Event.create!(
+        # name: Faker::Company.buzzword,
+        # description: Faker::Company.catch_phrase,
+        topic_uri: 'artaka://example',
+        model_uri: 'artaka://example',
         place: places.sample,
-        scope: (rand(2) == 1 ? activities.sample : nil),
-        next: (rand(2) == 1 ? activities.sample : nil),
-        parent: (rand(2) == 1 ? activities.sample : nil)
+        scope: (rand(2) == 1 ? events.sample : nil),
+        next: (rand(2) == 1 ? events.sample : nil),
+        parent: (rand(2) == 1 ? events.sample : nil)
     )
-    Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset1')
-    Context::UsageRole.create!(activity: a, asset: assets.sample, semantic_uri: 'uri://asset2')
-    Context::ActorRole.create!(activity: a, person: patients.sample, semantic_uri: 'uri://patient1')
-    Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: 'uri://physician1')
-    Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: 'uri://physician2')
-    Context::ActorRole.create!(activity: a, person: physicians.sample, semantic_uri: 'uri://physician3')
-    Context::Objective.create!(formalized: (rand(2) == 1), language: 'fake', semantic_uri: 'uri://dl', specification: 'true', activity: a, comment: Faker::Lorem.paragraph)
 end
+
+# Objective.create_with.find_or_create_by(formalized: (rand(2) == 1), language: 'fake', topic_uri: 'artaka://languages/fake', specification: 'true', event: e.sample)

@@ -1,6 +1,6 @@
 - content_for :body_class do 'landing' end
 .row
-	.col-md-4.col-md-offset-4
+	.col-md-8.col-md-offset-2
 		.login-panel.panel.panel-default
 			.banner
 				/ img.banner src="http://placehold.it/400x100"
@@ -8,25 +8,39 @@
 				/ br
 				h3.brand-name
 					/ img.logo src="http://placehold.it/50x50"
-					|  HealthCreek
-				h1 at ASU
+					|  Context Event Service (CES)
+				/ h1 at ASU
 				hr
-			/ p for happy clinical encounters
-			- if person_signed_in?
-				/ h3 Welcome back!
-				= link_to "Go to Dashboard", dashboard_path, class: 'btn btn-lg btn-success btn-block'
-				small
-					| Not #{current_identity.email} from #{current_identity.provider.name}? Then
-					u = link_to 'log out', logout_path, method: :delete
-					| !
-				hr
-				h4 Associate an identity from..
-				br
-			- else
-				h4 Log in via..
-				br
-			- System::IdentityProvider.all.each do |p|
-				= form_tag login_path do |f|
-					input type="hidden" name="provider_id" value="#{p.id}"
-					input.btn.btn-lg.btn-success.btn-block type="submit" value="#{p.name}"
+			/ - if person_signed_in?
+			/ 	= link_to "Go to Dashboard", dashboard_path, class: 'btn btn-lg btn-success btn-block'
+			/ 	small
+			/ 		| Not #{current_identity.email} from #{current_identity.provider.name}? Then
+			/ 		u = link_to 'log out', logout_path, method: :delete
+			/ 		| !
+			/ 	hr
+			/ 	h4 Associate an identity from..
+			/ 	br
+			/ - else
+			/ 	h4 Log in via..
+			/ 	br
+			.lead This service is middleware, and isn't intended to be viewed directly.
+			small
+				span If you are a SMART-on-FHIR app developer, you can initialize a session by "chaining" your authentication process. That is, after the user authenticates with your app, redirect them to one of the following pre-configured launch URLs to repeat the process for CES, such that it may also a acquire an access token for the same FHIR sandboxes. The CES URL you send the user to 
+				b must 
+				span be the same as the one your user launched against. If yours isn't yet listed, you can declare it -- including a new client_id and client_secret for CES use -- via the REST API.
+			table.table.table-condensed
+				thead
+					tr
+						th Name
+						th URL
+				tbody
+				- IdentityProvider.all.each do |p|
+					tr
+						td
+							a(href="#{launch_identity_provider_url(p)}") = p.name
+						td
+							a(href="#{launch_identity_provider_url(p)}") = launch_identity_provider_url(p)
+				/ = form_tag login_path do |f|
+				/ 	input type="hidden" name="provider_id" value="#{p.id}"
+				/ 	input.btn.btn-lg.btn-success.btn-block type="submit" value="#{p.name}"
 				br

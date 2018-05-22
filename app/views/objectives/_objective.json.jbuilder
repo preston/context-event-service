@@ -1,4 +1,4 @@
-json.extract! objective, :id, :activity_id, :formalized, :language, :semantic_uri, :specification, :comment
+json.extract! objective, :id, :event_id, :formalized, :language, :specification, :comment
 json.extract! objective, :created_at,	:updated_at
-json.url activity_objective_url(objective.activity, objective)
-json.path activity_objective_path(objective.activity, objective)
+json.url event_objective_url(objective.event, objective)
+json.path event_objective_path(objective.event, objective)

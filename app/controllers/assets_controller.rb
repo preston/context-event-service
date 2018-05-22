@@ -1,13 +1,13 @@
 class AssetsController < ApplicationController
-    load_and_authorize_resource class: 'Context::Asset'
+    load_and_authorize_resource class: 'Asset'
 
     def index
-        @assets = Context::Asset.paginate(page: params[:page], per_page: params[:per_page])
+        @assets = Asset.paginate(page: params[:page], per_page: params[:per_page])
         @assets = @assets.search_by_uri(params[:uri]) if params[:name]
       end
 
     def create
-        @asset = Context::Asset.new(asset_params)
+        @asset = Asset.new(asset_params)
         respond_to do |format|
             if @asset.save
                 #   format.html { redirect_to @asset, notice: 'asset was successfully created.' }

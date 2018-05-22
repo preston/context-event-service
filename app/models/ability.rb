@@ -11,17 +11,17 @@ class Ability
 			# We're going to disable detailed authorization controls for now!
 			can :manage, :all
 			
-			# can :manage, System::Person
+			# can :manage, Person
 			#
 			# # Identity and Access Management (IAM)
-			# can :read,	System::Identity, person_id: person.id
-			# can :delete,	System::Identity, person_id: person.id
-			# can :read, System::Person, id: person.id
+			# can :read,	Identity, person_id: person.id
+			# can :delete,	Identity, person_id: person.id
+			# can :read, Person, id: person.id
 			#
-			# can :edit, System::Person, id: person.id
+			# can :edit, Person, id: person.id
 			#
-			# can :read, System::Client
-			# can :launch, System::Client
+			# can :read, Client
+			# can :launch, Client
 
 		end
 	end

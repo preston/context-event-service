@@ -14,7 +14,7 @@ namespace :context do
 			else
 				dir = DATA_DIR
 				puts "Loading SNOMEDCT from #{dir} ..."
-				include Context::Data::SNOMEDCT
+				include Data::SNOMEDCT
 				load_snomed(dir)
 			end
 

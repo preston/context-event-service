@@ -1,9 +1,9 @@
 class PeopleController < ApplicationController
 
-	load_and_authorize_resource	class: 'System::Person'
+	load_and_authorize_resource	class: 'Person'
 
 	def index
-        @people = System::Person.paginate(page: params[:page], per_page: params[:per_page])
+        @people = Person.paginate(page: params[:page], per_page: params[:per_page])
 		if params[:role]
 			@people = @people.joins(capabilities: :role).where('roles.code = ?', params[:role])
 		end

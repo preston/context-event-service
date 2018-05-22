@@ -1,14 +1,14 @@
 class PlacesController < ApplicationController
-    load_and_authorize_resource class: 'Context::Place'
+    load_and_authorize_resource class: 'Place'
 
     def index
-        @places = Context::Place.paginate(page: params[:page], per_page: params[:per_page])
+        @places = Place.paginate(page: params[:page], per_page: params[:per_page])
         @places = @places.search_by_name_and_description_and_address(params[:text]) if params[:text]
       end
 
 
     def create
-        @place = Context::Place.new(place_params)
+        @place = Place.new(place_params)
         respond_to do |format|
             if @place.save
                 #   format.html { redirect_to @place, notice: 'place was successfully created.' }

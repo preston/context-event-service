@@ -4,6 +4,7 @@ ruby '2.5.1'
 gem 'rails', '5.2.0'	# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'sass-rails'		# Use SCSS for stylesheets
 gem 'uglifier'			# Use Uglifier as compressor for JavaScript assets
+gem 'bootsnap'
 
 gem 'jbuilder'			# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'sdoc', group: :doc # bundle exec rake doc:rails generates the API under doc/api.

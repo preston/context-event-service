@@ -50,19 +50,19 @@ Consider the following scenario. Field-level details have been omitted for brevi
 	GET /people/:id # get the specific patient
 	External: GET problem list via patient URI.
 
-### The UI automatically creates top-level "activity" context and participants.
+### The UI automatically creates top-level "event" context and participants.
 
-	GET /places?text=t # optionally find a place for the activity by searching for an existing one.
-	POST /activities # issues a UUID (see the tutorial for fields)
-	POST /activities/:id/actor_roles # add's Ernest as a physician participant
-	POST /activities/:id/actor_roles # add's Peter as a patient participant
-	POST /activities # we may also need to establish related activities referencing the former
+	GET /places?text=t # optionally find a place for the event by searching for an existing one.
+	POST /events # issues a UUID (see the tutorial for fields)
+	POST /events/:id/actor_roles # add's Ernest as a physician participant
+	POST /events/:id/actor_roles # add's Peter as a patient participant
+	POST /events # we may also need to establish related events referencing the former
 
-### Ernest selects a problem such as “Diabetes Type II" as the focus of the activity.
+### Ernest selects a problem such as “Diabetes Type II" as the focus of the event.
 
-	POST /activities/:id/usage_roles # add's Peter problem(s) as a referenced asset
-	POST /activities/:id/objectives # declared the intended goal of the activity
-	GET /activities/:id # reload the activity to see the re-built state and re-built state.
+	POST /events/:id/usage_roles # add's Peter problem(s) as a referenced asset
+	POST /events/:id/objectives # declared the intended goal of the event
+	GET /events/:id # reload the event to see the re-built state and re-built state.
 
 Now that the system has established sufficient participant and problem context, as is already aware of concept classes of highest relevance to the known participants via group/role memberships, the server is able able to provide the client with relevancy and/or time-sorted facts about the situation that are most relevant to Ernest’s interests in the problem, such as labs, meds, and whatever else is built into an underlying classifier or reasoner.
 

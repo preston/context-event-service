@@ -1,37 +1,37 @@
                   Prefix Verb    URI Pattern                                             Controller#Action
                          OPTIONS /*all(.:format)                                         application#cors_preflight_check
-     activity_objectives GET     /activities/:activity_id/objectives(.:format)           objectives#index
-                         POST    /activities/:activity_id/objectives(.:format)           objectives#create
-  new_activity_objective GET     /activities/:activity_id/objectives/new(.:format)       objectives#new
- edit_activity_objective GET     /activities/:activity_id/objectives/:id/edit(.:format)  objectives#edit
-      activity_objective GET     /activities/:activity_id/objectives/:id(.:format)       objectives#show
-                         PATCH   /activities/:activity_id/objectives/:id(.:format)       objectives#update
-                         PUT     /activities/:activity_id/objectives/:id(.:format)       objectives#update
-                         DELETE  /activities/:activity_id/objectives/:id(.:format)       objectives#destroy
-    activity_actor_roles GET     /activities/:activity_id/actor_roles(.:format)          actor_roles#index
-                         POST    /activities/:activity_id/actor_roles(.:format)          actor_roles#create
- new_activity_actor_role GET     /activities/:activity_id/actor_roles/new(.:format)      actor_roles#new
-edit_activity_actor_role GET     /activities/:activity_id/actor_roles/:id/edit(.:format) actor_roles#edit
-     activity_actor_role GET     /activities/:activity_id/actor_roles/:id(.:format)      actor_roles#show
-                         PATCH   /activities/:activity_id/actor_roles/:id(.:format)      actor_roles#update
-                         PUT     /activities/:activity_id/actor_roles/:id(.:format)      actor_roles#update
-                         DELETE  /activities/:activity_id/actor_roles/:id(.:format)      actor_roles#destroy
-    activity_usage_roles GET     /activities/:activity_id/usage_roles(.:format)          usage_roles#index
-                         POST    /activities/:activity_id/usage_roles(.:format)          usage_roles#create
- new_activity_usage_role GET     /activities/:activity_id/usage_roles/new(.:format)      usage_roles#new
-edit_activity_usage_role GET     /activities/:activity_id/usage_roles/:id/edit(.:format) usage_roles#edit
-     activity_usage_role GET     /activities/:activity_id/usage_roles/:id(.:format)      usage_roles#show
-                         PATCH   /activities/:activity_id/usage_roles/:id(.:format)      usage_roles#update
-                         PUT     /activities/:activity_id/usage_roles/:id(.:format)      usage_roles#update
-                         DELETE  /activities/:activity_id/usage_roles/:id(.:format)      usage_roles#destroy
-              activities GET     /activities(.:format)                                   activities#index
-                         POST    /activities(.:format)                                   activities#create
-            new_activity GET     /activities/new(.:format)                               activities#new
-           edit_activity GET     /activities/:id/edit(.:format)                          activities#edit
-                activity GET     /activities/:id(.:format)                               activities#show
-                         PATCH   /activities/:id(.:format)                               activities#update
-                         PUT     /activities/:id(.:format)                               activities#update
-                         DELETE  /activities/:id(.:format)                               activities#destroy
+     event_objectives GET     /events/:event_id/objectives(.:format)           objectives#index
+                         POST    /events/:event_id/objectives(.:format)           objectives#create
+  new_event_objective GET     /events/:event_id/objectives/new(.:format)       objectives#new
+ edit_event_objective GET     /events/:event_id/objectives/:id/edit(.:format)  objectives#edit
+      event_objective GET     /events/:event_id/objectives/:id(.:format)       objectives#show
+                         PATCH   /events/:event_id/objectives/:id(.:format)       objectives#update
+                         PUT     /events/:event_id/objectives/:id(.:format)       objectives#update
+                         DELETE  /events/:event_id/objectives/:id(.:format)       objectives#destroy
+    event_actor_roles GET     /events/:event_id/actor_roles(.:format)          actor_roles#index
+                         POST    /events/:event_id/actor_roles(.:format)          actor_roles#create
+ new_event_actor_role GET     /events/:event_id/actor_roles/new(.:format)      actor_roles#new
+edit_event_actor_role GET     /events/:event_id/actor_roles/:id/edit(.:format) actor_roles#edit
+     event_actor_role GET     /events/:event_id/actor_roles/:id(.:format)      actor_roles#show
+                         PATCH   /events/:event_id/actor_roles/:id(.:format)      actor_roles#update
+                         PUT     /events/:event_id/actor_roles/:id(.:format)      actor_roles#update
+                         DELETE  /events/:event_id/actor_roles/:id(.:format)      actor_roles#destroy
+    event_usage_roles GET     /events/:event_id/usage_roles(.:format)          usage_roles#index
+                         POST    /events/:event_id/usage_roles(.:format)          usage_roles#create
+ new_event_usage_role GET     /events/:event_id/usage_roles/new(.:format)      usage_roles#new
+edit_event_usage_role GET     /events/:event_id/usage_roles/:id/edit(.:format) usage_roles#edit
+     event_usage_role GET     /events/:event_id/usage_roles/:id(.:format)      usage_roles#show
+                         PATCH   /events/:event_id/usage_roles/:id(.:format)      usage_roles#update
+                         PUT     /events/:event_id/usage_roles/:id(.:format)      usage_roles#update
+                         DELETE  /events/:event_id/usage_roles/:id(.:format)      usage_roles#destroy
+              events GET     /events(.:format)                                   events#index
+                         POST    /events(.:format)                                   events#create
+            new_event GET     /events/new(.:format)                               events#new
+           edit_event GET     /events/:id/edit(.:format)                          events#edit
+                event GET     /events/:id(.:format)                               events#show
+                         PATCH   /events/:id(.:format)                               events#update
+                         PUT     /events/:id(.:format)                               events#update
+                         DELETE  /events/:id(.:format)                               events#destroy
                   assets GET     /assets(.:format)                                       assets#index
                          POST    /assets(.:format)                                       assets#create
                new_asset GET     /assets/new(.:format)                                   assets#new

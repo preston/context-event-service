@@ -16,38 +16,6 @@ ActiveRecord::Schema.define(version: 1) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "activities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "parent_id"
-    t.string "name", null: false
-    t.text "description"
-    t.datetime "started_at"
-    t.datetime "ended_at"
-    t.string "semantic_uri"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "place_id"
-    t.boolean "system", null: false
-    t.uuid "next_id"
-    t.uuid "scope_id"
-    t.index ["parent_id"], name: "index_activities_on_parent_id"
-    t.index ["semantic_uri"], name: "index_activities_on_semantic_uri"
-  end
-
-  create_table "actor_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "activity_id", null: false
-    t.string "semantic_uri", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "person_id", null: false
-    t.index ["activity_id"], name: "index_actor_roles_on_activity_id"
-  end
-
-  create_table "assets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "uri", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "capabilities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "entity_id", null: false
     t.string "entity_type", null: false
@@ -67,6 +35,29 @@ ActiveRecord::Schema.define(version: 1) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_clients_on_name", unique: true
+  end
+
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "person_id"
+    t.uuid "parent_id"
+    t.uuid "next_id"
+    t.uuid "scope_id"
+    t.string "topic_uri", null: false
+    t.string "model_uri", null: false
+    t.string "controller_uri"
+    t.string "agent_uri"
+    t.string "action_uri"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "place_id"
+    t.json "parameters", default: {}, null: false
+    t.integer "time_to_live", default: 0, null: false
+    t.index ["action_uri"], name: "index_events_on_action_uri"
+    t.index ["agent_uri"], name: "index_events_on_agent_uri"
+    t.index ["controller_uri"], name: "index_events_on_controller_uri"
+    t.index ["model_uri"], name: "index_events_on_model_uri"
+    t.index ["parent_id"], name: "index_events_on_parent_id"
+    t.index ["topic_uri"], name: "index_events_on_topic_uri"
   end
 
   create_table "groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -127,12 +118,11 @@ ActiveRecord::Schema.define(version: 1) do
   create_table "objectives", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.boolean "formalized"
     t.string "language"
-    t.string "semantic_uri"
     t.string "specification"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "activity_id", null: false
+    t.uuid "event_id", null: false
   end
 
   create_table "people", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -171,28 +161,15 @@ ActiveRecord::Schema.define(version: 1) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "usage_roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "activity_id", null: false
-    t.uuid "asset_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "semantic_uri", null: false
-    t.index ["activity_id"], name: "index_usage_roles_on_activity_id"
-    t.index ["asset_id"], name: "index_usage_roles_on_asset_id"
-  end
-
-  add_foreign_key "activities", "activities", column: "next_id"
-  add_foreign_key "activities", "activities", column: "parent_id"
-  add_foreign_key "activities", "activities", column: "scope_id"
-  add_foreign_key "activities", "places"
-  add_foreign_key "actor_roles", "activities"
   add_foreign_key "capabilities", "roles"
+  add_foreign_key "events", "events", column: "next_id"
+  add_foreign_key "events", "events", column: "parent_id"
+  add_foreign_key "events", "events", column: "scope_id"
+  add_foreign_key "events", "places"
   add_foreign_key "identities", "identity_providers"
   add_foreign_key "identities", "people"
   add_foreign_key "json_web_tokens", "identities"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "people"
-  add_foreign_key "objectives", "activities"
-  add_foreign_key "usage_roles", "activities"
-  add_foreign_key "usage_roles", "assets"
+  add_foreign_key "objectives", "events"
 end

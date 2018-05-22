@@ -14,14 +14,14 @@ class WelcomeController < ApplicationController
 		json = {}
 		jwt = request.headers['Authorization']
 		if jwt
-			if jwt = System::JsonWebToken.decode_authorization(jwt)
-				if jwt = System::JsonWebToken.find(jwt['id'])
-					activity = Context::Activity.create_default!(jwt.identity.person)
+			if jwt = JsonWebToken.decode_authorization(jwt)
+				if jwt = JsonWebToken.find(jwt['id'])
+					event = Event.create_default!(jwt.identity.person)
 					json.merge!(
-						activity: {
-							id: activity.id,
-							path: activity_path(activity),
-							url: activity_url(activity)
+						event: {
+							id: event.id,
+							path: event_path(event),
+							url: event_url(event)
 						},
 						identity: {
 							id: jwt.identity.id,

@@ -55,8 +55,8 @@ class ApplicationController < ActionController::Base
     def authenticate_identity!
         identity_id = nil
         if authorization = request.headers['Authorization']
-            json = System::JsonWebToken.decode_authorization(authorization)
-            jwt = System::JsonWebToken.find(json['id'])
+            json = JsonWebToken.decode_authorization(authorization)
+            jwt = JsonWebToken.find(json['id'])
             identity_id = jwt[:identity_id]
         else
             identity_id = session['identity_id']
@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
             end
         else
             begin
-                @current_identity = System::Identity.find(identity_id)
+                @current_identity = Identity.find(identity_id)
                 @current_person = @current_identity.person
 		    rescue Exception => e
 				Rails.logger.warn 'Claimed identity not found. Person may be have been deleted? Removing identity from session!'

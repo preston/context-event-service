@@ -1,17 +1,17 @@
 class ObjectivesController < ApplicationController
-    load_resource	:activity,	class: 'Context::Activity'
-    load_and_authorize_resource	class: 'Context::Objective'
+    load_resource	:event,	class: 'Event'
+    load_and_authorize_resource	class: 'Objective'
 
     def index
-        @objectives = Context::Objective.all
+        @objectives = Objective.all
     end
 
     def show
     end
 
     def create
-        @objective = Context::Objective.new(objective_params)
-        @objective.activity_id = params['activity_id']
+        @objective = Objective.new(objective_params)
+        @objective.event_id = params['event_id']
         respond_to do |format|
             if @objective.save
                 # format.html { redirect_to @objective, notice: 'objective was successfully created.' }
@@ -47,6 +47,6 @@ class ObjectivesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def objective_params
-        params.require(:objective).permit(:activity_id, :formalized, :language, :semantic_uri, :specification, :comment)
+        params.require(:objective).permit(:event_id, :formalized, :language, :specification, :comment)
     end
 end
