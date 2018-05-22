@@ -26,7 +26,11 @@ Rails.application.routes.draw do
             get 'launch'
         end
     end
-    resources :identity_providers
+    resources :identity_providers do
+        member do
+            get 'launch'
+        end
+    end
 
     get		'sessions' => 'sessions#callback',	as: :callback
     post	'sessions' => 'sessions#authenticate',	as: :login

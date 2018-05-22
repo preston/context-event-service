@@ -1,11 +1,11 @@
-google = System::IdentityProvider.create_with(
-    name: 'Google',
-    client_id: '418783041492-si96ptie7gdbn46184e86thjmee3nj88.apps.googleusercontent.com',
-    client_secret: 'MoyTrvZ0t4FFC6_LVGnN2TYo',
-    scopes: 'openid email profile'
-).find_or_create_by(issuer: 'https://accounts.google.com')
-google.reconfigure
-google.save!
+# google = System::IdentityProvider.create_with(
+#     name: 'Google',
+#     client_id: '418783041492-si96ptie7gdbn46184e86thjmee3nj88.apps.googleusercontent.com',
+#     client_secret: 'MoyTrvZ0t4FFC6_LVGnN2TYo',
+#     scopes: 'openid email profile'
+# ).find_or_create_by(issuer: 'https://accounts.google.com')
+# google.reconfigure
+# google.save!
 
 # live = System::IdentityProvider.create_with(
 #     name: 'Microsoft Live',
@@ -17,18 +17,43 @@ google.save!
 # live.reconfigure
 # live.save!
 
-System::Client.create!(
-    name: "Preston's Client Template",
-    launch_url: 'https://context-event-service.s3-us-west-2.amazonaws.com/index.html',
-    # icon_url: 'http://context-event-service.s3.amazonaws.com/app/images/textures/tileable_wood_texture.png',
-    available: true
-)
+hspc = System::IdentityProvider.create_with(
+    name: 'ARTAKA HSPC Sandbox',
+    client_id: '86830e09-8269-41b0-8d11-9b8466c44548',
+    client_secret: 'UIjkXmQm0YOuvupDnWutpdl1YsDUuuO4tXRuanwBlNKu3wJyz7yRilkgla3KBFY2hmxwhqM4BrxFXHFu-WVtzw',
+    scopes: 'openid email profile'
+).find_or_create_by(issuer: 'artaka://fake')
+# hspc.reconfigure
+hspc.save!
 
-System::Client.create!(
-    name: 'Context-Driven UI POC',
-    launch_url: 'http://piper-ui.s3-website-us-east-1.amazonaws.com/v1/app',
-    available: true
-)
+hspc_localhost = System::IdentityProvider.create_with(
+    name: 'ARTAKA HSPC Sandbox (localhost)',
+    client_id: '1781cab7-4a64-43c6-b32f-64207189c29f',
+    client_secret: 'V5shOCs8VsjQQ7h4_lQvcblGAEdch8HWfPDH5YUD9LyMBKW63hM-5vrD-vpZLM3sp7BPBNvnDQVz8vXx6yT4Hg',
+    scopes: 'openid email profile'
+).find_or_create_by(issuer: 'artaka://fake')
+# hspc_localhost.reconfigure
+hspc_localhost.save!
+    
+
+# System::Client.create!(
+#     name: 'KNARTwork',
+#     launch_url: 'http://knartwork.healthcreek.org',
+#     available: true
+# )
+
+# System::Client.create!(
+#     name: "Preston's Client Template",
+#     launch_url: 'https://context-event-service.s3-us-west-2.amazonaws.com/index.html',
+#     # icon_url: 'http://context-event-service.s3.amazonaws.com/app/images/textures/tileable_wood_texture.png',
+#     available: true
+# )
+
+# System::Client.create!(
+#     name: 'Context-Driven UI POC',
+#     launch_url: 'http://piper-ui.s3-website-us-east-1.amazonaws.com/v1/app',
+#     available: true
+# )
 
 physician = System::Role.create!(
     name: 'Physician',

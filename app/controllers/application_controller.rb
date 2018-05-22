@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
         if identity_id.nil?
             respond_to do |format|
                 format.json { render json: { message: 'Invalid or expired JWT. Please (re)authenticate and sign your request properly!', login_url: sessions_url }, status: :unauthorized }
-                format.html { redirect_to landing_path, notice: 'Unable to authenticate your identity. Please log in again.' }
+                format.html { redirect_to root_url, notice: 'Unable to authenticate your identity. Please log in again.' }
             end
         else
             begin

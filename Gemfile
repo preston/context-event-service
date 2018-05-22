@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.5.0'
+ruby '2.5.1'
 
-gem 'rails', '5.1.4'	# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '5.2.0'	# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'sass-rails'		# Use SCSS for stylesheets
 gem 'uglifier'			# Use Uglifier as compressor for JavaScript assets
 
@@ -9,7 +9,6 @@ gem 'jbuilder'			# Build JSON APIs with ease. Read more: https://github.com/rail
 gem 'sdoc', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
 
 gem 'will_paginate'   # Better query pagination support.
-
 
 gem 'therubyracer'	# Required at deploy time for asset precompilation.
 
@@ -23,6 +22,9 @@ gem 'cancancan'	# Declarative authorization DSL.
 gem 'puma'	    # Better web server
 gem 'pg'	    # Only PostgreSQL is supported!
 gem 'pg_search' # Full-text search. RAD!!!
+gem 'redis-rails'
+gem 'mongoid'
+
 
 gem 'httparty'  # Simple REST client.
 gem 'faker'		# For generating synthetic data.
