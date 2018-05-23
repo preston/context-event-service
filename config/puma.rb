@@ -1,5 +1,5 @@
-workers Integer(ENV['HEALTHCREEK_SERVER_PROCESSES'] || 4)
-threads_count = Integer(ENV['HEALTHCREEK_SERVER_THREADS'] || 4)
+workers Integer(ENV['CONTEXT_PROCESSES'] || 16)
+threads_count = Integer(ENV['CONTEXT_THREADS'] || 1)
 threads threads_count, threads_count
 
 preload_app!

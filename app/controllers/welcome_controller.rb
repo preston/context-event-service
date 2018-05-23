@@ -33,6 +33,7 @@ class WelcomeController < ApplicationController
 				# Client Disconnected
 				Rails.info "Client disconnected from stream."
 			ensure
+				Rails.info "Closing client stream."
 				sse.close
 			end
 			render body: nil
