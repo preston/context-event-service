@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 class RedisPublisher < RedisBase
+  attr_reader :data, :channel
 
-	attr_reader :options, :channel
-	
-	def initialize channel, options
-	  @channel     = channel
-	  @options = options
-	end
-	
-	def process
-	  connection.publish(channel, options)
-	end
+  def initialize(channel, data)
+    @channel = channel
+    @data = data
+  end
 
+  def process
+    connection.publish(channel, data)
+  end
 end

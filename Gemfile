@@ -8,6 +8,8 @@ gem 'bootsnap'
 gem 'jbuilder'			# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'sdoc', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
 
+gem 'openid_connect'  # Needed to probe remote IdP configuration. 
+
 gem 'will_paginate'   # Better query pagination support.
 gem 'jwt'		# All API calls require JWT-signed requests!
 gem 'cancancan'	# Declarative authorization DSL.

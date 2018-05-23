@@ -1,21 +1,21 @@
-hspc = IdentityProvider.create_with(
-    name: 'ARTAKA HSPC Sandbox',
-    client_id: '86830e09-8269-41b0-8d11-9b8466c44548',
-    client_secret: 'UIjkXmQm0YOuvupDnWutpdl1YsDUuuO4tXRuanwBlNKu3wJyz7yRilkgla3KBFY2hmxwhqM4BrxFXHFu-WVtzw',
-    scopes: 'openid email profile'
-).find_or_create_by(issuer: 'https://account.hspconsortium.org')
-# hspc.reconfigure
-hspc.save!
+# hspc = IdentityProvider.create_with(
+#     name: 'ARTAKA HSPC Sandbox',
+#     client_id: '86830e09-8269-41b0-8d11-9b8466c44548',
+#     client_secret: 'UIjkXmQm0YOuvupDnWutpdl1YsDUuuO4tXRuanwBlNKu3wJyz7yRilkgla3KBFY2hmxwhqM4BrxFXHFu-WVtzw',
+#     scopes: 'openid email profile'
+# ).find_or_create_by(issuer: 'https://account.hspconsortium.org')
+# # hspc.reconfigure
+# hspc.save!
 
 hspc_localhost = IdentityProvider.create_with(
     name: 'ARTAKA HSPC Sandbox (localhost)',
     client_id: '1781cab7-4a64-43c6-b32f-64207189c29f',
     client_secret: 'V5shOCs8VsjQQ7h4_lQvcblGAEdch8HWfPDH5YUD9LyMBKW63hM-5vrD-vpZLM3sp7BPBNvnDQVz8vXx6yT4Hg',
     scopes: 'openid email profile'
-).find_or_create_by(issuer: 'https://account.hspconsortium.org')
-# hspc_localhost.reconfigure
+).find_or_create_by(issuer: 'https://auth.hspconsortium.org/')
+hspc_localhost.reconfigure
 hspc_localhost.save!
-
+# https://auth.hspconsortium.org/.well-known/openid-configuration
 
 physician = Role.create_with(
     name: 'Physician'

@@ -16,4 +16,23 @@ class Event < ActiveRecord::Base
 	validates_presence_of	:topic_uri
 	validates_presence_of	:model_uri
 
+	after_save do |e|
+		puts "AFTER SAVE: #{e.to_json}"
+		publish_to_broker(e, :topic_uri)
+		publish_to_broker(e, :model_uri)
+		publish_to_broker(e, :controller_uri)
+		publish_to_broker(e, :agent_uri)
+		publish_to_broker(e, :action_uri)
+	end
+
+	def publish_to_broker(e, sym)
+		channel = e.send(sym)
+		if channel # it's not nil
+			RedisPublisher.new(channel, e.to_json).process
+			puts "PUBLISHED #{sym} TO CHANNEL #{channel}: #{e.to_json}"
+		else
+			puts "NO #{sym} VALUE TO PUBLISH"
+		end
+	end
+
 end
