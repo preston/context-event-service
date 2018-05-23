@@ -20,6 +20,7 @@ class EventsController < ApplicationController
 
     def create
         @event = Event.new(event_params)
+        @event.parameters = parameters_from_params
         if @event.save
             render :show, status: :created
         else
@@ -48,6 +49,17 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-        params.require(:event).permit(:parent_id, :session_id, :name, :topic_uri, :model_uri, :controller_uri, :agent_uri, :action_uri, :place_id, :next_id, :person_id, :session_id)
+        params.require(:event).permit(:parent_id, :session_id, :name, :topic_uri, :model_uri, :controller_uri, :agent_uri, :action_uri, :place_id, :next_id, :person_id, :session_id, :parameters)
   end
+
+    def parameters_from_params
+        parameters = {}
+        begin
+            obj = JSON.parse(params[:event][:parameters])
+            parameters = obj
+        rescue => exception
+            # Crap apparently.
+        end
+        parameters
+    end
 end

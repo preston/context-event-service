@@ -1,3 +1,4 @@
+require 'json'
 class WelcomeController < ApplicationController
 
 	include ActionController::Live
