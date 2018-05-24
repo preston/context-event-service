@@ -18,7 +18,14 @@ class Event < ActiveRecord::Base
 
 	after_save do |e|
 		puts "AFTER SAVE: #{e.to_json}"
-		channels = [e.topic_uri, e.model_uri, e.controller_uri, e.agent_uri, e.action_uri].uniq.reject(&:nil?)
+		channels = [
+			e.topic_uri,
+			e.model_uri,
+			e.controller_uri,
+			e.agent_uri,
+			e.action_uri,
+			Context::Session::SESSION_URI_PREFIX
+		].uniq.reject(&:nil?)
 		channels.each do |c|
 			publish_to_broker(e, c)
 		end

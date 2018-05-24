@@ -6,6 +6,11 @@ require_relative 'snomed'
 
 module Context
 
+	module Session
+		SESSION_URI_PREFIX = 'artaka://sessions'
+	end
+
+
 	module Clock
 
 		TICK_URI_PREFIX = "artaka://ticks"

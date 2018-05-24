@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require 'json'
+
 class WelcomeController < ApplicationController
   include ActionController::Live
+  include Context::Session
 
   skip_before_action :authenticate_identity! # , only: [:landing]
   skip_authorization_check
@@ -14,8 +16,8 @@ class WelcomeController < ApplicationController
   # http://api.rubyonrails.org/classes/ActionController/Live/SSE.html
   def stream
     if params['channels']
-      channels = params['channels'].split(',')
-      puts "Live-streaming more topic subscription for: #{channels.join(', ')}"
+      channels = params['channels'].split(',').push(SESSION_URI_PREFIX).uniq
+      puts "Live-streaming channel subscriptions for: #{channels.join(', ')}"
       response.headers['Content-Type'] = 'text/event-stream'
       sse = SSE.new(response.stream)
       begin
