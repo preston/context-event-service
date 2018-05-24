@@ -1,0 +1,28 @@
+version: '3'
+services:
+  context-event-service:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    ports:
+    - 3000:3000
+
+  clock-tick-second:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    entrypoint: rake context:tick:second
+
+  clock-tick-minute:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    entrypoint: rake context:tick:minute
+
+  clock-tick-hour:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    entrypoint: rake context:tick:hour
+
+  clock-tick-day:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    entrypoint: rake context:tick:day
+

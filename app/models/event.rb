@@ -18,20 +18,18 @@ class Event < ActiveRecord::Base
 
 	after_save do |e|
 		puts "AFTER SAVE: #{e.to_json}"
-		publish_to_broker(e, :topic_uri)
-		publish_to_broker(e, :model_uri)
-		publish_to_broker(e, :controller_uri)
-		publish_to_broker(e, :agent_uri)
-		publish_to_broker(e, :action_uri)
+		channels = [e.topic_uri, e.model_uri, e.controller_uri, e.agent_uri, e.action_uri].uniq.reject(&:nil?)
+		channels.each do |c|
+			publish_to_broker(e, c)
+		end
 	end
 
-	def publish_to_broker(e, sym)
-		channel = e.send(sym)
+	def publish_to_broker(e, channel)
 		if channel # it's not nil
 			RedisPublisher.new(channel, e.to_json).process
-			puts "PUBLISHED #{sym} TO CHANNEL #{channel}: #{e.to_json}"
+			puts "Publishing event to channel #{channel}: #{e.to_json}"
 		else
-			puts "NO #{sym} VALUE TO PUBLISH"
+			puts "No channel provided for publication of event: #{e}"
 		end
 	end
 

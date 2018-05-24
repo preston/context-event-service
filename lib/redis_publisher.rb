@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class RedisPublisher < RedisBase
   attr_reader :data, :channel
 
