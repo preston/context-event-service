@@ -23,9 +23,11 @@ class Event < ActiveRecord::Base
 			e.agent_uri,
 			e.action_uri
 		]
-		channels.push(SESSION_URI_PREFIX)
-		if(e.session_id)
-			channels.push(session_uri_for(e.session_id))
+		if e.session_id
+			channels.push(SESSION_URI_PREFIX)
+			if(e.session_id)
+				channels.push(session_uri_for(e.session_id))
+			end
 		end
 		channels = channels.uniq.reject(&:nil?)
 		channels.each do |c|
