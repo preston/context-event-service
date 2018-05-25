@@ -26,3 +26,12 @@ services:
     env_file: ./docker-compose.env
     entrypoint: rake context:tick:day
 
+  agent-message-of-the-day:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    entrypoint: rake context:agent:motd
+
+  agent-smith:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    entrypoint: rake context:agent:smith
