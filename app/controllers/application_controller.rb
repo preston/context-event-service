@@ -57,8 +57,8 @@ class ApplicationController < ActionController::API
         identity_id = nil
         if authorization = request.headers['Authorization']
             json = JsonWebToken.decode_authorization(authorization)
-            jwt = JsonWebToken.find(json['id'])
-            identity_id = jwt[:identity_id]
+            @current_jwt = JsonWebToken.find(json['id'])
+            identity_id = @current_jwt[:identity_id]
         else
             identity_id = session['identity_id']
         end

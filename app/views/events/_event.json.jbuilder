@@ -1,5 +1,5 @@
 if event
-    json.extract! event, :id, :person_id, :session_id, :parent_id, :next_id, :topic_uri, :model_uri, 
+    json.extract! event, :id, :person_id, :json_web_token_id, :parent_id, :next_id, :topic_uri, :model_uri, 
     :controller_uri, :agent_uri, :action_uri, :place_id, :parameters
     # json.parameters Json.parse(event.parameters)
     json.extract! event, :created_at,	:updated_at
@@ -21,11 +21,11 @@ if event
         json.scope do
             json.partial! 'events/event', event: event.scope, recurse: false
         end
-        json.scoped_events do
-            json.array! event.scoped_events do |a|
-                json.partial! 'events/event', event: a, recurse: false
-            end
-        end
+        # json.scoped_events do
+        #     json.array! event.scoped_events do |a|
+        #         json.partial! 'events/event', event: a, recurse: false
+        #     end
+        # end
         json.next do
             json.partial! 'events/event', event: event.next, recurse: false
         end

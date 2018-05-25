@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
   include ActionController::Live
   include Context::Session
 
-  skip_before_action :authenticate_identity! # , only: [:landing]
+  skip_before_action :authenticate_identity!, only: [:landing, :status]
   skip_authorization_check
 
   def landing
@@ -16,7 +16,9 @@ class WelcomeController < ApplicationController
   # http://api.rubyonrails.org/classes/ActionController/Live/SSE.html
   def stream
     if params['channels']
-      channels = params['channels'].split(',').push(SESSION_URI_PREFIX).uniq
+      channels = params['channels'].split(',')
+      channels.push(SESSION_URI_PREFIX + "/#{@current_jwt.id}") if @current_jwt
+      channels.uniq!
       puts "Live-streaming channel subscriptions for: #{channels.join(', ')}"
       response.headers['Content-Type'] = 'text/event-stream'
       sse = SSE.new(response.stream)
@@ -26,13 +28,6 @@ class WelcomeController < ApplicationController
         # end
         sub = RedisSubscriber.new(channels)
         sub.process(sse)
-        # sse.write({ name: 'John'})
-        # sleep 1
-        # sse.write({ name: 'John'}, id: 10)
-        # sleep 1
-        # sse.write({ name: 'John'}, id: 10, event: "other-event")
-        # sleep 1
-        # sse.write({ name: 'John'}, id: 10, event: "other-event", retry: 500)
       rescue IOError
         # Client Disconnected
         Rails.info 'Client disconnected from stream.'

@@ -18,7 +18,7 @@ gem 'puma'	    # Better web server
 gem 'pg'	    # Only PostgreSQL is supported!
 gem 'pg_search' # Full-text search. RAD!!!
 gem 'redis'
-gem 'mongoid'
+# gem 'mongoid'
 
 gem 'faker'		# For generating synthetic data.
 

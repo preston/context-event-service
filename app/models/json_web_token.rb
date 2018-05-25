@@ -1,8 +1,9 @@
 class JsonWebToken < ActiveRecord::Base
 
 	belongs_to	:identity
-	validates_presence_of	:identity
+	has_many	:events,	dependent: :destroy
 
+	validates_presence_of	:identity
 	validates_presence_of	:expires_at
 
 

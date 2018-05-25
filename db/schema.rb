@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 2018_05_25_003031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 1) do
     t.uuid "person_id"
     t.uuid "parent_id"
     t.uuid "next_id"
-    t.uuid "session_id"
     t.string "topic_uri", null: false
     t.string "model_uri", null: false
     t.string "controller_uri"
@@ -52,6 +51,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.uuid "place_id"
     t.json "parameters", default: {}, null: false
     t.integer "time_to_live", default: 0, null: false
+    t.uuid "json_web_token_id"
     t.index ["action_uri"], name: "index_events_on_action_uri"
     t.index ["agent_uri"], name: "index_events_on_agent_uri"
     t.index ["controller_uri"], name: "index_events_on_controller_uri"
@@ -154,17 +154,9 @@ ActiveRecord::Schema.define(version: 1) do
     t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
-  create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "identity_id", null: false
-    t.datetime "expires_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   add_foreign_key "capabilities", "roles"
   add_foreign_key "events", "events", column: "next_id"
   add_foreign_key "events", "events", column: "parent_id"
-  add_foreign_key "events", "events", column: "session_id"
   add_foreign_key "events", "places"
   add_foreign_key "identities", "identity_providers"
   add_foreign_key "identities", "people"

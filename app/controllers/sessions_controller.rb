@@ -54,9 +54,6 @@ class SessionsController < ApplicationController
         elsif jwt[0]['aud'] != provider.client_id && jwt[0]['aud'] != provider.alternate_client_id
             flash[:error] = "#{msg} (Provider mismatch.)"
             redirect_to :login
-        # elsif authorization['state'] != session[:session_id]
-        # 	flash[:error] = "#{msg} (Session ID mismatch.)"
-        # 	render 	:sorry
         else
             # Looks good!
             logger.debug jwt

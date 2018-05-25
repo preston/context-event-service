@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
 
 	belongs_to	:person, optional: true
 	belongs_to	:place, optional: true
-	belongs_to	:session, optional: true
+	belongs_to	:json_web_token, optional: true
 	belongs_to	:parent,	class_name: 'Event', optional: true
 	belongs_to	:next,	class_name: 'Event', optional: true
 	belongs_to	:scope,	class_name: 'Event', optional: true
@@ -11,7 +11,6 @@ class Event < ActiveRecord::Base
 
 	has_many	:child_events,		class_name: 'Event',	foreign_key: 'parent_id'
 	has_many	:previous_events,	class_name: 'Event',	foreign_key: 'next_id'
-	has_many	:scoped_events,		class_name: 'Event',	foreign_key: 'session_id'
 
 	validates_presence_of	:topic_uri
 	validates_presence_of	:model_uri
@@ -26,8 +25,8 @@ class Event < ActiveRecord::Base
 			e.action_uri
 		]
 		channels.push(Context::Session::SESSION_URI_PREFIX)
-		if(e.session_id)
-			channels.push("#{Context::Session::SESSION_URI_PREFIX}/#{e.session_id}")
+		if(e.json_web_token_id)
+			channels.push("#{Context::Session::SESSION_URI_PREFIX}/#{e.json_web_token_id}")
 		end
 		channels = channels.uniq.reject(&:nil?)
 		channels.each do |c|
