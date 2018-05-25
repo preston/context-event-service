@@ -23,9 +23,13 @@ class Event < ActiveRecord::Base
 			e.model_uri,
 			e.controller_uri,
 			e.agent_uri,
-			e.action_uri,
-			Context::Session::SESSION_URI_PREFIX
-		].uniq.reject(&:nil?)
+			e.action_uri
+		]
+		channels.push(Context::Session::SESSION_URI_PREFIX)
+		if(e.session_id)
+			channels.push("#{Context::Session::SESSION_URI_PREFIX}/#{e.session_id}")
+		end
+		channels = channels.uniq.reject(&:nil?)
 		channels.each do |c|
 			publish_to_broker(e, c)
 		end

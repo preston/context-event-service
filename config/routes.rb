@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     end
 
     get		'sessions' => 'sessions#callback',	as: :callback
-    post	'sessions' => 'sessions#authenticate',	as: :login
+    post	'sessions' => 'sessions#create',	as: :login
     delete	'sessions' => 'sessions#destroy',	as: :logout
     get 'status' => 'welcome#status', as: :status
     get 'stream' => 'welcome#stream', as: :stream

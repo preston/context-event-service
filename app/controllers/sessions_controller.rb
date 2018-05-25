@@ -109,6 +109,18 @@ class SessionsController < ApplicationController
         provider.public_keys
     end
 
+    def create
+        # FIXME Super mega hack
+        if Identity.count == 0
+            if Person.count == 0 
+                Person.create!(name: 'Default Person')
+            end
+            Identity.create!(person: Person.first, identity_provider: IdentityProvider.first, sub: 'fake')
+        end
+        jwt = JsonWebToken.create!(identity: Identity.first, expires_at: 24.hours.from_now)
+        render json: {jwt: jwt.encode, authorization: "Bearer #{jwt.encode}"}
+    end
+
     def destroy
         unauthenticate!
         redirect_to root_url

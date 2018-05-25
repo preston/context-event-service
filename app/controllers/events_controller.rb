@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
     
-    skip_before_action :authenticate_identity!
+    # skip_before_action :authenticate_identity!
     # load_and_authorize_resource :event #class: 'Event'
     load_resource :event
 
