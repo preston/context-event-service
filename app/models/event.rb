@@ -1,13 +1,12 @@
 class Event < ActiveRecord::Base
 
+	include Context::Session
+
 	belongs_to	:person, optional: true
-	belongs_to	:place, optional: true
-	belongs_to	:json_web_token, optional: true
+	belongs_to	:session, optional: true
 	belongs_to	:parent,	class_name: 'Event', optional: true
 	belongs_to	:next,	class_name: 'Event', optional: true
 	belongs_to	:scope,	class_name: 'Event', optional: true
-
-	has_many	:objectives,	dependent: :destroy
 
 	has_many	:child_events,		class_name: 'Event',	foreign_key: 'parent_id'
 	has_many	:previous_events,	class_name: 'Event',	foreign_key: 'next_id'
@@ -16,7 +15,7 @@ class Event < ActiveRecord::Base
 	validates_presence_of	:model_uri
 
 	after_save do |e|
-		puts "AFTER SAVE: #{e.to_json}"
+		puts "About to broadcast events for: #{e.to_json}"
 		channels = [
 			e.topic_uri,
 			e.model_uri,
@@ -24,9 +23,9 @@ class Event < ActiveRecord::Base
 			e.agent_uri,
 			e.action_uri
 		]
-		channels.push(Context::Session::SESSION_URI_PREFIX)
-		if(e.json_web_token_id)
-			channels.push("#{Context::Session::SESSION_URI_PREFIX}/#{e.json_web_token_id}")
+		channels.push(SESSION_URI_PREFIX)
+		if(e.session_id)
+			channels.push(session_uri_for(e.session_id))
 		end
 		channels = channels.uniq.reject(&:nil?)
 		channels.each do |c|
@@ -37,9 +36,9 @@ class Event < ActiveRecord::Base
 	def publish_to_broker(e, channel)
 		if channel # it's not nil
 			RedisPublisher.new(channel, e.to_json).process
-			puts "Publishing event to channel #{channel}: #{e.to_json}"
+			puts "Publishing event to channel: #{channel}"
 		else
-			puts "No channel provided for publication of event: #{e}"
+			puts "No channel provided for: #{e}"
 		end
 	end
 

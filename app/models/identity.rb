@@ -4,7 +4,6 @@ class Identity < ActiveRecord::Base
 	belongs_to	:identity_provider
 
 	has_many	:sessions,	dependent: :destroy
-	has_many	:json_web_tokens,	dependent: :destroy
 
 	validates_presence_of	:person
 	validates_presence_of	:identity_provider

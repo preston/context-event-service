@@ -1,4 +1,4 @@
-require 'context'
+require_relative '../all'
 
 namespace :context do
 
@@ -28,23 +28,16 @@ namespace :context do
 
 	end
 
-	# namespace :snomedct do
+	namespace :agent do
 
-	# 	DATA_DIR = File.join(Rails.root, 'snomedct', 'SnomedCT_RF2Release_US1000124_20160301')
+		desc "Sends 'message of the day' events to common initialization actions."
+		task motd: :environment do
+			Context::Agent::MessageOfTheDay.new.run
+		end
 
-	# 	desc 'Load SNOMEDCT data from local disk.'
-	# 	task load: :environment do
-	# 		if !File.exist?(DATA_DIR)
-	# 			puts "#{ENV_VAR_NAME} doesn't exist!"
-	# 			exit 1
-	# 		else
-	# 			dir = DATA_DIR
-	# 			puts "Loading SNOMEDCT from #{dir} ..."
-	# 			include Data::SNOMEDCT
-	# 			load_snomed(dir)
-	# 		end
-
-	# 	end
-
-	# end
+		desc "Monitors all UI events and responds with nonsense."
+		task smith: :environment do
+			Context::Agent::Smith.new.run
+		end
+	end
 end

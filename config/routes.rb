@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     post	'sessions' => 'sessions#create',	as: :login
     delete	'sessions' => 'sessions#destroy',	as: :logout
     get 'status' => 'welcome#status', as: :status
-    get 'stream' => 'welcome#stream', as: :stream
+    get 'stream' => 'events#stream', as: :stream
 
     # The priority is based upon order of creation: first created -> highest priority.
     # See how all your routes lay out with "rake routes".

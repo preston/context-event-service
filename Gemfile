@@ -22,6 +22,8 @@ gem 'redis'
 
 gem 'faker'		# For generating synthetic data.
 
+gem 'quotable' # MOTD Agent
+
 
 group :development, :test do
   gem 'byebug'  # Call 'byebug' anywhere in the code to stop execution and get a debugger console

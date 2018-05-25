@@ -84,7 +84,7 @@ class SessionsController < ApplicationController
                 )
             end
             session['identity_id'] = identity.id
-            jwt = JsonWebToken.new(identity_id: identity.id, expires_at: 24.hours.from_now)
+            jwt = Session.new(identity_id: identity.id, expires_at: 24.hours.from_now)
             jwt.save!
             redirect_to :dashboard
         end
@@ -114,7 +114,7 @@ class SessionsController < ApplicationController
             end
             Identity.create!(person: Person.first, identity_provider: IdentityProvider.first, sub: 'fake')
         end
-        jwt = JsonWebToken.create!(identity: Identity.first, expires_at: 24.hours.from_now)
+        jwt = Session.create!(identity: Identity.first, expires_at: 24.hours.from_now)
         render json: {jwt: jwt.encode, authorization: "Bearer #{jwt.encode}"}
     end
 

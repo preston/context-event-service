@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_25_003031) do
+ActiveRecord::Schema.define(version: 2018_05_25_204850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -48,10 +48,9 @@ ActiveRecord::Schema.define(version: 2018_05_25_003031) do
     t.string "action_uri"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "place_id"
     t.json "parameters", default: {}, null: false
     t.integer "time_to_live", default: 0, null: false
-    t.uuid "json_web_token_id"
+    t.uuid "session_id"
     t.index ["action_uri"], name: "index_events_on_action_uri"
     t.index ["agent_uri"], name: "index_events_on_agent_uri"
     t.index ["controller_uri"], name: "index_events_on_controller_uri"
@@ -76,7 +75,6 @@ ActiveRecord::Schema.define(version: 2018_05_25_003031) do
     t.string "hd"
     t.string "locale"
     t.string "email"
-    t.json "jwt", default: {}, null: false
     t.boolean "notify_via_email", default: false, null: false
     t.boolean "notify_via_sms", default: false, null: false
     t.datetime "created_at", null: false
@@ -97,15 +95,6 @@ ActiveRecord::Schema.define(version: 2018_05_25_003031) do
     t.index ["name"], name: "index_identity_providers_on_name"
   end
 
-  create_table "json_web_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "identity_id", null: false
-    t.datetime "expires_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["expires_at"], name: "index_json_web_tokens_on_expires_at"
-    t.index ["identity_id"], name: "index_json_web_tokens_on_identity_id"
-  end
-
   create_table "members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "group_id", null: false
     t.uuid "person_id", null: false
@@ -115,16 +104,6 @@ ActiveRecord::Schema.define(version: 2018_05_25_003031) do
     t.index ["person_id"], name: "index_members_on_person_id"
   end
 
-  create_table "objectives", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.boolean "formalized"
-    t.string "language"
-    t.string "specification"
-    t.text "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "event_id", null: false
-  end
-
   create_table "people", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.string "external_id"
@@ -132,14 +111,6 @@ ActiveRecord::Schema.define(version: 2018_05_25_003031) do
     t.string "first_name"
     t.string "middle_name"
     t.string "last_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "places", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "name", null: false
-    t.text "address"
-    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -154,14 +125,21 @@ ActiveRecord::Schema.define(version: 2018_05_25_003031) do
     t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
+  create_table "sessions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "identity_id", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expires_at"], name: "index_sessions_on_expires_at"
+    t.index ["identity_id"], name: "index_sessions_on_identity_id"
+  end
+
   add_foreign_key "capabilities", "roles"
   add_foreign_key "events", "events", column: "next_id"
   add_foreign_key "events", "events", column: "parent_id"
-  add_foreign_key "events", "places"
   add_foreign_key "identities", "identity_providers"
   add_foreign_key "identities", "people"
-  add_foreign_key "json_web_tokens", "identities"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "people"
-  add_foreign_key "objectives", "events"
+  add_foreign_key "sessions", "identities"
 end

@@ -1,15 +1,4 @@
-require_relative 'redis_base'
-require_relative 'redis_publisher'
-require_relative 'redis_subscriber'
-
-require_relative 'snomed'
-
 module Context
-
-	module Session
-		SESSION_URI_PREFIX = 'artaka://sessions'
-	end
-
 
 	module Clock
 
