@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
   skip_authorization_check
 
   def landing
-    render :json
+    render
   end
 
   def status

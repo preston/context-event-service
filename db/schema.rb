@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_25_204850) do
+ActiveRecord::Schema.define(version: 2018_05_30_232104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -54,9 +54,11 @@ ActiveRecord::Schema.define(version: 2018_05_25_204850) do
     t.index ["action_uri"], name: "index_events_on_action_uri"
     t.index ["agent_uri"], name: "index_events_on_agent_uri"
     t.index ["controller_uri"], name: "index_events_on_controller_uri"
+    t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["model_uri"], name: "index_events_on_model_uri"
     t.index ["parent_id"], name: "index_events_on_parent_id"
     t.index ["topic_uri"], name: "index_events_on_topic_uri"
+    t.index ["updated_at"], name: "index_events_on_updated_at"
   end
 
   create_table "groups", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

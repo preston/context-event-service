@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
 
     def callback
         if params['code'].nil?
-            flash[:warning] = "We couldn't verify your single sign-on identity, sorry. Please try again. If you continue to have issues, try logging out first."
+            # flash[:warning] =
+            logger.info "We couldn't verify your single sign-on identity, sorry. Please try again. If you continue to have issues, try logging out first."
             redirect_to :root
         else
             openid_connect_login
@@ -52,7 +53,8 @@ class SessionsController < ApplicationController
         if jwt.nil?
             redirect_to	:login, message: "#{msg} (Couldn't decrypt token with known public keys.)"
         elsif jwt[0]['aud'] != provider.client_id && jwt[0]['aud'] != provider.alternate_client_id
-            flash[:error] = "#{msg} (Provider mismatch.)"
+            # flash[:error] =
+            logger.info "#{msg} (Provider mismatch.)"
             redirect_to :login
         else
             # Looks good!
