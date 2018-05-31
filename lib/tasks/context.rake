@@ -39,5 +39,10 @@ namespace :context do
 		task smith: :environment do
 			Context::Agent::Smith.new.run
 		end
+
+		desc "Prunes old clock events older than #{Context::Clock::TICK_TIME_TO_LIVE} seconds."
+		task pruner: :environment do
+			Context::Agent::Pruner.new.run
+		end
 	end
 end

@@ -35,3 +35,8 @@ services:
     image: p3000/context-event-service:latest
     env_file: ./docker-compose.env
     entrypoint: rake context:agent:smith
+
+  agent-pruner:
+    image: p3000/context-event-service:latest
+    env_file: ./docker-compose.env
+    entrypoint: rake context:agent:pruner

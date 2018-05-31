@@ -7,6 +7,7 @@ module Context
 		TICK_URI_MINUTE = "#{TICK_URI_PREFIX}/minute"
 		TICK_URI_HOUR = "#{TICK_URI_PREFIX}/hour"
 		TICK_URI_DAY = "#{TICK_URI_PREFIX}/day"
+		TICK_TIME_TO_LIVE = 1.day
 
 		def emit_every_to(seconds, channel)
 			loop do

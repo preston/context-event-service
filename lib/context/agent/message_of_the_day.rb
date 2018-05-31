@@ -14,8 +14,8 @@ module Context
       end
 
       def run
-		super do |channel, msg|
-			puts "Received event on #{channel}: #{msg}"
+        super do |channel, msg|
+          puts "Received event on #{channel}: #{msg}"
           # byebug
           trigger = JSON.parse(msg)
           e = Event.new(
