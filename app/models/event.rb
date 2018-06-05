@@ -64,7 +64,7 @@ class Event < ActiveRecord::Base
 						# n.next.destroy if n.next
 						n.destroy
 					rescue
-						puts "Failed to destroy #{} on this pass."
+						puts "Failed to destroy event #{n.id} on this pass."
 					end
 				end
 			end
