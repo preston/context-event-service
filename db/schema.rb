@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_30_232104) do
+ActiveRecord::Schema.define(version: 2018_06_05_013519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -51,12 +51,14 @@ ActiveRecord::Schema.define(version: 2018_05_30_232104) do
     t.json "parameters", default: {}, null: false
     t.integer "time_to_live", default: 0, null: false
     t.uuid "session_id"
+    t.uuid "timeline_id"
     t.index ["action_uri"], name: "index_events_on_action_uri"
     t.index ["agent_uri"], name: "index_events_on_agent_uri"
     t.index ["controller_uri"], name: "index_events_on_controller_uri"
     t.index ["created_at"], name: "index_events_on_created_at"
     t.index ["model_uri"], name: "index_events_on_model_uri"
     t.index ["parent_id"], name: "index_events_on_parent_id"
+    t.index ["timeline_id"], name: "index_events_on_timeline_id"
     t.index ["topic_uri"], name: "index_events_on_topic_uri"
     t.index ["updated_at"], name: "index_events_on_updated_at"
   end
@@ -132,16 +134,27 @@ ActiveRecord::Schema.define(version: 2018_05_30_232104) do
     t.datetime "expires_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "timeline_id"
     t.index ["expires_at"], name: "index_sessions_on_expires_at"
     t.index ["identity_id"], name: "index_sessions_on_identity_id"
+    t.index ["timeline_id"], name: "index_sessions_on_timeline_id"
+  end
+
+  create_table "timelines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_at"], name: "index_timelines_on_created_at"
+    t.index ["updated_at"], name: "index_timelines_on_updated_at"
   end
 
   add_foreign_key "capabilities", "roles"
   add_foreign_key "events", "events", column: "next_id"
   add_foreign_key "events", "events", column: "parent_id"
+  add_foreign_key "events", "timelines", on_delete: :cascade
   add_foreign_key "identities", "identity_providers"
   add_foreign_key "identities", "people"
   add_foreign_key "members", "groups"
   add_foreign_key "members", "people"
   add_foreign_key "sessions", "identities"
+  add_foreign_key "sessions", "timelines", on_delete: :cascade
 end

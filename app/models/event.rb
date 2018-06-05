@@ -5,9 +5,10 @@ class Event < ActiveRecord::Base
 
   belongs_to  :person, optional: true
   belongs_to  :session, optional: true
-  belongs_to  :parent,  class_name: 'Event', optional: true
+	belongs_to  :timeline, optional: true
+
+	belongs_to  :parent,  class_name: 'Event', optional: true
   belongs_to  :next, class_name: 'Event', optional: true
-  belongs_to  :scope, class_name: 'Event', optional: true
 
   has_many  :child_events, class_name: 'Event',	foreign_key: 'parent_id'
   has_many  :previous_events, class_name: 'Event',	foreign_key: 'next_id'
@@ -43,13 +44,31 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.purge_older_than(datetime, *topics)
-    # Auto-commit to avoid locking the table, which is extremely hot.
-	# Event.transaction do
-	topics.each do |topic|
-		Event.where('topic_uri = ? AND created_at < ?', topic, datetime).destroy_all
-	end
-    # .limit(32)
+	def self.purge_older_than(datetime, *topics)
+		# To avoid foreign key violates, we'll nullify every prior to delete.
+		# topics.each do |topic|
+		# end
+		
+		# Auto-commit to avoid locking the table, which is extremely hot, we'll autocommit after every delete.
+    # Event.transaction do
+    topics.each do |topic|
+			puts "Removing foreign key references from old events on topic #{topic}..."
+      Event.where('topic_uri = ? AND created_at < ?', topic, datetime).update_all(parent_id: nil, next_id: nil)
+			puts "Purging old events on topic #{topic}..."
+			while (batch = Event.where('topic_uri = ? AND created_at < ?', topic, datetime).limit(10)).count > 0
+				batch.each do |n|
+					begin
+						n.child_events.destroy
+						n.previous_events.destroy
+						# n.parent.destroy if n.parent
+						# n.next.destroy if n.next
+						n.destroy
+					rescue
+						puts "Failed to destroy #{} on this pass."
+					end
+				end
+			end
+    end
     # end
   end
 end

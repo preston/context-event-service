@@ -115,9 +115,10 @@ class SessionsController < ApplicationController
                 Person.create!(name: 'Default Person')
             end
             Identity.create!(person: Person.first, identity_provider: IdentityProvider.first, sub: 'fake')
-        end
-        jwt = Session.create!(identity: Identity.first, expires_at: 24.hours.from_now)
-        render json: {jwt: jwt.encode, authorization: "Bearer #{jwt.encode}"}
+		end
+		timeline = Timeline.create!()
+        session = Session.create!(identity: Identity.first, timeline: timeline, expires_at: 24.hours.from_now)
+        render json: {jwt: session.encode, authorization: "Bearer #{session.encode}", timeline_id: session.timeline_id}
     end
 
     def destroy

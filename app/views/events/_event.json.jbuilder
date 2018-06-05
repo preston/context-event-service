@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 if event
-  json.extract! event, :id, :person_id, :session_id, :parent_id, :next_id, :topic_uri, :model_uri,
-                :controller_uri, :agent_uri, :action_uri, :parameters
+  json.extract! event, :id, :person_id, :session_id, :parent_id, :next_id, :topic_uri, :model_uri, :timeline_id, :controller_uri, :agent_uri, :action_uri, :parameters
   # json.parameters Json.parse(event.parameters)
   json.extract! event, :created_at, :updated_at
   json.url event_url(event)
@@ -17,14 +16,6 @@ if event
         json.partial! 'events/event', event: a, recurse: false
       end
     end
-    json.scope do
-      json.partial! 'events/event', event: event.scope, recurse: false
-    end
-    # json.scoped_events do
-    #     json.array! event.scoped_events do |a|
-    #         json.partial! 'events/event', event: a, recurse: false
-    #     end
-    # end
     json.next do
       json.partial! 'events/event', event: event.next, recurse: false
     end

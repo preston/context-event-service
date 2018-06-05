@@ -58,6 +58,7 @@ class ApplicationController < ActionController::API
         if authorization = request.headers['Authorization']
             if json = Session.decode_authorization(authorization)
 	            @current_jwt = Session.find(json['id'])
+	            @current_timeline = @current_jwt.timeline if @current_jwt
 				identity_id = @current_jwt[:identity_id]
 			else
 				msg = "Couldn't decode bearer token. Probably a client bug."

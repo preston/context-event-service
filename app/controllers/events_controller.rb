@@ -91,7 +91,7 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:parent_id, :session_id, :name, :topic_uri, :model_uri, :controller_uri, :agent_uri, :action_uri, :place_id, :next_id, :person_id, :parameters)
+    params.require(:event).permit(:parent_id, :session_id, :name, :timeline_id, :topic_uri, :model_uri, :controller_uri, :agent_uri, :action_uri, :place_id, :next_id, :person_id, :parameters)
 end
 
   def parameters_from_params
