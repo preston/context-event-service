@@ -42,5 +42,5 @@ services:
     entrypoint: rake context:agent:pruner
 
   agent-knowledge:
-    image: p3000/artaka-agent-knowledge:latest
+    image: p3000/artaka-knowledge-agent:latest
     env_file: ./docker-compose.env
