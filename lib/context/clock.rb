@@ -18,7 +18,7 @@ module Context
 
 		def emit_tick(topic_uri)
 			e = Event.new()
-			e.topic_uri = e.model_uri = topic_uri
+			e.topic_uri = e.model_uri = e.agent_uri = topic_uri
 			e.save!
 			puts "Emited tick to #{e.topic_uri}."
 		end
