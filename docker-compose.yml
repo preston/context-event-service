@@ -40,3 +40,7 @@ services:
     image: p3000/context-event-service:latest
     env_file: ./docker-compose.env
     entrypoint: rake context:agent:pruner
+
+  agent-knowledge:
+    image: p3000/artaka-agent-knowledge:latest
+    env_file: ./docker-compose.env
