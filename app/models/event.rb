@@ -58,8 +58,11 @@ class Event < ActiveRecord::Base
 			while (batch = Event.where('topic_uri = ? AND created_at < ?', topic, datetime).limit(10)).count > 0
 				batch.each do |n|
 					begin
-						n.child_events.destroy
-						n.previous_events.destroy
+						# Remove inbound references.
+						n.child_events.update(parent_id: nil)
+						n.previous_events.update(next_id: nil)
+						# n.child_events.destroy
+						# n.previous_events.destroy
 						# n.parent.destroy if n.parent
 						# n.next.destroy if n.next
 						n.destroy
