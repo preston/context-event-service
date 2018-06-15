@@ -58,9 +58,12 @@ class EventsController < ApplicationController
     @events = @events.search_by_name(params[:name]) if params[:name]
     end
 
-  def create
-    @event = Event.new(event_params)
-    @event.parameters = parameters_from_params
+	def create
+		puts request.body.read
+		@event = Event.new(event_params)
+		puts @event
+		# Not sure why .permit won't accept JSON parameter fields, so we'll copy it manually for now.
+    @event.parameters = params['parameters']
     @event.person = @current_person
 
     # TODO: Should only allow agents to override the session information.
@@ -94,14 +97,4 @@ end
     params.require(:event).permit(:parent_id, :session_id, :name, :timeline_id, :topic_uri, :model_uri, :controller_uri, :agent_uri, :action_uri, :place_id, :next_id, :person_id, :parameters)
 end
 
-  def parameters_from_params
-    parameters = {}
-    begin
-      obj = JSON.parse(params[:event][:parameters])
-      parameters = obj
-    rescue StandardError => exception
-      # Crap apparently.
-    end
-    parameters
-  end
 end
