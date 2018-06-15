@@ -59,11 +59,11 @@ class EventsController < ApplicationController
     end
 
 	def create
-		puts request.body.read
-		@event = Event.new(event_params)
+		stuff = JSON.parse(request.body.read).except(:id, :person_id)
+		@event = Event.new(stuff)
 		puts @event
 		# Not sure why .permit won't accept JSON parameter fields, so we'll copy it manually for now.
-    @event.parameters = params['parameters']
+    # @event.parameters = params['parameters']
     @event.person = @current_person
 
     # TODO: Should only allow agents to override the session information.
@@ -95,6 +95,6 @@ end
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:parent_id, :session_id, :name, :timeline_id, :topic_uri, :model_uri, :controller_uri, :agent_uri, :action_uri, :place_id, :next_id, :person_id, :parameters)
-end
+	end
 
 end
