@@ -6,24 +6,12 @@
                           PATCH   /timelines/:id(.:format)                                                                 timelines#update
                           PUT     /timelines/:id(.:format)                                                                 timelines#update
                           DELETE  /timelines/:id(.:format)                                                                 timelines#destroy
-         event_objectives GET     /events/:event_id/objectives(.:format)                                                   objectives#index
-                          POST    /events/:event_id/objectives(.:format)                                                   objectives#create
-          event_objective GET     /events/:event_id/objectives/:id(.:format)                                               objectives#show
-                          PATCH   /events/:event_id/objectives/:id(.:format)                                               objectives#update
-                          PUT     /events/:event_id/objectives/:id(.:format)                                               objectives#update
-                          DELETE  /events/:event_id/objectives/:id(.:format)                                               objectives#destroy
                    events GET     /events(.:format)                                                                        events#index
                           POST    /events(.:format)                                                                        events#create
                     event GET     /events/:id(.:format)                                                                    events#show
                           PATCH   /events/:id(.:format)                                                                    events#update
                           PUT     /events/:id(.:format)                                                                    events#update
                           DELETE  /events/:id(.:format)                                                                    events#destroy
-                   places GET     /places(.:format)                                                                        places#index
-                          POST    /places(.:format)                                                                        places#create
-                    place GET     /places/:id(.:format)                                                                    places#show
-                          PATCH   /places/:id(.:format)                                                                    places#update
-                          PUT     /places/:id(.:format)                                                                    places#update
-                          DELETE  /places/:id(.:format)                                                                    places#destroy
         person_identities GET     /people/:person_id/identities(.:format)                                                  identities#index
                           POST    /people/:person_id/identities(.:format)                                                  identities#create
           person_identity GET     /people/:person_id/identities/:id(.:format)                                              identities#show

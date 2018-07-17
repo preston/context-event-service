@@ -4,10 +4,7 @@ Rails.application.routes.draw do
   match '*all' => 'application#cors_preflight_check', via: :options
 
   resources :timelines
-  resources :events do
-    resources :objectives
-  end
-  resources :places
+  resources :events
 
   resources :people do
     resources :identities
