@@ -1,122 +1,87 @@
-                  Prefix Verb    URI Pattern                                             Controller#Action
-                         OPTIONS /*all(.:format)                                         application#cors_preflight_check
-     event_objectives GET     /events/:event_id/objectives(.:format)           objectives#index
-                         POST    /events/:event_id/objectives(.:format)           objectives#create
-  new_event_objective GET     /events/:event_id/objectives/new(.:format)       objectives#new
- edit_event_objective GET     /events/:event_id/objectives/:id/edit(.:format)  objectives#edit
-      event_objective GET     /events/:event_id/objectives/:id(.:format)       objectives#show
-                         PATCH   /events/:event_id/objectives/:id(.:format)       objectives#update
-                         PUT     /events/:event_id/objectives/:id(.:format)       objectives#update
-                         DELETE  /events/:event_id/objectives/:id(.:format)       objectives#destroy
-    event_actor_roles GET     /events/:event_id/actor_roles(.:format)          actor_roles#index
-                         POST    /events/:event_id/actor_roles(.:format)          actor_roles#create
- new_event_actor_role GET     /events/:event_id/actor_roles/new(.:format)      actor_roles#new
-edit_event_actor_role GET     /events/:event_id/actor_roles/:id/edit(.:format) actor_roles#edit
-     event_actor_role GET     /events/:event_id/actor_roles/:id(.:format)      actor_roles#show
-                         PATCH   /events/:event_id/actor_roles/:id(.:format)      actor_roles#update
-                         PUT     /events/:event_id/actor_roles/:id(.:format)      actor_roles#update
-                         DELETE  /events/:event_id/actor_roles/:id(.:format)      actor_roles#destroy
-    event_usage_roles GET     /events/:event_id/usage_roles(.:format)          usage_roles#index
-                         POST    /events/:event_id/usage_roles(.:format)          usage_roles#create
- new_event_usage_role GET     /events/:event_id/usage_roles/new(.:format)      usage_roles#new
-edit_event_usage_role GET     /events/:event_id/usage_roles/:id/edit(.:format) usage_roles#edit
-     event_usage_role GET     /events/:event_id/usage_roles/:id(.:format)      usage_roles#show
-                         PATCH   /events/:event_id/usage_roles/:id(.:format)      usage_roles#update
-                         PUT     /events/:event_id/usage_roles/:id(.:format)      usage_roles#update
-                         DELETE  /events/:event_id/usage_roles/:id(.:format)      usage_roles#destroy
-              events GET     /events(.:format)                                   events#index
-                         POST    /events(.:format)                                   events#create
-            new_event GET     /events/new(.:format)                               events#new
-           edit_event GET     /events/:id/edit(.:format)                          events#edit
-                event GET     /events/:id(.:format)                               events#show
-                         PATCH   /events/:id(.:format)                               events#update
-                         PUT     /events/:id(.:format)                               events#update
-                         DELETE  /events/:id(.:format)                               events#destroy
-                  assets GET     /assets(.:format)                                       assets#index
-                         POST    /assets(.:format)                                       assets#create
-               new_asset GET     /assets/new(.:format)                                   assets#new
-              edit_asset GET     /assets/:id/edit(.:format)                              assets#edit
-                   asset GET     /assets/:id(.:format)                                   assets#show
-                         PATCH   /assets/:id(.:format)                                   assets#update
-                         PUT     /assets/:id(.:format)                                   assets#update
-                         DELETE  /assets/:id(.:format)                                   assets#destroy
-                  places GET     /places(.:format)                                       places#index
-                         POST    /places(.:format)                                       places#create
-               new_place GET     /places/new(.:format)                                   places#new
-              edit_place GET     /places/:id/edit(.:format)                              places#edit
-                   place GET     /places/:id(.:format)                                   places#show
-                         PATCH   /places/:id(.:format)                                   places#update
-                         PUT     /places/:id(.:format)                                   places#update
-                         DELETE  /places/:id(.:format)                                   places#destroy
-       person_identities GET     /people/:person_id/identities(.:format)                 identities#index
-                         POST    /people/:person_id/identities(.:format)                 identities#create
-     new_person_identity GET     /people/:person_id/identities/new(.:format)             identities#new
-    edit_person_identity GET     /people/:person_id/identities/:id/edit(.:format)        identities#edit
-         person_identity GET     /people/:person_id/identities/:id(.:format)             identities#show
-                         PATCH   /people/:person_id/identities/:id(.:format)             identities#update
-                         PUT     /people/:person_id/identities/:id(.:format)             identities#update
-                         DELETE  /people/:person_id/identities/:id(.:format)             identities#destroy
-                  people GET     /people(.:format)                                       people#index
-                         POST    /people(.:format)                                       people#create
-              new_person GET     /people/new(.:format)                                   people#new
-             edit_person GET     /people/:id/edit(.:format)                              people#edit
-                  person GET     /people/:id(.:format)                                   people#show
-                         PATCH   /people/:id(.:format)                                   people#update
-                         PUT     /people/:id(.:format)                                   people#update
-                         DELETE  /people/:id(.:format)                                   people#destroy
-           group_members GET     /groups/:group_id/members(.:format)                     members#index
-                         POST    /groups/:group_id/members(.:format)                     members#create
-        new_group_member GET     /groups/:group_id/members/new(.:format)                 members#new
-       edit_group_member GET     /groups/:group_id/members/:id/edit(.:format)            members#edit
-            group_member GET     /groups/:group_id/members/:id(.:format)                 members#show
-                         PATCH   /groups/:group_id/members/:id(.:format)                 members#update
-                         PUT     /groups/:group_id/members/:id(.:format)                 members#update
-                         DELETE  /groups/:group_id/members/:id(.:format)                 members#destroy
-                  groups GET     /groups(.:format)                                       groups#index
-                         POST    /groups(.:format)                                       groups#create
-               new_group GET     /groups/new(.:format)                                   groups#new
-              edit_group GET     /groups/:id/edit(.:format)                              groups#edit
-                   group GET     /groups/:id(.:format)                                   groups#show
-                         PATCH   /groups/:id(.:format)                                   groups#update
-                         PUT     /groups/:id(.:format)                                   groups#update
-                         DELETE  /groups/:id(.:format)                                   groups#destroy
-       role_capabilities GET     /roles/:role_id/capabilities(.:format)                  capabilities#index
-                         POST    /roles/:role_id/capabilities(.:format)                  capabilities#create
-     new_role_capability GET     /roles/:role_id/capabilities/new(.:format)              capabilities#new
-    edit_role_capability GET     /roles/:role_id/capabilities/:id/edit(.:format)         capabilities#edit
-         role_capability GET     /roles/:role_id/capabilities/:id(.:format)              capabilities#show
-                         PATCH   /roles/:role_id/capabilities/:id(.:format)              capabilities#update
-                         PUT     /roles/:role_id/capabilities/:id(.:format)              capabilities#update
-                         DELETE  /roles/:role_id/capabilities/:id(.:format)              capabilities#destroy
-                   roles GET     /roles(.:format)                                        roles#index
-                         POST    /roles(.:format)                                        roles#create
-                new_role GET     /roles/new(.:format)                                    roles#new
-               edit_role GET     /roles/:id/edit(.:format)                               roles#edit
-                    role GET     /roles/:id(.:format)                                    roles#show
-                         PATCH   /roles/:id(.:format)                                    roles#update
-                         PUT     /roles/:id(.:format)                                    roles#update
-                         DELETE  /roles/:id(.:format)                                    roles#destroy
-           launch_client GET     /clients/:id/launch(.:format)                           clients#launch
-                 clients GET     /clients(.:format)                                      clients#index
-                         POST    /clients(.:format)                                      clients#create
-              new_client GET     /clients/new(.:format)                                  clients#new
-             edit_client GET     /clients/:id/edit(.:format)                             clients#edit
-                  client GET     /clients/:id(.:format)                                  clients#show
-                         PATCH   /clients/:id(.:format)                                  clients#update
-                         PUT     /clients/:id(.:format)                                  clients#update
-                         DELETE  /clients/:id(.:format)                                  clients#destroy
-      identity_providers GET     /identity_providers(.:format)                           identity_providers#index
-                         POST    /identity_providers(.:format)                           identity_providers#create
-   new_identity_provider GET     /identity_providers/new(.:format)                       identity_providers#new
-  edit_identity_provider GET     /identity_providers/:id/edit(.:format)                  identity_providers#edit
-       identity_provider GET     /identity_providers/:id(.:format)                       identity_providers#show
-                         PATCH   /identity_providers/:id(.:format)                       identity_providers#update
-                         PUT     /identity_providers/:id(.:format)                       identity_providers#update
-                         DELETE  /identity_providers/:id(.:format)                       identity_providers#destroy
-                callback GET     /sessions(.:format)                                     sessions#callback
-                   login POST    /sessions(.:format)                                     sessions#authenticate
-                  logout DELETE  /sessions(.:format)                                     sessions#destroy
-               dashboard GET     /dashboard(.:format)                                    welcome#dashboard
-                  status GET     /status(.:format)                                       welcome#status
-            smart_launch GET     /smart/launch(.:format)                                 smart/launch#launch
-                    root GET     /                                                       welcome#landing
+                   Prefix Verb    URI Pattern                                                                              Controller#Action
+                          OPTIONS /*all(.:format)                                                                          application#cors_preflight_check
+                timelines GET     /timelines(.:format)                                                                     timelines#index
+                          POST    /timelines(.:format)                                                                     timelines#create
+                 timeline GET     /timelines/:id(.:format)                                                                 timelines#show
+                          PATCH   /timelines/:id(.:format)                                                                 timelines#update
+                          PUT     /timelines/:id(.:format)                                                                 timelines#update
+                          DELETE  /timelines/:id(.:format)                                                                 timelines#destroy
+         event_objectives GET     /events/:event_id/objectives(.:format)                                                   objectives#index
+                          POST    /events/:event_id/objectives(.:format)                                                   objectives#create
+          event_objective GET     /events/:event_id/objectives/:id(.:format)                                               objectives#show
+                          PATCH   /events/:event_id/objectives/:id(.:format)                                               objectives#update
+                          PUT     /events/:event_id/objectives/:id(.:format)                                               objectives#update
+                          DELETE  /events/:event_id/objectives/:id(.:format)                                               objectives#destroy
+                   events GET     /events(.:format)                                                                        events#index
+                          POST    /events(.:format)                                                                        events#create
+                    event GET     /events/:id(.:format)                                                                    events#show
+                          PATCH   /events/:id(.:format)                                                                    events#update
+                          PUT     /events/:id(.:format)                                                                    events#update
+                          DELETE  /events/:id(.:format)                                                                    events#destroy
+                   places GET     /places(.:format)                                                                        places#index
+                          POST    /places(.:format)                                                                        places#create
+                    place GET     /places/:id(.:format)                                                                    places#show
+                          PATCH   /places/:id(.:format)                                                                    places#update
+                          PUT     /places/:id(.:format)                                                                    places#update
+                          DELETE  /places/:id(.:format)                                                                    places#destroy
+        person_identities GET     /people/:person_id/identities(.:format)                                                  identities#index
+                          POST    /people/:person_id/identities(.:format)                                                  identities#create
+          person_identity GET     /people/:person_id/identities/:id(.:format)                                              identities#show
+                          PATCH   /people/:person_id/identities/:id(.:format)                                              identities#update
+                          PUT     /people/:person_id/identities/:id(.:format)                                              identities#update
+                          DELETE  /people/:person_id/identities/:id(.:format)                                              identities#destroy
+                   people GET     /people(.:format)                                                                        people#index
+                          POST    /people(.:format)                                                                        people#create
+                   person GET     /people/:id(.:format)                                                                    people#show
+                          PATCH   /people/:id(.:format)                                                                    people#update
+                          PUT     /people/:id(.:format)                                                                    people#update
+                          DELETE  /people/:id(.:format)                                                                    people#destroy
+            group_members GET     /groups/:group_id/members(.:format)                                                      members#index
+                          POST    /groups/:group_id/members(.:format)                                                      members#create
+             group_member GET     /groups/:group_id/members/:id(.:format)                                                  members#show
+                          PATCH   /groups/:group_id/members/:id(.:format)                                                  members#update
+                          PUT     /groups/:group_id/members/:id(.:format)                                                  members#update
+                          DELETE  /groups/:group_id/members/:id(.:format)                                                  members#destroy
+                   groups GET     /groups(.:format)                                                                        groups#index
+                          POST    /groups(.:format)                                                                        groups#create
+                    group GET     /groups/:id(.:format)                                                                    groups#show
+                          PATCH   /groups/:id(.:format)                                                                    groups#update
+                          PUT     /groups/:id(.:format)                                                                    groups#update
+                          DELETE  /groups/:id(.:format)                                                                    groups#destroy
+        role_capabilities GET     /roles/:role_id/capabilities(.:format)                                                   capabilities#index
+                          POST    /roles/:role_id/capabilities(.:format)                                                   capabilities#create
+          role_capability GET     /roles/:role_id/capabilities/:id(.:format)                                               capabilities#show
+                          PATCH   /roles/:role_id/capabilities/:id(.:format)                                               capabilities#update
+                          PUT     /roles/:role_id/capabilities/:id(.:format)                                               capabilities#update
+                          DELETE  /roles/:role_id/capabilities/:id(.:format)                                               capabilities#destroy
+                    roles GET     /roles(.:format)                                                                         roles#index
+                          POST    /roles(.:format)                                                                         roles#create
+                     role GET     /roles/:id(.:format)                                                                     roles#show
+                          PATCH   /roles/:id(.:format)                                                                     roles#update
+                          PUT     /roles/:id(.:format)                                                                     roles#update
+                          DELETE  /roles/:id(.:format)                                                                     roles#destroy
+            launch_client GET     /clients/:id/launch(.:format)                                                            clients#launch
+                  clients GET     /clients(.:format)                                                                       clients#index
+                          POST    /clients(.:format)                                                                       clients#create
+                   client GET     /clients/:id(.:format)                                                                   clients#show
+                          PATCH   /clients/:id(.:format)                                                                   clients#update
+                          PUT     /clients/:id(.:format)                                                                   clients#update
+                          DELETE  /clients/:id(.:format)                                                                   clients#destroy
+ launch_identity_provider GET     /identity_providers/:id/launch(.:format)                                                 identity_providers#launch
+       identity_providers GET     /identity_providers(.:format)                                                            identity_providers#index
+                          POST    /identity_providers(.:format)                                                            identity_providers#create
+        identity_provider GET     /identity_providers/:id(.:format)                                                        identity_providers#show
+                          PATCH   /identity_providers/:id(.:format)                                                        identity_providers#update
+                          PUT     /identity_providers/:id(.:format)                                                        identity_providers#update
+                          DELETE  /identity_providers/:id(.:format)                                                        identity_providers#destroy
+                 callback GET     /sessions(.:format)                                                                      sessions#callback
+                    login POST    /sessions(.:format)                                                                      sessions#create
+                   logout DELETE  /sessions(.:format)                                                                      sessions#destroy
+                   status GET     /status(.:format)                                                                        welcome#status
+                   stream GET     /stream(.:format)                                                                        events#stream
+                     root GET     /                                                                                        welcome#landing
+       rails_service_blob GET     /rails/active_storage/blobs/:signed_id/*filename(.:format)                               active_storage/blobs#show
+rails_blob_representation GET     /rails/active_storage/representations/:signed_blob_id/:variation_key/*filename(.:format) active_storage/representations#show
+       rails_disk_service GET     /rails/active_storage/disk/:encoded_key/*filename(.:format)                              active_storage/disk#show
+update_rails_disk_service PUT     /rails/active_storage/disk/:encoded_token(.:format)                                      active_storage/disk#update
+     rails_direct_uploads POST    /rails/active_storage/direct_uploads(.:format)                                           active_storage/direct_uploads#create
