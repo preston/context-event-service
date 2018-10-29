@@ -62,24 +62,24 @@ patients = []
     Capability.create!(entity: u, role: patient)
 end
 
-places = []
-places << Place.create!(
-    name: 'Ambulatory',
-    description: Faker::Company.catch_phrase,
-    address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
-)
+# places = []
+# places << Place.create!(
+#     name: 'Ambulatory',
+#     description: Faker::Company.catch_phrase,
+#     address: "#{Faker::Address.street_address}\n#{Faker::Address.city}, #{Faker::Address.state}\n#{Faker::Address.zip_code}"
+# )
 
-events = []
-(0..10).each do |_n|
-    events << a = Event.create!(
-        # name: Faker::Company.buzzword,
-        # description: Faker::Company.catch_phrase,
-        topic_uri: 'artaka://example',
-        model_uri: 'artaka://example',
-        place: places.sample,
-        next: (rand(2) == 1 ? events.sample : nil),
-        parent: (rand(2) == 1 ? events.sample : nil)
-    )
-end
+# events = []
+# (0..10).each do |_n|
+#     events << a = Event.create!(
+#         # name: Faker::Company.buzzword,
+#         # description: Faker::Company.catch_phrase,
+#         topic_uri: 'artaka://example',
+#         model_uri: 'artaka://example',
+#         # place: places.sample,
+#         next: (rand(2) == 1 ? events.sample : nil),
+#         parent: (rand(2) == 1 ? events.sample : nil)
+#     )
+# end
 
 # Objective.create_with.find_or_create_by(formalized: (rand(2) == 1), language: 'fake', topic_uri: 'artaka://languages/fake', specification: 'true', event: e.sample)
