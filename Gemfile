@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.5.3'
+ruby '3.1.2'
 
-gem 'rails', '5.2.1'	# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '>= 7.0.3'	# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rack-cors', require: 'rack/cors'
 gem 'bootsnap'
 
