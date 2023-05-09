@@ -1,4 +1,4 @@
-FROM ruby:3.2.1-slim
+FROM ruby:3.2.2-slim
 LABEL maintainer="preston.lee@prestonlee.com"
 
 RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y build-essential
